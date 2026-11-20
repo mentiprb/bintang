@@ -33,22 +33,42 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 input,select,textarea{font-family:inherit;font-size:14px;color:var(--text)}
 a{color:var(--biru-strong)}
 
-#loginScreen{position:fixed;inset:0;z-index:2000;display:flex;align-items:center;justify-content:center;padding:20px;background:linear-gradient(135deg,#E3F2FD 0%,#FFF8E1 50%,#E8F5E9 100%)}
+/* ===== LOGIN ===== */
+#loginScreen{position:fixed;inset:0;z-index:2000;display:flex;align-items:center;justify-content:center;padding:20px;background:linear-gradient(135deg,#E3F2FD 0%,#FFF8E1 50%,#E8F5E9 100%);overflow-y:auto}
 [data-theme="dark"] #loginScreen{background:linear-gradient(135deg,#0F1720,#1B2E40,#1B3320)}
-.login-card{background:var(--card);padding:36px 30px;border-radius:22px;box-shadow:0 24px 70px rgba(0,0,0,.18);width:100%;max-width:420px}
-.login-logo{width:88px;height:88px;border-radius:22px;margin:0 auto 14px;background:linear-gradient(135deg,var(--kuning-strong),var(--emas),var(--biru-strong));display:flex;align-items:center;justify-content:center;font-size:44px;box-shadow:0 8px 24px rgba(255,201,60,.4)}
-.login-card h1{font-size:22px;text-align:center;letter-spacing:.5px}
-.login-card .tagline{text-align:center;color:var(--muted);font-size:12.5px;margin-bottom:4px;font-style:italic}
-.login-card .school{text-align:center;font-size:11px;color:var(--emas);font-weight:700;margin-bottom:22px}
-.login-card label{display:block;font-size:12px;font-weight:600;margin-bottom:6px}
-.login-card input{width:100%;padding:11px 14px;border:2px solid var(--border);border-radius:10px;margin-bottom:12px;background:var(--bg)}
-.login-card input:focus{outline:none;border-color:var(--biru-strong)}
-.login-card button{width:100%;padding:13px;border-radius:10px;font-weight:700;font-size:15px;background:linear-gradient(135deg,var(--biru-strong),var(--hijau-strong));color:#fff;margin-top:4px}
-.login-card button:hover{opacity:.92}
-.demo-badge{display:block;text-align:center;margin-top:14px;padding:5px 12px;border-radius:20px;background:var(--kuning-soft);color:#B7791F;font-size:11px;font-weight:700}
-.login-hint{font-size:11px;color:var(--muted);text-align:center;margin-top:10px;line-height:1.6;padding:8px;background:var(--bg);border-radius:8px}
-.login-hint code{background:var(--kuning-soft);padding:1px 6px;border-radius:4px;font-weight:700;color:#B7791F}
+.login-card{background:var(--card);padding:32px 28px;border-radius:22px;box-shadow:0 24px 70px rgba(0,0,0,.18);width:100%;max-width:440px;margin:auto}
+.login-logo{width:76px;height:76px;border-radius:20px;margin:0 auto 12px;background:linear-gradient(135deg,var(--kuning-strong),var(--emas),var(--biru-strong));display:flex;align-items:center;justify-content:center;font-size:38px;box-shadow:0 8px 24px rgba(255,201,60,.4)}
+.login-card h1{font-size:20px;text-align:center;letter-spacing:.5px}
+.login-card .tagline{text-align:center;color:var(--muted);font-size:12px;margin-bottom:2px;font-style:italic}
+.login-card .school{text-align:center;font-size:10.5px;color:var(--emas);font-weight:700;margin-bottom:16px;letter-spacing:.3px}
 
+/* Role picker */
+.role-picker{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:16px}
+.role-btn{padding:12px 8px;border-radius:12px;border:2px solid var(--border);background:var(--bg);display:flex;flex-direction:column;align-items:center;gap:4px;transition:all .15s;cursor:pointer}
+.role-btn:hover{border-color:var(--kuning-strong);transform:translateY(-1px)}
+.role-btn.active{border-color:var(--kuning-strong);background:var(--kuning-soft);box-shadow:0 4px 14px rgba(255,201,60,.25)}
+.role-btn .role-icon{font-size:24px;line-height:1}
+.role-btn .role-label{font-size:11.5px;font-weight:700;color:var(--text)}
+.role-btn.active .role-label{color:#B7791F}
+[data-theme="dark"] .role-btn.active .role-label{color:var(--kuning-strong)}
+
+/* Dynamic form */
+.login-card label{display:block;font-size:12px;font-weight:600;margin-bottom:5px;margin-top:10px}
+.login-card input,.login-card select{width:100%;padding:10px 13px;border:2px solid var(--border);border-radius:10px;background:var(--bg);font-size:13.5px}
+.login-card input:focus,.login-card select:focus{outline:none;border-color:var(--biru-strong)}
+.login-card button.btn-login{width:100%;padding:12px;border-radius:10px;font-weight:700;font-size:14.5px;background:linear-gradient(135deg,var(--biru-strong),var(--hijau-strong));color:#fff;margin-top:14px;transition:opacity .15s}
+.login-card button.btn-login:hover{opacity:.9}
+
+.form-section{animation:fadeIn .2s}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+.demo-badge{display:block;text-align:center;margin-top:12px;padding:5px 12px;border-radius:20px;background:var(--kuning-soft);color:#B7791F;font-size:10.5px;font-weight:700}
+.login-hint{font-size:11px;color:var(--muted);margin-top:10px;line-height:1.6;padding:8px 10px;background:var(--bg);border-radius:8px;border:1px dashed var(--border)}
+.login-hint strong{color:var(--text);display:block;margin-bottom:3px;font-size:11px}
+.login-hint code{background:var(--kuning-soft);padding:1px 5px;border-radius:4px;font-weight:700;color:#B7791F;font-size:10.5px}
+.hint-role{font-size:11px;color:var(--muted);margin-top:4px;font-style:italic}
+
+/* ===== APP ===== */
 #app{display:none} #app.active{display:block}
 .sidebar{position:fixed;top:0;left:0;bottom:0;width:var(--sidebar-w);background:var(--card);border-right:1px solid var(--border);display:flex;flex-direction:column;z-index:100;transition:transform .25s}
 .sidebar-brand{padding:18px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--border)}
@@ -187,7 +207,6 @@ tbody tr:hover{background:var(--bg)}
 @keyframes confettiFall{0%{transform:translateY(-100vh) rotate(0)}100%{transform:translateY(100vh) rotate(720deg)}}
 .confetti{position:fixed;top:0;font-size:20px;pointer-events:none;z-index:5000;animation:confettiFall linear forwards}
 
-/* Akun styling */
 .role-chip{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700}
 .role-admin{background:#FFF3C4;color:#8D6E1F}
 .role-guru{background:#E3F2FD;color:#1565C0}
@@ -218,7 +237,7 @@ tbody tr:hover{background:var(--bg)}
 </head>
 <body>
 
-<!-- LOGIN -->
+<!-- ===== LOGIN SCREEN ===== -->
 <div id="loginScreen">
   <div class="login-card">
     <div class="login-logo">⭐</div>
@@ -226,25 +245,46 @@ tbody tr:hover{background:var(--bg)}
     <p class="tagline">Every Good Action Deserves Recognition</p>
     <p class="school">SMA Swasta RK Bintang Timur Pematangsiantar</p>
 
-    <label>Username</label>
-    <input type="text" id="loginUser" placeholder="Masukkan username" value="admin" autocomplete="username" />
+    <!-- Pilih Role -->
+    <label style="margin-top:0;text-align:center;color:var(--muted);font-size:11.5px;text-transform:uppercase;letter-spacing:1px">Masuk Sebagai</label>
+    <div class="role-picker">
+      <div class="role-btn" data-role="admin" onclick="App.selectRole('admin')">
+        <div class="role-icon">👑</div>
+        <div class="role-label">Administrator</div>
+      </div>
+      <div class="role-btn" data-role="guru" onclick="App.selectRole('guru')">
+        <div class="role-icon">👨‍🏫</div>
+        <div class="role-label">Guru</div>
+      </div>
+      <div class="role-btn" data-role="wali" onclick="App.selectRole('wali')">
+        <div class="role-icon">🏫</div>
+        <div class="role-label">Wali Kelas</div>
+      </div>
+      <div class="role-btn" data-role="siswa" onclick="App.selectRole('siswa')">
+        <div class="role-icon">🎓</div>
+        <div class="role-label">Peserta Didik</div>
+      </div>
+    </div>
 
-    <label>Kata Sandi</label>
-    <input type="password" id="loginPass" placeholder="Masukkan kata sandi" value="admin123" autocomplete="current-password" />
+    <!-- Dynamic Form -->
+    <div id="loginForm"></div>
 
-    <button onclick="App.login()">⭐ Masuk ke Aplikasi</button>
-    <span class="demo-badge">⚠️ MODE DEMO — data tersimpan di localStorage browser</span>
+    <button class="btn-login" onclick="App.login()">⭐ Masuk</button>
+
+    <span class="demo-badge">⚠️ MODE DEMO — password diatur oleh Administrator</span>
     <div class="login-hint">
-      Akun demo:<br>
-      <code>admin</code> / <code>admin123</code> — Administrator<br>
-      <code>guru</code> / <code>guru123</code> — Pendidik<br>
-      <code>wali</code> / <code>wali123</code> — Wali Kelas<br>
-      <code>siswa</code> / <code>siswa123</code> — Peserta Didik
+      <strong>🔑 Akun Demo:</strong>
+      <div style="margin-top:4px">
+        <b>Admin:</b> <code>admin</code> / <code>admin123</code><br>
+        <b>Guru:</b> <code>guru</code> / <code>guru123</code><br>
+        <b>Wali:</b> <code>wali</code> / <code>wali123</code><br>
+        <b>Siswa:</b> <code>siswa</code> / <code>siswa123</code>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- APP -->
+<!-- ===== APP ===== -->
 <div id="app">
   <div class="overlay-backdrop" id="overlayBackdrop" onclick="App.toggleSidebar()"></div>
 
@@ -399,7 +439,6 @@ tbody tr:hover{background:var(--bg)}
         </table></div></div>
       </section>
 
-      <!-- MANAJEMEN AKUN (khusus admin) -->
       <section class="page" id="page-akun">
         <div class="toolbar">
           <input type="text" id="searchAkun" placeholder="🔍 Cari username / nama..." oninput="App.renderAkun()" />
@@ -422,9 +461,8 @@ tbody tr:hover{background:var(--bg)}
         </table></div></div>
         <div class="card" style="margin-top:14px;background:var(--biru-soft);border-left:4px solid var(--biru-strong)">
           <p style="font-size:12.5px;line-height:1.7">
-            ℹ️ <strong>Catatan Keamanan:</strong> Password di mode DEMO disimpan ter-hash (SHA-256) di localStorage.
-            Untuk produksi, gunakan <strong>Firebase Authentication</strong> — jangan pernah menyimpan password plaintext di database.
-            Admin dapat mengubah password <em>setiap akun secara berbeda</em> di sini.
+            ℹ️ <strong>Catatan:</strong> Admin mengatur password setiap akun secara berbeda di sini.
+            Untuk produksi gunakan <strong>Firebase Authentication</strong> — jangan simpan password plaintext di database.
           </p>
         </div>
       </section>
@@ -487,10 +525,11 @@ tbody tr:hover{background:var(--bg)}
 
 <script>
 /* ============================================================
-   BINTANG ACHIEVEMENT — APP LOGIC (dengan Manajemen Akun)
+   BINTANG ACHIEVEMENT — APP LOGIC
+   Login multi-role dengan form dinamis
    ============================================================ */
 const App = (() => {
-  const KEY = 'bintang_achievement_demo_v2';
+  const KEY = 'bintang_achievement_demo_v3';
   const ROLES = {
     admin:{label:'Administrator',icon:'👑'},
     guru:{label:'Pendidik',icon:'👨‍🏫'},
@@ -510,6 +549,7 @@ const App = (() => {
     siswa:[], tindakan:[], poin:[], badge:[], badgeSiswa:[], level:[], awardBulanan:[]
   };
   let charts = {};
+  let selectedLoginRole = null;
 
   // ===== UTIL =====
   const $ = s => document.querySelector(s);
@@ -520,7 +560,6 @@ const App = (() => {
   const today = () => new Date().toISOString().slice(0,10);
   const monthKey = d => (d||'').slice(0,7);
 
-  // Hash password sederhana (SHA-256) — hanya untuk DEMO
   async function hashPw(pw){
     const buf = new TextEncoder().encode(pw + '|bintang-salt');
     const h = await crypto.subtle.digest('SHA-256', buf);
@@ -560,72 +599,145 @@ const App = (() => {
     $('#confirmYes').onclick=()=>{closeModal();onYes();};
   }
 
-  // ===== POIN =====
-  function totalPoin(siswaId, filter={}){
-    let arr = state.poin.filter(p=>p.siswaId===siswaId);
-    if(filter.kategori) arr = arr.filter(p=>p.kategori===filter.kategori);
-    if(filter.bulan) arr = arr.filter(p=>monthKey(p.tanggal)===filter.bulan);
-    if(filter.semester){
-      arr = arr.filter(p=>{const m=parseInt(p.tanggal.slice(5,7)); return filter.semester==='1'?(m>=7&&m<=12):(m>=1&&m<=6);});
+  // ===== LOGIN FORM DINAMIS =====
+  function selectRole(role){
+    selectedLoginRole = role;
+    $$('.role-btn').forEach(b=>b.classList.toggle('active', b.dataset.role===role));
+    renderLoginForm(role);
+  }
+
+  function renderLoginForm(role){
+    const box = $('#loginForm');
+    const kelasList = [...new Set(state.siswa.map(s=>s.kelas))].sort();
+    const kelasOpts = kelasList.map(k=>`<option value="${esc(k)}">${esc(k)}</option>`).join('');
+
+    if(role==='admin'){
+      box.innerHTML = `
+        <div class="form-section">
+          <label>Username Administrator *</label>
+          <input type="text" id="li_username" placeholder="contoh: admin" autocomplete="username"/>
+          <div class="hint-role">💡 Masuk dengan username yang diberikan admin</div>
+        </div>`;
     }
-    if(filter.tahun) arr = arr.filter(p=>p.tanggal.startsWith(filter.tahun));
-    return arr.reduce((a,p)=>a+p.poin,0);
+    else if(role==='guru'){
+      // daftar guru dari akun
+      const guruList = state.akun.filter(a=>a.role==='guru'&&a.aktif);
+      const opts = guruList.map(a=>`<option value="${esc(a.username)}">${esc(a.nama||a.username)}</option>`).join('');
+      box.innerHTML = `
+        <div class="form-section">
+          <label>Nama Guru *</label>
+          <select id="li_username">
+            <option value="">— Pilih Nama Guru —</option>
+            ${opts || '<option value="">(Belum ada akun guru)</option>'}
+          </select>
+          <div class="hint-role">💡 Pilih nama Anda yang terdaftar sebagai pendidik</div>
+        </div>`;
+    }
+    else if(role==='wali'){
+      const waliList = state.akun.filter(a=>a.role==='wali'&&a.aktif);
+      const opts = waliList.map(a=>{
+        const k = a.kelas || '-';
+        return `<option value="${esc(a.username)}">${esc(a.nama||a.username)} — Kelas ${esc(k)}</option>`;
+      }).join('');
+      box.innerHTML = `
+        <div class="form-section">
+          <label>Nama Wali Kelas *</label>
+          <select id="li_username">
+            <option value="">— Pilih Nama Wali Kelas —</option>
+            ${opts || '<option value="">(Belum ada akun wali kelas)</option>'}
+          </select>
+          <div class="hint-role">💡 Pilih nama Anda yang terdaftar sebagai wali kelas</div>
+        </div>`;
+    }
+    else if(role==='siswa'){
+      const siswaList = state.siswa.filter(s=>s.aktif).sort((a,b)=>a.kelas.localeCompare(b.kelas)||a.nama.localeCompare(b.nama));
+      const opts = siswaList.map(s=>`<option value="${esc(s.nis)}" data-kelas="${esc(s.kelas)}" data-nama="${esc(s.nama)}">${esc(s.nama)} — ${esc(s.kelas)} — NIS ${esc(s.nis)}</option>`).join('');
+      box.innerHTML = `
+        <div class="form-section">
+          <label>Nama Peserta Didik *</label>
+          <select id="li_nama_siswa" onchange="App.onPilihSiswa()">
+            <option value="">— Pilih Nama —</option>
+            ${opts || '<option value="">(Belum ada data siswa)</option>'}
+          </select>
+          <div class="form-row" style="margin-top:10px">
+            <div><label>Kelas</label><input type="text" id="li_kelas" readonly placeholder="otomatis" style="background:var(--bg);opacity:.8"/></div>
+            <div><label>NIS</label><input type="text" id="li_nis" readonly placeholder="otomatis" style="background:var(--bg);opacity:.8"/></div>
+          </div>
+          <div class="hint-role">💡 Kelas dan NIS terisi otomatis saat nama dipilih</div>
+        </div>`;
+    }
   }
-  const getSiswa = id => state.siswa.find(s=>s.id===id);
-  const getLevel = poin => state.level.find(l=>poin>=l.minPoin && poin<=(l.maxPoin||999999)) || state.level[state.level.length-1];
 
-  function checkBadges(siswaId){
-    const total = totalPoin(siswaId);
-    const newBadges = [];
-    state.badge.forEach(b=>{
-      const owned = state.badgeSiswa.some(x=>x.siswaId===siswaId && x.badgeId===b.id);
-      if(owned) return;
-      let ok = false;
-      if(b.syarat==='poin' && total >= b.syaratPoin) ok = true;
-      if(b.syarat==='kategori' && totalPoin(siswaId,{kategori:b.kategori}) >= b.syaratPoin) ok = true;
-      if(ok){
-        state.badgeSiswa.push({siswaId, badgeId:b.id, tanggal:today()});
-        newBadges.push(b);
-      }
-    });
-    if(newBadges.length) save();
-    return newBadges;
+  function onPilihSiswa(){
+    const sel = $('#li_nama_siswa');
+    const opt = sel.selectedOptions[0];
+    if(!opt || !opt.value){ $('#li_kelas').value=''; $('#li_nis').value=''; return; }
+    $('#li_kelas').value = opt.dataset.kelas || '';
+    $('#li_nis').value = opt.value;
   }
-
-  // ===== AKUN HELPERS =====
-  const getAkunByUsername = u => state.akun.find(a=>a.username.toLowerCase()===u.toLowerCase());
-  const getAkunById = id => state.akun.find(a=>a.id===id);
 
   // ===== LOGIN =====
   async function login(){
-    const username = $('#loginUser').value.trim();
-    const pass = $('#loginPass').value;
-    if(!username || !pass){ toast('Username dan password wajib diisi','error'); return; }
-    const akun = getAkunByUsername(username);
-    if(!akun){ toast('Username tidak ditemukan','error'); return; }
-    if(!akun.aktif){ toast('Akun nonaktif. Hubungi administrator.','error'); return; }
+    if(!selectedLoginRole){ toast('Pilih jenis pengguna terlebih dahulu','warning'); return; }
+    const role = selectedLoginRole;
+    const pass = $('#li_pass')?.value || '';
+    let username = '', expectedAkun = null;
+
+    if(role==='admin'){
+      username = ($('#li_username')?.value||'').trim().toLowerCase();
+      if(!username){ toast('Username wajib diisi','error'); return; }
+      expectedAkun = state.akun.find(a=>a.role==='admin' && a.username.toLowerCase()===username);
+      if(!expectedAkun){ toast('Username admin tidak ditemukan','error'); return; }
+    }
+    else if(role==='guru' || role==='wali'){
+      username = ($('#li_username')?.value||'').trim();
+      if(!username){ toast('Pilih nama Anda terlebih dahulu','error'); return; }
+      expectedAkun = state.akun.find(a=>a.username===username && a.role===role);
+      if(!expectedAkun){ toast('Akun tidak ditemukan','error'); return; }
+    }
+    else if(role==='siswa'){
+      const nis = ($('#li_nama_siswa')?.value||'').trim();
+      if(!nis){ toast('Pilih nama Anda terlebih dahulu','error'); return; }
+      const siswa = state.siswa.find(s=>s.nis===nis);
+      if(!siswa){ toast('Data siswa tidak ditemukan','error'); return; }
+      // cari akun siswa yang tertaut ke siswa ini
+      expectedAkun = state.akun.find(a=>a.role==='siswa' && a.siswaId===siswa.id);
+      if(!expectedAkun){
+        // fallback: cari akun siswa dengan username yang sama dengan NIS
+        expectedAkun = state.akun.find(a=>a.role==='siswa' && a.username===nis);
+      }
+      if(!expectedAkun){ toast('Akun siswa ini belum dibuat. Hubungi admin.','error'); return; }
+      username = expectedAkun.username;
+    }
+
+    if(!pass){ toast('Kata sandi wajib diisi','error'); return; }
+    if(!expectedAkun.aktif){ toast('Akun nonaktif. Hubungi administrator.','error'); return; }
     const hashed = await hashPw(pass);
-    if(hashed !== akun.password){ toast('Kata sandi salah','error'); return; }
+    if(hashed !== expectedAkun.password){ toast('Kata sandi salah','error'); return; }
+
     // Login sukses
-    state.user = akun.nama || akun.username;
-    state.role = akun.role;
-    state.currentAkun = akun.id;
-    if(akun.role==='siswa' && akun.siswaId) state.siswaId = akun.siswaId;
+    state.user = expectedAkun.nama || expectedAkun.username;
+    state.role = expectedAkun.role;
+    state.currentAkun = expectedAkun.id;
+    if(expectedAkun.role==='siswa' && expectedAkun.siswaId) state.siswaId = expectedAkun.siswaId;
     save();
     $('#loginScreen').style.display='none';
     $('#app').classList.add('active');
     $('#userName').textContent = state.user;
     $('#userAvatar').textContent = state.user.charAt(0).toUpperCase();
     initNav(); renderAll();
-    toast(`Selamat datang, ${state.user} (${ROLES[akun.role].label})`, 'gold');
+    toast(`Selamat datang, ${state.user} (${ROLES[state.role].label})`, 'gold');
   }
+
   function logout(){
     confirmBox('Keluar','Yakin ingin keluar dari aplikasi?',()=>{
       $('#loginScreen').style.display='flex';
       $('#app').classList.remove('active');
       state.user=null; state.role=null; state.currentAkun=null; state.siswaId=null; save();
-      // reset field login
-      $('#loginUser').value=''; $('#loginPass').value='';
+      // reset login form
+      selectedLoginRole = null;
+      $$('.role-btn').forEach(b=>b.classList.remove('active'));
+      $('#loginForm').innerHTML='';
     });
   }
 
@@ -780,6 +892,34 @@ const App = (() => {
     $$('#aprSiswaList input:checked').forEach(i=>i.checked=false);
   }
 
+  // ===== POIN & BADGE =====
+  function totalPoin(siswaId, filter={}){
+    let arr = state.poin.filter(p=>p.siswaId===siswaId);
+    if(filter.kategori) arr = arr.filter(p=>p.kategori===filter.kategori);
+    if(filter.bulan) arr = arr.filter(p=>monthKey(p.tanggal)===filter.bulan);
+    if(filter.semester){
+      arr = arr.filter(p=>{const m=parseInt(p.tanggal.slice(5,7)); return filter.semester==='1'?(m>=7&&m<=12):(m>=1&&m<=6);});
+    }
+    if(filter.tahun) arr = arr.filter(p=>p.tanggal.startsWith(filter.tahun));
+    return arr.reduce((a,p)=>a+p.poin,0);
+  }
+  const getSiswa = id => state.siswa.find(s=>s.id===id);
+  const getLevel = poin => state.level.find(l=>poin>=l.minPoin && poin<=(l.maxPoin||999999)) || state.level[state.level.length-1];
+  function checkBadges(siswaId){
+    const total = totalPoin(siswaId);
+    const newBadges = [];
+    state.badge.forEach(b=>{
+      const owned = state.badgeSiswa.some(x=>x.siswaId===siswaId && x.badgeId===b.id);
+      if(owned) return;
+      let ok = false;
+      if(b.syarat==='poin' && total >= b.syaratPoin) ok = true;
+      if(b.syarat==='kategori' && totalPoin(siswaId,{kategori:b.kategori}) >= b.syaratPoin) ok = true;
+      if(ok){ state.badgeSiswa.push({siswaId, badgeId:b.id, tanggal:today()}); newBadges.push(b); }
+    });
+    if(newBadges.length) save();
+    return newBadges;
+  }
+
   // ===== SISWA =====
   function renderSiswa(){
     const q = ($('#searchSiswa')?.value||'').toLowerCase();
@@ -817,7 +957,6 @@ const App = (() => {
       state.siswa=state.siswa.filter(x=>x.id!==id);
       state.poin=state.poin.filter(p=>p.siswaId!==id);
       state.badgeSiswa=state.badgeSiswa.filter(b=>b.siswaId!==id);
-      // hapus akun siswa terkait
       state.akun=state.akun.filter(a=>a.siswaId!==id);
       save(); renderSiswa(); toast('Dihapus');
     });
@@ -1082,6 +1221,10 @@ const App = (() => {
     }).join('');
   }
 
+  // ===== AKUN HELPERS =====
+  const getAkunByUsername = u => state.akun.find(a=>a.username.toLowerCase()===u.toLowerCase());
+  const getAkunById = id => state.akun.find(a=>a.id===id);
+
   // ===== MANAJEMEN AKUN =====
   function renderAkun(){
     if(state.role!=='admin'){ toast('Hanya administrator','error'); return; }
@@ -1101,7 +1244,7 @@ const App = (() => {
         <td><strong>${esc(a.username)}</strong>${isSelf?' <span class="badge emas">Anda</span>':''}</td>
         <td>${esc(a.nama||'-')}</td>
         <td><span class="role-chip role-${a.role}">${ROLES[a.role].icon} ${ROLES[a.role].label}</span></td>
-        <td>${s?esc(s.kelas):'-'}</td>
+        <td>${s?esc(s.kelas):(a.kelas?esc(a.kelas):'-')}</td>
         <td><span class="pw-cell">••••••••</span> <button class="btn btn-ghost btn-sm" onclick="App.togglePwRow('${a.id}',this)" data-pw="${esc(a.password)}" title="Tampilkan hash">👁️</button></td>
         <td>${a.aktif?'<span class="badge tuntas">Aktif</span>':'<span class="badge gray">Nonaktif</span>'}</td>
         <td style="font-size:11px;color:var(--muted)">${a.diubah||a.dibuat||'-'}</td>
@@ -1122,10 +1265,11 @@ const App = (() => {
   }
 
   function modalAkun(id){
-    const a = id?getAkunById(id):{username:'',nama:'',role:'guru',aktif:true,siswaId:''};
+    const a = id?getAkunById(id):{username:'',nama:'',role:'guru',aktif:true,siswaId:'',kelas:''};
     const isEdit = !!id;
-    // opsi siswa untuk role siswa
     const siswaOptions = state.siswa.map(s=>`<option value="${s.id}" ${a.siswaId===s.id?'selected':''}>${esc(s.nama)} (${esc(s.kelas)})</option>`).join('');
+    const kelasList = [...new Set(state.siswa.map(s=>s.kelas))].sort();
+    const kelasOptions = kelasList.map(k=>`<option value="${esc(k)}" ${a.kelas===k?'selected':''}>${esc(k)}</option>`).join('');
     openModal(isEdit?'Edit Akun':'Tambah Akun Baru',`
       <div class="form-row">
         <div class="form-group"><label>Username *</label><input id="a_username" value="${esc(a.username)}" ${isEdit?'readonly style="background:var(--bg);opacity:.7"':''} placeholder="huruf kecil, tanpa spasi"/></div>
@@ -1140,6 +1284,10 @@ const App = (() => {
         <div class="form-group"><label>Status</label>
           <select id="a_aktif"><option value="1" ${a.aktif?'selected':''}>Aktif</option><option value="0" ${!a.aktif?'selected':''}>Nonaktif</option></select>
         </div>
+      </div>
+      <div class="form-group" id="a_waliWrap" style="display:${a.role==='wali'?'block':'none'}">
+        <label>Kelas yang Diampu *</label>
+        <select id="a_kelas"><option value="">— Pilih Kelas —</option>${kelasOptions}</select>
       </div>
       <div class="form-group" id="a_siswaWrap" style="display:${a.role==='siswa'?'block':'none'}">
         <label>Tautkan ke Peserta Didik *</label>
@@ -1158,6 +1306,7 @@ const App = (() => {
   function onAkunRoleChange(){
     const r = $('#a_role').value;
     $('#a_siswaWrap').style.display = r==='siswa'?'block':'none';
+    $('#a_waliWrap').style.display = r==='wali'?'block':'none';
   }
   async function saveAkun(id){
     const username = $('#a_username').value.trim().toLowerCase();
@@ -1165,24 +1314,25 @@ const App = (() => {
     const role = $('#a_role').value;
     const aktif = $('#a_aktif').value==='1';
     const siswaId = role==='siswa' ? $('#a_siswaId').value : '';
+    const kelas = role==='wali' ? $('#a_kelas').value : '';
     if(!username){ toast('Username wajib','error'); return; }
     if(!/^[a-z0-9._-]{3,30}$/.test(username)){ toast('Username 3-30 karakter (a-z, 0-9, . _ -)','error'); return; }
     if(!id && getAkunByUsername(username)){ toast('Username sudah dipakai','error'); return; }
     if(role==='siswa' && !siswaId){ toast('Pilih siswa untuk akun ini','error'); return; }
+    if(role==='wali' && !kelas){ toast('Pilih kelas yang diampu','error'); return; }
     const now = today();
     if(id){
       const a = getAkunById(id);
-      a.nama = nama; a.role = role; a.aktif = aktif; a.siswaId = siswaId; a.diubah = now;
+      a.nama = nama; a.role = role; a.aktif = aktif; a.siswaId = siswaId; a.kelas = kelas; a.diubah = now;
       save(); closeModal(); renderAkun(); toast('Akun diperbarui');
       return;
     }
-    // baru — verifikasi password
     const pw = $('#a_password').value;
     const pw2 = $('#a_password2').value;
     if(pw.length < 6){ toast('Password minimal 6 karakter','error'); return; }
     if(pw !== pw2){ toast('Konfirmasi password tidak cocok','error'); return; }
     const hashed = await hashPw(pw);
-    state.akun.push({id:uid('a'),username,password:hashed,nama,role,siswaId,aktif,dibuat:now,diubah:now});
+    state.akun.push({id:uid('a'),username,password:hashed,nama,role,siswaId,kelas,aktif,dibuat:now,diubah:now});
     save(); closeModal(); renderAkun(); toast('Akun baru ditambahkan','gold');
   }
 
@@ -1303,7 +1453,7 @@ const App = (() => {
     sheets.push({name:'Siswa',data:state.siswa.map((s,i)=>({No:i+1,NIS:s.nis,Nama:s.nama,Kelas:s.kelas,Poin:totalPoin(s.id),Status:s.aktif?'Aktif':'Nonaktif'}))});
     sheets.push({name:'Poin',data:state.poin.map((p,i)=>{const s=getSiswa(p.siswaId);return{No:i+1,Tanggal:p.tanggal,NIS:s?.nis,Nama:s?.nama,Kelas:s?.kelas,Kategori:p.kategori,Tindakan:p.tindakanNama,Poin:p.poin,Alasan:p.alasan,Pemberi:p.pemberi};})});
     sheets.push({name:'Badge',data:state.badgeSiswa.map((b,i)=>{const s=getSiswa(b.siswaId);const bd=state.badge.find(x=>x.id===b.badgeId);return{No:i+1,NIS:s?.nis,Nama:s?.nama,Kelas:s?.kelas,Badge:bd?.nama,Tanggal:b.tanggal};})});
-    sheets.push({name:'Akun',data:state.akun.map((a,i)=>({No:i+1,Username:a.username,Nama:a.nama,Role:a.role,Aktif:a.aktif?'Ya':'Tidak',Diubah:a.diubah}))});
+    sheets.push({name:'Akun',data:state.akun.map((a,i)=>({No:i+1,Username:a.username,Nama:a.nama,Role:a.role,Kelas:a.kelas||'',Aktif:a.aktif?'Ya':'Tidak',Diubah:a.diubah}))});
     downloadExcel(sheets,'Bintang_Achievement_Lengkap.xlsx');
   }
   function downloadExcel(sheets,filename){
@@ -1369,23 +1519,27 @@ const App = (() => {
   function restoreData(){
     const inp=$('#fileInput'); inp.accept='.json'; inp.value='';
     inp.onchange=e=>{ const f=e.target.files[0]; if(!f) return; const r=new FileReader();
-      r.onload=ev=>{ try{ const data=JSON.parse(ev.target.result); if(!data.siswa||!data.poin) throw new Error('Format tidak valid'); state=data; save(); renderAll(); toast('Data dipulihkan'); }
+      r.onload=ev=>{ try{ const data=JSON.parse(ev.target.result); if(!data.siswa||!data.poin) throw new Error('Format tidak valid'); state=data; save(); renderAll(); refreshLoginForm(); toast('Data dipulihkan'); }
       catch(err){ toast('Gagal: '+err.message,'error'); } }; r.readAsText(f); };
     inp.click();
   }
   function loadDemo(){
-    confirmBox('Muat Ulang Demo','Data saat ini akan diganti data demo. Lanjutkan?',()=>{ seedDemo().then(()=>{ save(); renderAll(); toast('Data demo dimuat'); }); });
+    confirmBox('Muat Ulang Demo','Data saat ini akan diganti data demo. Lanjutkan?',()=>{ seedDemo().then(()=>{ save(); renderAll(); refreshLoginForm(); toast('Data demo dimuat'); }); });
   }
   function resetData(){
     confirmBox('Hapus Semua Data','Semua data akan dihapus permanen. Yakin?',()=>{
       state.siswa=[]; state.poin=[]; state.badgeSiswa=[]; state.awardBulanan=[]; state.akun=[];
-      save(); renderAll(); toast('Data dihapus');
+      save(); renderAll(); refreshLoginForm(); toast('Data dihapus');
     });
+  }
+
+  // Refresh login form jika sedang di halaman login
+  function refreshLoginForm(){
+    if(selectedLoginRole) renderLoginForm(selectedLoginRole);
   }
 
   // ===== SEED DEMO =====
   async function seedDemo(){
-    // Reset
     state.tindakan = [
       {id:'t1',kategori:'disiplin',nama:'Datang tepat waktu',poin:5},
       {id:'t2',kategori:'disiplin',nama:'Konsisten tugas piket',poin:10},
@@ -1459,22 +1613,26 @@ const App = (() => {
     state.awardBulanan = [];
 
     // === AKUN DEMO ===
+    const siswaAndreas = state.siswa.find(s=>s.nis==='25001');
+    const siswaBella = state.siswa.find(s=>s.nis==='25002');
     const akunDefs = [
       {username:'admin', password:'admin123', role:'admin', nama:'Administrator'},
       {username:'guru', password:'guru123', role:'guru', nama:'Guru Pengajar'},
-      {username:'wali', password:'wali123', role:'wali', nama:'Wali Kelas X-1'},
-      {username:'siswa', password:'siswa123', role:'siswa', nama:'Andreas Sitorus', siswaNis:'25001'}
+      {username:'wali', password:'wali123', role:'wali', nama:'Wali Kelas X-1', kelas:'X-1'},
+      {username:'siswa', password:'siswa123', role:'siswa', nama:'Andreas Sitorus', siswaId:siswaAndreas?.id||''},
+      // akun siswa kedua (untuk demonstrasi password berbeda)
+      {username:'25002', password:'bella123', role:'siswa', nama:'Bella Simanjuntak', siswaId:siswaBella?.id||''}
     ];
     state.akun = [];
     for(const def of akunDefs){
-      const siswaObj = def.siswaNis ? state.siswa.find(x=>x.nis===def.siswaNis) : null;
       state.akun.push({
         id: uid('a'),
         username: def.username,
         password: await hashPw(def.password),
         role: def.role,
         nama: def.nama,
-        siswaId: siswaObj?.id || '',
+        siswaId: def.siswaId || '',
+        kelas: def.kelas || '',
         aktif: true,
         dibuat: today(),
         diubah: today()
@@ -1494,13 +1652,19 @@ const App = (() => {
   async function init(){
     load();
     if(!state.akun || !state.akun.length){ await seedDemo(); save(); }
+    // Pilih role default
+    const defaultRole = 'admin';
+    selectRole(defaultRole);
+    // isi default value untuk form admin
+    setTimeout(()=>{ const el=$('#li_username'); if(el) el.value='admin'; }, 50);
+    // Theme
     const t = localStorage.getItem('ba_theme');
     if(t==='dark'){ document.documentElement.setAttribute('data-theme','dark'); $('#themeBtn').textContent='☀️'; }
     document.addEventListener('keydown',e=>{if(e.key==='Escape') closeModal();});
   }
 
   return {
-    login, logout, toggleSidebar, toggleTheme, navigate, openModal, closeModal,
+    selectRole, onPilihSiswa, login, logout, toggleSidebar, toggleTheme, navigate, openModal, closeModal,
     renderDashboard, renderSiswa, renderKategori, renderBadge, renderLevel, renderLeaderboard, renderBulanan, renderProfil, renderRiwayat, renderSettings,
     renderAkun,
     fillAprSiswa, fillAprTindakan, updateAprPoin, submitApresiasi, initApresiasi,
