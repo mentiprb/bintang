@@ -1,0 +1,1346 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BINTANG ACHIEVEMENT — Every Good Action Deserves Recognition</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.1/jspdf.plugin.autotable.min.js"></script>
+
+<style>
+/* ===== VARIABEL ===== */
+:root{
+  --kuning:#FFE082; --kuning-strong:#FFC93C; --kuning-soft:#FFF8E1;
+  --biru:#90CAF9; --biru-strong:#42A5F5; --biru-soft:#E3F2FD;
+  --hijau:#A5D6A7; --hijau-strong:#66BB6A; --hijau-soft:#E8F5E9;
+  --emas:#D4AF37; --emas-soft:#FFF3C4;
+  --putih:#FFFFFF; --bg:#FAFCFF; --card:#FFFFFF; --text:#2C3E50; --muted:#7F8C8D;
+  --border:#E8EEF4; --merah:#EF5350; --merah-soft:#FFEBEE;
+  --shadow:0 2px 14px rgba(44,62,80,.08);
+  --radius:14px; --sidebar-w:250px;
+}
+[data-theme="dark"]{
+  --kuning-soft:#3A3420; --biru-soft:#1B2E40; --hijau-soft:#1B3320; --emas-soft:#3A3320;
+  --bg:#0F1720; --card:#182430; --text:#ECEFF1; --muted:#90A4AE;
+  --border:#2A3B4C; --merah-soft:#3A2020; --shadow:0 2px 14px rgba(0,0,0,.4);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.5;transition:background .3s,color .3s}
+h1,h2,h3,h4{font-weight:700;line-height:1.25}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+input,select,textarea{font-family:inherit;font-size:14px;color:var(--text)}
+a{color:var(--biru-strong)}
+
+/* ===== LOGIN ===== */
+#loginScreen{position:fixed;inset:0;z-index:2000;display:flex;align-items:center;justify-content:center;padding:20px;background:linear-gradient(135deg,#E3F2FD 0%,#FFF8E1 50%,#E8F5E9 100%)}
+[data-theme="dark"] #loginScreen{background:linear-gradient(135deg,#0F1720,#1B2E40,#1B3320)}
+.login-card{background:var(--card);padding:36px 30px;border-radius:22px;box-shadow:0 24px 70px rgba(0,0,0,.18);width:100%;max-width:420px}
+.login-logo{width:88px;height:88px;border-radius:22px;margin:0 auto 14px;background:linear-gradient(135deg,var(--kuning-strong),var(--emas),var(--biru-strong));display:flex;align-items:center;justify-content:center;font-size:44px;box-shadow:0 8px 24px rgba(255,201,60,.4)}
+.login-card h1{font-size:22px;text-align:center;letter-spacing:.5px;color:var(--text)}
+.login-card .tagline{text-align:center;color:var(--muted);font-size:12.5px;margin-bottom:4px;font-style:italic}
+.login-card .school{text-align:center;font-size:11px;color:var(--emas);font-weight:700;margin-bottom:22px;letter-spacing:.3px}
+.login-card label{display:block;font-size:12px;font-weight:600;margin-bottom:6px}
+.login-card input,.login-card select{width:100%;padding:11px 14px;border:2px solid var(--border);border-radius:10px;margin-bottom:12px;background:var(--bg)}
+.login-card input:focus,.login-card select:focus{outline:none;border-color:var(--biru-strong)}
+.login-card button{width:100%;padding:13px;border-radius:10px;font-weight:700;font-size:15px;background:linear-gradient(135deg,var(--biru-strong),var(--hijau-strong));color:#fff;margin-top:4px}
+.login-card button:hover{opacity:.92}
+.demo-badge{display:block;text-align:center;margin-top:14px;padding:5px 12px;border-radius:20px;background:var(--kuning-soft);color:#B7791F;font-size:11px;font-weight:700}
+
+/* ===== LAYOUT ===== */
+#app{display:none} #app.active{display:block}
+.sidebar{position:fixed;top:0;left:0;bottom:0;width:var(--sidebar-w);background:var(--card);border-right:1px solid var(--border);display:flex;flex-direction:column;z-index:100;transition:transform .25s}
+.sidebar-brand{padding:18px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--border)}
+.brand-logo{width:44px;height:44px;border-radius:12px;flex-shrink:0;background:linear-gradient(135deg,var(--kuning-strong),var(--emas));display:flex;align-items:center;justify-content:center;font-size:24px;box-shadow:0 4px 12px rgba(255,201,60,.4)}
+.brand-text h3{font-size:14px;letter-spacing:.3px}
+.brand-text p{font-size:9.5px;color:var(--muted);letter-spacing:.4px}
+.sidebar-nav{flex:1;overflow-y:auto;padding:10px}
+.nav-item{display:flex;align-items:center;gap:11px;padding:10px 13px;border-radius:10px;margin-bottom:3px;font-weight:500;font-size:13px;cursor:pointer;transition:background .15s}
+.nav-item:hover{background:var(--bg)}
+.nav-item.active{background:var(--kuning-soft);color:#B7791F;font-weight:700}
+[data-theme="dark"] .nav-item.active{color:var(--kuning-strong)}
+.nav-item .ico{width:20px;text-align:center;font-size:16px}
+.sidebar-footer{padding:10px;border-top:1px solid var(--border)}
+.main{margin-left:var(--sidebar-w);min-height:100vh;display:flex;flex-direction:column}
+.topbar{background:var(--card);border-bottom:1px solid var(--border);padding:13px 22px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:90;gap:12px}
+.topbar h2{font-size:17px}
+.topbar-actions{display:flex;align-items:center;gap:8px}
+.icon-btn{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;background:var(--bg);font-size:16px;transition:background .15s}
+.icon-btn:hover{background:var(--border)}
+.user-chip{display:flex;align-items:center;gap:8px;padding:6px 12px;border-radius:20px;background:var(--bg);font-size:12px;font-weight:600}
+.user-avatar{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--kuning-strong),var(--emas));display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff;font-weight:700}
+.content{flex:1;padding:22px;max-width:1400px;width:100%;margin:0 auto}
+.page{display:none} .page.active{display:block;animation:fade .25s}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* ===== KOMPONEN ===== */
+.card{background:var(--card);border-radius:var(--radius);padding:18px 20px;box-shadow:var(--shadow);border:1px solid var(--border)}
+.card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;gap:10px;flex-wrap:wrap}
+.card-header h3{font-size:15px}
+.card-header .sub{font-size:12px;color:var(--muted);font-weight:400}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;border-radius:10px;font-weight:600;font-size:13px;transition:opacity .15s,transform .1s}
+.btn:hover{opacity:.88}.btn:active{transform:scale(.98)}
+.btn-primary{background:var(--biru-strong);color:#fff}
+.btn-success{background:var(--hijau-strong);color:#fff}
+.btn-warning{background:var(--kuning-strong);color:#5D4037}
+.btn-danger{background:var(--merah);color:#fff}
+.btn-gold{background:linear-gradient(135deg,var(--kuning-strong),var(--emas));color:#5D4037}
+.btn-ghost{background:var(--bg);color:var(--text);border:1px solid var(--border)}
+.btn-sm{padding:6px 12px;font-size:12px;border-radius:8px}
+.btn-block{width:100%;justify-content:center}
+
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:18px}
+.stat-card{background:var(--card);border-radius:var(--radius);padding:16px 18px;box-shadow:var(--shadow);border:1px solid var(--border);position:relative;overflow:hidden}
+.stat-card::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:var(--accent,var(--biru-strong))}
+.stat-card .label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;font-weight:600}
+.stat-card .value{font-size:26px;font-weight:800;margin:6px 0 2px;letter-spacing:-.5px}
+.stat-card .hint{font-size:11px;color:var(--muted)}
+.stat-card.kuning{--accent:var(--kuning-strong)} .stat-card.biru{--accent:var(--biru-strong)}
+.stat-card.hijau{--accent:var(--hijau-strong)} .stat-card.emas{--accent:var(--emas)}
+.stat-card.merah{--accent:var(--merah)}
+
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:900px){.grid-2,.grid-3{grid-template-columns:1fr}}
+.chart-box{position:relative;height:250px;width:100%}
+
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--border)}
+th{font-size:11px;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);font-weight:700;background:var(--bg)}
+tbody tr:hover{background:var(--bg)}
+.table-wrap{overflow-x:auto;border-radius:10px;border:1px solid var(--border)}
+
+.badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;white-space:nowrap}
+.badge.tuntas{background:var(--hijau-soft);color:#2E7D32}
+.badge.belum{background:var(--merah-soft);color:#C62828}
+.badge.kuning{background:var(--kuning-soft);color:#B7791F}
+.badge.biru{background:var(--biru-soft);color:#1565C0}
+.badge.gray{background:var(--bg);color:var(--muted)}
+.badge.emas{background:var(--emas-soft);color:#8D6E1F}
+.badge.discipline{background:#E3F2FD;color:#1565C0}
+.badge.achievement{background:#FFF8E1;color:#B7791F}
+.badge.care{background:#FCE4EC;color:#C2185B}
+.badge.collab{background:#E8F5E9;color:#2E7D32}
+
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;align-items:center}
+.toolbar input,.toolbar select{padding:9px 12px;border:1px solid var(--border);border-radius:9px;background:var(--card)}
+.toolbar input:focus,.toolbar select:focus{outline:2px solid var(--biru-strong);border-color:transparent}
+.toolbar .spacer{flex:1}
+
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:1000;display:none;align-items:flex-start;justify-content:center;padding:40px 16px;overflow-y:auto}
+.modal-overlay.active{display:flex}
+.modal{background:var(--card);border-radius:16px;width:100%;max-width:560px;box-shadow:0 20px 60px rgba(0,0,0,.3);animation:fade .2s}
+.modal.wide{max-width:820px}
+.modal-header{padding:18px 22px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.modal-header h3{font-size:16px}
+.modal-body{padding:20px 22px;max-height:68vh;overflow-y:auto}
+.modal-footer{padding:14px 22px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:10px}
+.form-group{margin-bottom:14px}
+.form-group label{display:block;font-size:12.5px;font-weight:600;margin-bottom:6px}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:9px;background:var(--bg)}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:2px solid var(--biru-strong);border-color:transparent}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.checkbox-list{max-height:220px;overflow-y:auto;border:1px solid var(--border);border-radius:9px;padding:8px}
+.checkbox-item{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:6px;cursor:pointer;font-size:13px}
+.checkbox-item:hover{background:var(--bg)}
+.checkbox-item input{width:auto}
+
+#toastContainer{position:fixed;top:20px;right:20px;z-index:3000;display:flex;flex-direction:column;gap:10px}
+.toast{padding:12px 18px;border-radius:10px;color:#fff;font-weight:600;font-size:13px;box-shadow:0 8px 24px rgba(0,0,0,.2);animation:slideIn .3s;display:flex;align-items:center;gap:8px;min-width:240px}
+.toast.success{background:var(--hijau-strong)}
+.toast.error{background:var(--merah)}
+.toast.info{background:var(--biru-strong)}
+.toast.warning{background:#FFA726;color:#3E2723}
+.toast.gold{background:linear-gradient(135deg,var(--kuning-strong),var(--emas));color:#5D4037}
+@keyframes slideIn{from{transform:translateX(120%)}to{transform:none}}
+
+.empty-state{text-align:center;padding:40px 20px;color:var(--muted)}
+.empty-state .ico{font-size:40px;margin-bottom:10px;opacity:.5}
+
+/* Badge lencana */
+.badge-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:14px}
+.badge-card{background:var(--card);border:2px solid var(--border);border-radius:14px;padding:16px 12px;text-align:center;transition:transform .15s,box-shadow .15s}
+.badge-card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.badge-card.locked{opacity:.45;filter:grayscale(.8)}
+.badge-card .badge-icon{font-size:38px;margin-bottom:6px;display:block}
+.badge-card .badge-name{font-size:12.5px;font-weight:700;margin-bottom:2px}
+.badge-card .badge-desc{font-size:10.5px;color:var(--muted);line-height:1.35}
+.badge-card .badge-date{font-size:10px;color:var(--emas);font-weight:700;margin-top:6px}
+
+/* Level progress */
+.level-card{background:linear-gradient(135deg,var(--kuning-soft),var(--biru-soft));border-radius:14px;padding:18px;border:1px solid var(--border)}
+[data-theme="dark"] .level-card{background:linear-gradient(135deg,var(--kuning-soft),var(--biru-soft))}
+.level-card .level-icon{font-size:40px;margin-bottom:4px}
+.progress-bar{height:12px;background:rgba(255,255,255,.6);border-radius:20px;overflow:hidden;margin:10px 0 6px;border:1px solid rgba(0,0,0,.05)}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--hijau-strong),var(--kuning-strong),var(--emas));border-radius:20px;transition:width .6s}
+
+/* Podium */
+.podium{display:flex;align-items:flex-end;justify-content:center;gap:12px;margin:20px 0;min-height:220px}
+.podium-item{flex:1;max-width:160px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:flex-end}
+.podium-avatar{width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:800;color:#fff;margin-bottom:8px;box-shadow:0 4px 16px rgba(0,0,0,.15)}
+.podium-name{font-size:12px;font-weight:700;margin-bottom:2px;line-height:1.2}
+.podium-points{font-size:11px;color:var(--muted)}
+.podium-base{width:100%;border-radius:10px 10px 0 0;margin-top:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:20px}
+.podium-1 .podium-avatar{background:linear-gradient(135deg,#FFD700,#D4AF37);width:72px;height:72px;font-size:28px}
+.podium-2 .podium-avatar{background:linear-gradient(135deg,#C0C0C0,#9E9E9E)}
+.podium-3 .podium-avatar{background:linear-gradient(135deg,#CD7F32,#A0522D)}
+.podium-1 .podium-base{background:linear-gradient(135deg,#FFD700,#D4AF37);height:110px}
+.podium-2 .podium-base{background:linear-gradient(135deg,#BDBDBD,#9E9E9E);height:80px}
+.podium-3 .podium-base{background:linear-gradient(135deg,#CD7F32,#A0522D);height:65px}
+
+/* Confetti animation */
+@keyframes confettiFall{0%{transform:translateY(-100vh) rotate(0)}100%{transform:translateY(100vh) rotate(720deg)}}
+.confetti{position:fixed;top:0;font-size:20px;pointer-events:none;z-index:5000;animation:confettiFall linear forwards}
+
+/* Mobile */
+.mobile-toggle{display:none}
+.overlay-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:95}
+@media(max-width:900px){
+  .sidebar{transform:translateX(-100%)}
+  .sidebar.open{transform:none}
+  .main{margin-left:0}
+  .mobile-toggle{display:flex}
+  .overlay-backdrop.active{display:block}
+  .content{padding:14px}
+  .topbar{padding:11px 14px}
+  .stat-grid{grid-template-columns:repeat(2,1fr);gap:10px}
+  .stat-card .value{font-size:21px}
+  .form-row{grid-template-columns:1fr}
+  .podium{gap:6px}
+  .podium-avatar{width:48px;height:48px;font-size:18px}
+  .podium-1 .podium-avatar{width:56px;height:56px;font-size:22px}
+}
+@media(max-width:520px){.stat-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="loginScreen">
+  <div class="login-card">
+    <div class="login-logo">⭐</div>
+    <h1>BINTANG ACHIEVEMENT</h1>
+    <p class="tagline">Every Good Action Deserves Recognition</p>
+    <p class="school">SMA Swasta RK Bintang Timur Pematangsiantar</p>
+
+    <label>Masuk Sebagai</label>
+    <select id="loginRole">
+      <option value="admin">👑 Administrator</option>
+      <option value="guru">👨‍🏫 Pendidik</option>
+      <option value="wali">🏫 Wali Kelas</option>
+      <option value="siswa">🎓 Peserta Didik</option>
+    </select>
+
+    <div id="loginSiswaWrap" style="display:none">
+      <label>Pilih Nama Peserta Didik</label>
+      <select id="loginSiswaSelect"><option value="">— Pilih —</option></select>
+    </div>
+
+    <label>Nama Pengguna</label>
+    <input type="text" id="loginUser" placeholder="Nama Anda" value="Admin Bintang" />
+
+    <label>Kata Sandi</label>
+    <input type="password" id="loginPass" placeholder="Mode demo: apa saja" value="demo" />
+
+    <button onclick="App.login()">⭐ Masuk ke Aplikasi</button>
+    <span class="demo-badge">⚠️ MODE DEMO — data tersimpan di localStorage browser</span>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <div class="overlay-backdrop" id="overlayBackdrop" onclick="App.toggleSidebar()"></div>
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-logo">⭐</div>
+      <div class="brand-text">
+        <h3>BINTANG ACHIEVEMENT</h3>
+        <p>SMA RK BINTANG TIMUR</p>
+      </div>
+    </div>
+    <nav class="sidebar-nav" id="navList"></nav>
+    <div class="sidebar-footer">
+      <button class="nav-item" style="width:100%" onclick="App.logout()"><span class="ico">🚪</span> Keluar</button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div style="display:flex;align-items:center;gap:10px">
+        <button class="icon-btn mobile-toggle" onclick="App.toggleSidebar()">☰</button>
+        <h2 id="pageTitle">Dashboard</h2>
+      </div>
+      <div class="topbar-actions">
+        <span class="demo-badge" style="margin:0">DEMO</span>
+        <button class="icon-btn" id="themeBtn" onclick="App.toggleTheme()" title="Mode Gelap">🌙</button>
+        <div class="user-chip"><div class="user-avatar" id="userAvatar">A</div><span id="userName">Admin</span></div>
+      </div>
+    </header>
+
+    <div class="content" id="content">
+
+      <!-- DASHBOARD -->
+      <section class="page active" id="page-dashboard">
+        <div class="stat-grid" id="dashboardStats"></div>
+        <div class="grid-2" style="margin-bottom:16px">
+          <div class="card"><div class="card-header"><h3>📈 Perkembangan Poin per Bulan</h3></div><div class="chart-box"><canvas id="chartBulan"></canvas></div></div>
+          <div class="card"><div class="card-header"><h3>🎯 Poin Berdasarkan Kategori</h3></div><div class="chart-box"><canvas id="chartKategori"></canvas></div></div>
+        </div>
+        <div class="grid-2">
+          <div class="card"><div class="card-header"><h3>🏫 Pencapaian Antarkelas</h3></div><div class="chart-box"><canvas id="chartKelas"></canvas></div></div>
+          <div class="card"><div class="card-header"><h3>🏅 Distribusi Badge</h3></div><div class="chart-box"><canvas id="chartBadge"></canvas></div></div>
+        </div>
+        <div class="card" style="margin-top:16px">
+          <div class="card-header"><h3>🔔 Aktivitas Apresiasi Terbaru</h3></div>
+          <div id="recentActivity"></div>
+        </div>
+      </section>
+
+      <!-- BERI APRESIASI -->
+      <section class="page" id="page-apresiasi">
+        <div class="card">
+          <div class="card-header"><h3>⭐ Berikan Apresiasi</h3><span class="sub">Pilih peserta didik (bisa lebih dari satu)</span></div>
+          <div class="form-row">
+            <div class="form-group"><label>Filter Kelas</label><select id="aprKelas" onchange="App.fillAprSiswa()"></select></div>
+            <div class="form-group"><label>Kategori Penghargaan</label><select id="aprKategori" onchange="App.fillAprTindakan()"></select></div>
+          </div>
+          <div class="form-group"><label>Peserta Didik *</label><div id="aprSiswaList" class="checkbox-list"></div></div>
+          <div class="form-group"><label>Tindakan Positif *</label><select id="aprTindakan" onchange="App.updateAprPoin()"></select></div>
+          <div class="form-row">
+            <div class="form-group"><label>Poin</label><input type="number" id="aprPoin" readonly style="background:var(--kuning-soft);font-weight:700;font-size:18px" /></div>
+            <div class="form-group"><label>Tanggal</label><input type="date" id="aprTanggal" /></div>
+          </div>
+          <div class="form-group"><label>Alasan / Deskripsi *</label><textarea id="aprAlasan" rows="2" placeholder="Deskripsi singkat apresiasi..."></textarea></div>
+          <button class="btn btn-gold btn-block" onclick="App.submitApresiasi()">⭐ Berikan Apresiasi</button>
+        </div>
+      </section>
+
+      <!-- DATA SISWA -->
+      <section class="page" id="page-siswa">
+        <div class="toolbar">
+          <input type="text" id="searchSiswa" placeholder="🔍 Cari nama / NIS..." oninput="App.renderSiswa()" />
+          <select id="filterKelasSiswa" onchange="App.renderSiswa()"></select>
+          <div class="spacer"></div>
+          <button class="btn btn-ghost btn-sm" onclick="App.importSiswa()">📥 Impor Excel</button>
+          <button class="btn btn-ghost btn-sm" onclick="App.exportSiswa()">📤 Ekspor</button>
+          <button class="btn btn-primary btn-sm" onclick="App.modalSiswa()">+ Tambah</button>
+        </div>
+        <div class="card" style="padding:0"><div class="table-wrap"><table>
+          <thead><tr><th>No</th><th>NIS</th><th>Nama</th><th>Kelas</th><th>Poin</th><th>Level</th><th>Status</th><th style="text-align:right">Aksi</th></tr></thead>
+          <tbody id="tbodySiswa"></tbody>
+        </table></div></div>
+      </section>
+
+      <!-- KATEGORI & POIN -->
+      <section class="page" id="page-kategori">
+        <div class="toolbar"><div class="spacer"></div><button class="btn btn-primary btn-sm" onclick="App.modalTindakan()">+ Tambah Tindakan</button></div>
+        <div id="kategoriContent"></div>
+      </section>
+
+      <!-- BADGE -->
+      <section class="page" id="page-badge">
+        <div class="toolbar"><div class="spacer"></div><button class="btn btn-primary btn-sm" onclick="App.modalBadge()">+ Tambah Badge</button></div>
+        <div id="badgeContent"></div>
+      </section>
+
+      <!-- LEVEL -->
+      <section class="page" id="page-level">
+        <div class="card">
+          <div class="card-header"><h3>🎖️ Sistem Level Pencapaian</h3><button class="btn btn-ghost btn-sm" onclick="App.modalLevel()">+ Tambah Level</button></div>
+          <div class="table-wrap"><table>
+            <thead><tr><th>Level</th><th>Nama</th><th>Min Poin</th><th>Max Poin</th><th>Ikon</th><th style="text-align:right">Aksi</th></tr></thead>
+            <tbody id="tbodyLevel"></tbody>
+          </table></div>
+        </div>
+      </section>
+
+      <!-- LEADERBOARD -->
+      <section class="page" id="page-leaderboard">
+        <div class="toolbar">
+          <select id="lbKelas" onchange="App.renderLeaderboard()"><option value="">Semua Kelas</option></select>
+          <select id="lbPeriode" onchange="App.renderLeaderboard()">
+            <option value="all">Sepanjang Waktu</option>
+            <option value="bulan">Bulan Ini</option>
+            <option value="semester">Semester Ini</option>
+            <option value="tahun">Tahun Ini</option>
+          </select>
+          <select id="lbKategori" onchange="App.renderLeaderboard()">
+            <option value="">Semua Kategori</option>
+            <option value="disiplin">Kedisiplinan</option>
+            <option value="prestasi">Prestasi</option>
+            <option value="kepedulian">Kepedulian</option>
+            <option value="kolaborasi">Kolaborasi</option>
+          </select>
+          <div class="spacer"></div>
+        </div>
+        <div id="leaderboardContent"></div>
+      </section>
+
+      <!-- PAPAN APRESIASI BULANAN -->
+      <section class="page" id="page-bulanan">
+        <div class="toolbar">
+          <select id="bulanBulan" onchange="App.renderBulanan()"></select>
+          <select id="bulanTahun" onchange="App.renderBulanan()"></select>
+        </div>
+        <div id="bulananContent"></div>
+      </section>
+
+      <!-- PROFIL SISWA -->
+      <section class="page" id="page-profil">
+        <div class="toolbar">
+          <select id="profilSiswa" onchange="App.renderProfil()"></select>
+          <div class="spacer"></div>
+          <button class="btn btn-gold btn-sm" onclick="App.cetakSertifikat()">🎖️ Cetak Sertifikat</button>
+        </div>
+        <div id="profilContent"></div>
+      </section>
+
+      <!-- RIWAYAT -->
+      <section class="page" id="page-riwayat">
+        <div class="toolbar">
+          <input type="text" id="searchRiwayat" placeholder="🔍 Cari nama / alasan..." oninput="App.renderRiwayat()" />
+          <select id="filterKelasRiwayat" onchange="App.renderRiwayat()"></select>
+          <div class="spacer"></div>
+        </div>
+        <div class="card" style="padding:0"><div class="table-wrap"><table>
+          <thead><tr><th>Tanggal</th><th>Nama</th><th>Kelas</th><th>Kategori</th><th>Tindakan</th><th>Poin</th><th>Alasan</th><th>Pemberi</th></tr></thead>
+          <tbody id="tbodyRiwayat"></tbody>
+        </table></div></div>
+      </section>
+
+      <!-- LAPORAN -->
+      <section class="page" id="page-laporan">
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-header"><h3>📄 Laporan PDF</h3></div>
+            <div class="form-group"><label>Jenis Laporan</label>
+              <select id="pdfJenis">
+                <option value="rekap-poin">Rekap Poin Seluruh Peserta Didik</option>
+                <option value="rekap-kelas">Rekap Poin per Kelas</option>
+                <option value="rekap-kategori">Rekap Poin per Kategori</option>
+                <option value="badge">Daftar Penerima Badge</option>
+                <option value="bulanan">Papan Apresiasi Bulanan</option>
+              </select>
+            </div>
+            <button class="btn btn-primary btn-block" onclick="App.generatePDF()">📄 Unduh PDF</button>
+          </div>
+          <div class="card">
+            <div class="card-header"><h3>📊 Ekspor Excel</h3></div>
+            <p style="color:var(--muted);margin-bottom:14px;font-size:13px">Ekspor seluruh data (siswa, poin, badge, level) ke satu file Excel.</p>
+            <button class="btn btn-success btn-block" onclick="App.exportAllExcel()">📤 Unduh Excel Lengkap</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- PENGATURAN -->
+      <section class="page" id="page-pengaturan">
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-header"><h3>⚙️ Identitas Sekolah</h3></div>
+            <div class="form-group"><label>Nama Sekolah</label><input id="setSekolah" /></div>
+            <div class="form-group"><label>Kepala Sekolah</label><input id="setKepsek" /></div>
+            <button class="btn btn-primary btn-block" onclick="App.saveSettings()">💾 Simpan</button>
+          </div>
+          <div class="card">
+            <div class="card-header"><h3>💾 Data & Backup</h3></div>
+            <button class="btn btn-ghost btn-block" style="margin-bottom:8px" onclick="App.backupData()">📦 Backup (JSON)</button>
+            <button class="btn btn-ghost btn-block" style="margin-bottom:8px" onclick="App.restoreData()">📂 Restore (JSON)</button>
+            <button class="btn btn-warning btn-block" style="margin-bottom:8px" onclick="App.loadDemo()">🔄 Muat Ulang Demo</button>
+            <button class="btn btn-danger btn-block" onclick="App.resetData()">🗑️ Hapus Semua Data</button>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" id="modalBox">
+    <div class="modal-header"><h3 id="modalTitle">Judul</h3><button class="icon-btn" onclick="App.closeModal()">✕</button></div>
+    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-footer" id="modalFooter"></div>
+  </div>
+</div>
+
+<div id="toastContainer"></div>
+<input type="file" id="fileInput" style="display:none" />
+
+<script>
+/* ============================================================
+   BINTANG ACHIEVEMENT — APP LOGIC
+   ============================================================ */
+const App = (() => {
+  const KEY = 'bintang_achievement_demo_v1';
+  const ROLES = {
+    admin:{label:'Administrator',icon:'👑',name:'Admin Bintang'},
+    guru:{label:'Pendidik',icon:'👨‍🏫',name:'Guru Pengajar'},
+    wali:{label:'Wali Kelas',icon:'🏫',name:'Wali Kelas 10A'},
+    siswa:{label:'Peserta Didik',icon:'🎓',name:''}
+  };
+  const KATEGORI = {
+    disiplin:{label:'Kedisiplinan',icon:'🛡️',color:'#42A5F5'},
+    prestasi:{label:'Prestasi',icon:'🏆',color:'#FFC93C'},
+    kepedulian:{label:'Kepedulian',icon:'💝',color:'#EC407A'},
+    kolaborasi:{label:'Kolaborasi',icon:'🤝',color:'#66BB6A'}
+  };
+  let state = {
+    user:null, role:null,
+    settings:{sekolah:'SMA Swasta RK Bintang Timur Pematangsiantar',kepsek:'Drs. Robert Sihombing, M.Pd'},
+    siswa:[], tindakan:[], poin:[], badge:[], badgeSiswa:[], level:[], awardBulanan:[]
+  };
+  let charts = {};
+
+  // ===== UTIL =====
+  const $ = s => document.querySelector(s);
+  const $$ = s => document.querySelectorAll(s);
+  const esc = s => String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const uid = (p='id') => p+'_'+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+  const fmt = (n,d=0) => (n==null||isNaN(n))?'-':Number(n).toFixed(d);
+  const today = () => new Date().toISOString().slice(0,10);
+  const monthKey = d => (d||'').slice(0,7);
+
+  function save(){ localStorage.setItem(KEY, JSON.stringify(state)); }
+  function load(){ const r=localStorage.getItem(KEY); if(r){try{state=JSON.parse(r);}catch(e){console.warn(e);}} }
+
+  function toast(msg,type='success'){
+    const el=document.createElement('div'); el.className='toast '+type;
+    el.innerHTML=(type==='success'?'✅ ':type==='error'?'❌ ':type==='warning'?'⚠️ ':type==='gold'?'⭐ ':'ℹ️ ')+esc(msg);
+    $('#toastContainer').appendChild(el);
+    setTimeout(()=>{el.style.opacity='0';el.style.transform='translateX(120%)';el.style.transition='.3s';setTimeout(()=>el.remove(),300);},2800);
+  }
+
+  function confetti(){
+    const icons=['⭐','🌟','✨','🏅','🎉','💫'];
+    for(let i=0;i<30;i++){
+      const c=document.createElement('div'); c.className='confetti';
+      c.textContent=icons[Math.floor(Math.random()*icons.length)];
+      c.style.left=Math.random()*100+'vw';
+      c.style.animationDuration=(2+Math.random()*2)+'s';
+      c.style.animationDelay=(Math.random()*.5)+'s';
+      document.body.appendChild(c);
+      setTimeout(()=>c.remove(),4000);
+    }
+  }
+
+  function openModal(title,body,footer,wide=false){
+    $('#modalTitle').textContent=title; $('#modalBody').innerHTML=body;
+    $('#modalFooter').innerHTML=footer||''; $('#modalBox').classList.toggle('wide',wide);
+    $('#modalOverlay').classList.add('active');
+  }
+  function closeModal(){ $('#modalOverlay').classList.remove('active'); }
+  function confirmBox(title,text,onYes){
+    openModal(title,`<p>${esc(text)}</p>`,`<button class="btn btn-ghost" onclick="App.closeModal()">Batal</button><button class="btn btn-danger" id="confirmYes">Ya</button>`);
+    $('#confirmYes').onclick=()=>{closeModal();onYes();};
+  }
+
+  // ===== HITUNG POIN =====
+  function totalPoin(siswaId, filter={}){
+    let arr = state.poin.filter(p=>p.siswaId===siswaId);
+    if(filter.kategori) arr = arr.filter(p=>p.kategori===filter.kategori);
+    if(filter.kelas) arr = arr.filter(p=>{const s=getSiswa(p.siswaId); return s&&s.kelas===filter.kelas;});
+    if(filter.bulan){ arr = arr.filter(p=>monthKey(p.tanggal)===filter.bulan); }
+    if(filter.semester){
+      const yr = new Date().getFullYear();
+      arr = arr.filter(p=>{const m=parseInt(p.tanggal.slice(5,7)); return filter.semester==='1'?(m>=7&&m<=12):(m>=1&&m<=6);});
+    }
+    if(filter.tahun){ arr = arr.filter(p=>p.tanggal.startsWith(filter.tahun)); }
+    return arr.reduce((a,p)=>a+p.poin,0);
+  }
+  function poinFiltered(filter={}){
+    let arr = state.poin.slice();
+    if(filter.kelas) arr = arr.filter(p=>{const s=getSiswa(p.siswaId); return s&&s.kelas===filter.kelas;});
+    if(filter.kategori) arr = arr.filter(p=>p.kategori===filter.kategori);
+    if(filter.bulan) arr = arr.filter(p=>monthKey(p.tanggal)===filter.bulan);
+    return arr;
+  }
+  const getSiswa = id => state.siswa.find(s=>s.id===id);
+  const getLevel = poin => state.level.find(l=>poin>=l.minPoin && poin<=(l.maxPoin||999999)) || state.level[state.level.length-1];
+
+  function checkBadges(siswaId){
+    const total = totalPoin(siswaId);
+    const newBadges = [];
+    state.badge.forEach(b=>{
+      const owned = state.badgeSiswa.some(x=>x.siswaId===siswaId && x.badgeId===b.id);
+      if(owned) return;
+      let ok = false;
+      if(b.syarat==='poin' && total >= b.syaratPoin) ok = true;
+      if(b.syarat==='kategori' && totalPoin(siswaId,{kategori:b.kategori}) >= b.syaratPoin) ok = true;
+      if(ok){
+        state.badgeSiswa.push({siswaId, badgeId:b.id, tanggal:today()});
+        newBadges.push(b);
+      }
+    });
+    if(newBadges.length){ save(); }
+    return newBadges;
+  }
+
+  // ===== LOGIN =====
+  function login(){
+    const role = $('#loginRole').value;
+    let name = $('#loginUser').value.trim() || ROLES[role].name || 'Pengguna';
+    if(role==='siswa'){
+      const sid = $('#loginSiswaSelect').value;
+      if(!sid){ toast('Pilih nama peserta didik','error'); return; }
+      const s = getSiswa(sid); name = s ? s.nama : name;
+      state.user = name; state.role = role; state.siswaId = sid;
+    } else { state.user = name; state.role = role; }
+    save();
+    $('#loginScreen').style.display='none';
+    $('#app').classList.add('active');
+    $('#userName').textContent = name;
+    $('#userAvatar').textContent = name.charAt(0).toUpperCase();
+    initNav(); renderAll();
+    toast(`Selamat datang, ${name} (${ROLES[role].label})`, 'gold');
+  }
+  function logout(){
+    confirmBox('Keluar','Yakin ingin keluar dari aplikasi?',()=>{
+      $('#loginScreen').style.display='flex';
+      $('#app').classList.remove('active');
+      state.user=null; state.role=null; state.siswaId=null; save();
+    });
+  }
+
+  // ===== NAV =====
+  const MENU = [
+    {id:'dashboard',label:'Dashboard',ico:'🏠',roles:['admin','guru','wali']},
+    {id:'apresiasi',label:'Berikan Apresiasi',ico:'⭐',roles:['admin','guru','wali']},
+    {id:'siswa',label:'Data Peserta Didik',ico:'👥',roles:['admin','guru','wali']},
+    {id:'kategori',label:'Kategori & Poin',ico:'🎯',roles:['admin']},
+    {id:'badge',label:'Badge & Lencana',ico:'🏅',roles:['admin','guru','wali','siswa']},
+    {id:'level',label:'Sistem Level',ico:'🎖️',roles:['admin']},
+    {id:'leaderboard',label:'Leaderboard',ico:'🏆',roles:['admin','guru','wali','siswa']},
+    {id:'bulanan',label:'Papan Apresiasi Bulanan',ico:'📅',roles:['admin','guru','wali','siswa']},
+    {id:'profil',label:'Profil Pencapaian',ico:'👤',roles:['admin','guru','wali','siswa']},
+    {id:'riwayat',label:'Riwayat Apresiasi',ico:'📜',roles:['admin','guru','wali']},
+    {id:'laporan',label:'Laporan',ico:'📄',roles:['admin','guru','wali']},
+    {id:'pengaturan',label:'Pengaturan',ico:'⚙️',roles:['admin']}
+  ];
+  function initNav(){
+    const role = state.role;
+    const items = MENU.filter(m=>m.roles.includes(role));
+    $('#navList').innerHTML = items.map(m=>`<div class="nav-item" data-page="${m.id}" onclick="App.navigate('${m.id}')"><span class="ico">${m.ico}</span> ${m.label}</div>`).join('');
+    // Default page sesuai role
+    if(role==='siswa'){
+      navigate('profil');
+    } else if(role==='wali'){
+      navigate('dashboard');
+    } else {
+      navigate('dashboard');
+    }
+  }
+  function navigate(page){
+    $$('.nav-item[data-page]').forEach(n=>n.classList.toggle('active',n.dataset.page===page));
+    $$('.page').forEach(p=>p.classList.remove('active'));
+    const el = $('#page-'+page); if(el) el.classList.add('active');
+    const m = MENU.find(x=>x.id===page);
+    $('#pageTitle').textContent = m?m.label:page;
+    if(window.innerWidth<=900) closeSidebar();
+    // render
+    if(page==='dashboard') renderDashboard();
+    if(page==='apresiasi') initApresiasi();
+    if(page==='siswa') renderSiswa();
+    if(page==='kategori') renderKategori();
+    if(page==='badge') renderBadge();
+    if(page==='level') renderLevel();
+    if(page==='leaderboard') renderLeaderboard();
+    if(page==='bulanan') renderBulanan();
+    if(page==='profil') fillProfilSelect(), renderProfil();
+    if(page==='riwayat') renderRiwayat();
+    if(page==='pengaturan') renderSettings();
+  }
+  function toggleSidebar(){ $('#sidebar').classList.toggle('open'); $('#overlayBackdrop').classList.toggle('active'); }
+  function closeSidebar(){ $('#sidebar').classList.remove('open'); $('#overlayBackdrop').classList.remove('active'); }
+
+  function toggleTheme(){
+    const dark = document.documentElement.getAttribute('data-theme')==='dark';
+    document.documentElement.setAttribute('data-theme',dark?'light':'dark');
+    $('#themeBtn').textContent = dark?'🌙':'☀️';
+    localStorage.setItem('ba_theme',dark?'light':'dark');
+    Object.values(charts).forEach(c=>c&&c.destroy()); charts={};
+    if($('#page-dashboard').classList.contains('active')) renderDashboard();
+  }
+
+  // ===== DASHBOARD =====
+  function renderDashboard(){
+    const totalSiswa = state.siswa.length;
+    const totalPoinAll = state.poin.reduce((a,p)=>a+p.poin,0);
+    const thisMonth = monthKey(today());
+    const poinBulan = state.poin.filter(p=>monthKey(p.tanggal)===thisMonth).length;
+    const badgeCount = state.badgeSiswa.length;
+    const topSiswa = state.siswa.map(s=>({s,poin:totalPoin(s.id)})).sort((a,b)=>b.poin-a.poin)[0];
+
+    $('#dashboardStats').innerHTML = `
+      <div class="stat-card biru"><div class="label">Total Peserta Didik</div><div class="value">${totalSiswa}</div><div class="hint">terdaftar</div></div>
+      <div class="stat-card kuning"><div class="label">Total Poin Diberikan</div><div class="value">${totalPoinAll}</div><div class="hint">seluruh apresiasi</div></div>
+      <div class="stat-card hijau"><div class="label">Penghargaan Bulan Ini</div><div class="value">${poinBulan}</div><div class="hint">${thisMonth}</div></div>
+      <div class="stat-card emas"><div class="label">Badge Diperoleh</div><div class="value">${badgeCount}</div><div class="hint">total badge</div></div>
+      <div class="stat-card biru"><div class="label">Pencapaian Tertinggi</div><div class="value" style="font-size:16px">${topSiswa?esc(topSiswa.s.nama):'-'}</div><div class="hint">${topSiswa?topSiswa.poin+' poin':''}</div></div>
+    `;
+
+    // Chart bulanan (12 bulan terakhir)
+    const months = [];
+    for(let i=11;i>=0;i--){ const d=new Date(); d.setMonth(d.getMonth()-i); months.push(d.toISOString().slice(0,7)); }
+    const bulanData = months.map(m=>state.poin.filter(p=>monthKey(p.tanggal)===m).reduce((a,p)=>a+p.poin,0));
+    drawChart('chartBulan','line',months.map(m=>m.slice(5)),[{label:'Poin',data:bulanData,borderColor:'#FFC93C',backgroundColor:'rgba(255,201,60,.2)',fill:true,tension:.35,pointRadius:4,pointBackgroundColor:'#D4AF37'}]);
+
+    // Kategori
+    const katData = Object.keys(KATEGORI).map(k=>state.poin.filter(p=>p.kategori===k).reduce((a,p)=>a+p.poin,0));
+    drawChart('chartKategori','doughnut',Object.values(KATEGORI).map(k=>k.label),[{data:katData,backgroundColor:Object.values(KATEGORI).map(k=>k.color),borderWidth:0}],{cutout:'60%'});
+
+    // Kelas
+    const kelasMap = {};
+    state.siswa.forEach(s=>{ if(!kelasMap[s.kelas]) kelasMap[s.kelas]=0; kelasMap[s.kelas]+=totalPoin(s.id); });
+    drawChart('chartKelas','bar',Object.keys(kelasMap).sort(),[{label:'Total Poin',data:Object.keys(kelasMap).sort().map(k=>kelasMap[k]),backgroundColor:'#90CAF9',borderRadius:6}]);
+
+    // Badge
+    const badgeCountMap = {};
+    state.badge.forEach(b=>{ badgeCountMap[b.nama] = state.badgeSiswa.filter(bs=>bs.badgeId===b.id).length; });
+    drawChart('chartBadge','bar',Object.keys(badgeCountMap),[{label:'Penerima',data:Object.values(badgeCountMap),backgroundColor:'#A5D6A7',borderRadius:6}]);
+
+    // Recent activity
+    const recent = state.poin.slice().sort((a,b)=>b.tanggal.localeCompare(a.tanggal)).slice(0,8);
+    $('#recentActivity').innerHTML = recent.length ? `<div class="table-wrap"><table><thead><tr><th>Tanggal</th><th>Nama</th><th>Tindakan</th><th>Poin</th><th>Kategori</th></tr></thead><tbody>${recent.map(p=>{
+      const s=getSiswa(p.siswaId); const k=KATEGORI[p.kategori];
+      return `<tr><td>${p.tanggal}</td><td><strong>${esc(s?.nama||'-')}</strong></td><td>${esc(p.tindakanNama)}</td><td><span class="badge kuning">+${p.poin}</span></td><td><span class="badge ${p.kategori}">${k.icon} ${k.label}</span></td></tr>`;
+    }).join('')}</tbody></table></div>` : '<div class="empty-state"><div class="ico">⭐</div>Belum ada aktivitas apresiasi.</div>';
+  }
+
+  function drawChart(id,type,labels,datasets,extra={}){
+    if(charts[id]) charts[id].destroy();
+    const c=document.getElementById(id); if(!c) return;
+    const dark = document.documentElement.getAttribute('data-theme')==='dark';
+    const tc = dark?'#ECEFF1':'#455A64';
+    charts[id]=new Chart(c.getContext('2d'),{
+      type,data:{labels,datasets},options:{responsive:true,maintainAspectRatio:false,
+        plugins:{legend:{labels:{color:tc,font:{size:11}}}},
+        scales:(type==='doughnut'||type==='pie')?{}:{
+          x:{ticks:{color:tc,font:{size:10}},grid:{color:dark?'rgba(255,255,255,.08)':'rgba(0,0,0,.06)'}},
+          y:{beginAtZero:true,ticks:{color:tc,font:{size:10}},grid:{color:dark?'rgba(255,255,255,.08)':'rgba(0,0,0,.06)'}}
+        },...extra}
+    });
+  }
+
+  // ===== APRESIASI =====
+  function initApresiasi(){
+    // Isi kelas
+    const kelas = [...new Set(state.siswa.map(s=>s.kelas))].sort();
+    $('#aprKelas').innerHTML = '<option value="">Semua Kelas</option>'+kelas.map(k=>`<option value="${esc(k)}">${esc(k)}</option>`).join('');
+    // Kategori
+    $('#aprKategori').innerHTML = Object.entries(KATEGORI).map(([k,v])=>`<option value="${k}">${v.icon} ${v.label}</option>`).join('');
+    // Tanggal
+    $('#aprTanggal').value = today();
+    fillAprSiswa(); fillAprTindakan();
+  }
+  function fillAprSiswa(){
+    const kelas = $('#aprKelas').value;
+    const list = state.siswa.filter(s=>!kelas || s.kelas===kelas);
+    $('#aprSiswaList').innerHTML = list.length ? list.map(s=>`<label class="checkbox-item"><input type="checkbox" value="${s.id}" data-kelas="${esc(s.kelas)}" /> ${esc(s.nama)} <small style="color:var(--muted)">(${esc(s.kelas)})</small></label>`).join('') : '<div style="padding:10px;color:var(--muted)">Tidak ada siswa.</div>';
+  }
+  function fillAprTindakan(){
+    const kat = $('#aprKategori').value;
+    const list = state.tindakan.filter(t=>t.kategori===kat);
+    $('#aprTindakan').innerHTML = list.length ? list.map(t=>`<option value="${t.id}" data-poin="${t.poin}">${esc(t.nama)} (+${t.poin})</option>`).join('') : '<option value="">-</option>';
+    updateAprPoin();
+  }
+  function updateAprPoin(){
+    const opt = $('#aprTindakan').selectedOptions[0];
+    $('#aprPoin').value = opt ? opt.dataset.poin : 0;
+  }
+  function submitApresiasi(){
+    const checked = [...$$('#aprSiswaList input:checked')].map(i=>i.value);
+    const tid = $('#aprTindakan').value;
+    const alasan = $('#aprAlasan').value.trim();
+    const tanggal = $('#aprTanggal').value;
+    if(!checked.length){ toast('Pilih minimal satu peserta didik','error'); return; }
+    if(!tid){ toast('Pilih tindakan positif','error'); return; }
+    if(!alasan){ toast('Alasan wajib diisi','error'); return; }
+    if(!tanggal){ toast('Tanggal wajib diisi','error'); return; }
+    const t = state.tindakan.find(x=>x.id===tid);
+    const pemberi = state.user;
+    // validasi poin ganda (siswa + tindakan + tanggal sama)
+    const dup = checked.filter(sid => state.poin.some(p=>p.siswaId===sid && p.tindakanId===tid && p.tanggal===tanggal));
+    if(dup.length){ toast(`${dup.length} siswa sudah menerima tindakan ini di tanggal tersebut. Dilewati.`,'warning'); }
+    const valid = checked.filter(sid=>!dup.includes(sid));
+    if(!valid.length){ return; }
+    valid.forEach(sid=>{
+      state.poin.push({id:uid('p'),siswaId:sid,tindakanId:tid,tindakanNama:t.nama,kategori:t.kategori,poin:t.poin,alasan,tanggal,pemberi});
+    });
+    save();
+    const newBadges = [];
+    valid.forEach(sid=>{ const nb = checkBadges(sid); if(nb.length) newBadges.push({sid,nb}); });
+    toast(`${valid.length} peserta menerima ${t.poin} poin.`,'gold');
+    if(newBadges.length){ confetti(); toast(`🎉 Badge baru diperoleh ${newBadges.length} peserta!`,'gold'); }
+    $('#aprAlasan').value='';
+    $$('#aprSiswaList input:checked').forEach(i=>i.checked=false);
+  }
+
+  // ===== DATA SISWA =====
+  function renderSiswa(){
+    const q = ($('#searchSiswa')?.value||'').toLowerCase();
+    const fk = $('#filterKelasSiswa')?.value||'';
+    // fill kelas filter
+    const kelas = [...new Set(state.siswa.map(s=>s.kelas))].sort();
+    const sel = $('#filterKelasSiswa');
+    if(sel){ const cur=sel.value; sel.innerHTML='<option value="">Semua Kelas</option>'+kelas.map(k=>`<option value="${esc(k)}">${esc(k)}</option>`).join(''); if([...sel.options].some(o=>o.value===cur)) sel.value=cur; }
+    let list = state.siswa.filter(s=>(!fk||s.kelas===fk)&&(!q||s.nama.toLowerCase().includes(q)||s.nis.includes(q))).sort((a,b)=>a.kelas.localeCompare(b.kelas)||a.nama.localeCompare(b.nama));
+    const tbody = $('#tbodySiswa');
+    if(!list.length){ tbody.innerHTML='<tr><td colspan="8"><div class="empty-state"><div class="ico">👥</div>Belum ada siswa.</div></td></tr>'; return; }
+    tbody.innerHTML = list.map((s,i)=>{
+      const p = totalPoin(s.id); const lv = getLevel(p);
+      return `<tr><td>${i+1}</td><td>${esc(s.nis)}</td><td><strong>${esc(s.nama)}</strong></td><td><span class="badge biru">${esc(s.kelas)}</span></td><td><strong>${p}</strong></td><td>${lv?lv.ikon+' '+lv.nama:'-'}</td><td>${s.aktif?'<span class="badge tuntas">Aktif</span>':'<span class="badge gray">Nonaktif</span>'}</td><td style="text-align:right"><button class="btn btn-ghost btn-sm" onclick="App.modalSiswa('${s.id}')">✏️</button> <button class="btn btn-ghost btn-sm" onclick="App.deleteSiswa('${s.id}')">🗑️</button></td></tr>`;
+    }).join('');
+  }
+  function modalSiswa(id){
+    const s = id?getSiswa(id):{nis:'',nama:'',kelas:'',aktif:true};
+    openModal(id?'Edit Peserta Didik':'Tambah Peserta Didik',`
+      <div class="form-row"><div class="form-group"><label>NIS *</label><input id="s_nis" value="${esc(s.nis)}"/></div><div class="form-group"><label>Kelas *</label><input id="s_kelas" value="${esc(s.kelas)}" placeholder="contoh: X-1"/></div></div>
+      <div class="form-group"><label>Nama Lengkap *</label><input id="s_nama" value="${esc(s.nama)}"/></div>
+      <div class="form-group"><label>Status</label><select id="s_aktif"><option value="1" ${s.aktif?'selected':''}>Aktif</option><option value="0" ${!s.aktif?'selected':''}>Nonaktif</option></select></div>`,
+      `<button class="btn btn-ghost" onclick="App.closeModal()">Batal</button><button class="btn btn-primary" onclick="App.saveSiswa('${id||''}')">Simpan</button>`);
+  }
+  function saveSiswa(id){
+    const nis=$('#s_nis').value.trim(), nama=$('#s_nama').value.trim(), kelas=$('#s_kelas').value.trim();
+    if(!nis||!nama||!kelas){ toast('NIS, nama, kelas wajib','error'); return; }
+    if(state.siswa.some(s=>s.nis===nis&&s.id!==id)){ toast('NIS sudah terdaftar','error'); return; }
+    const data={nis,nama,kelas,aktif:$('#s_aktif').value==='1'};
+    if(id) Object.assign(getSiswa(id),data); else state.siswa.push({id:uid('s'),...data});
+    save(); closeModal(); renderSiswa(); toast('Tersimpan');
+  }
+  function deleteSiswa(id){
+    const s=getSiswa(id);
+    confirmBox('Hapus Peserta Didik',`Hapus ${s.nama}? Semua poin juga terhapus.`,()=>{
+      state.siswa=state.siswa.filter(x=>x.id!==id);
+      state.poin=state.poin.filter(p=>p.siswaId!==id);
+      state.badgeSiswa=state.badgeSiswa.filter(b=>b.siswaId!==id);
+      save(); renderSiswa(); toast('Dihapus');
+    });
+  }
+
+  // ===== KATEGORI & TINDAKAN =====
+  function renderKategori(){
+    let html='';
+    Object.entries(KATEGORI).forEach(([k,v])=>{
+      const list = state.tindakan.filter(t=>t.kategori===k);
+      html+=`<div class="card" style="margin-bottom:14px"><div class="card-header"><h3>${v.icon} ${v.label}</h3></div>`;
+      html+=`<div class="table-wrap"><table><thead><tr><th>Tindakan</th><th>Poin</th><th style="text-align:right">Aksi</th></tr></thead><tbody>`;
+      html+= list.length ? list.map(t=>`<tr><td>${esc(t.nama)}</td><td><span class="badge kuning">+${t.poin}</span></td><td style="text-align:right"><button class="btn btn-ghost btn-sm" onclick="App.modalTindakan('${t.id}')">✏️</button> <button class="btn btn-ghost btn-sm" onclick="App.deleteTindakan('${t.id}')">🗑️</button></td></tr>`).join('') : '<tr><td colspan="3"><div class="empty-state">Belum ada.</div></td></tr>';
+      html+=`</tbody></table></div></div>`;
+    });
+    $('#kategoriContent').innerHTML=html;
+  }
+  function modalTindakan(id){
+    const t = id?state.tindakan.find(x=>x.id===id):{kategori:'disiplin',nama:'',poin:10};
+    openModal(id?'Edit Tindakan':'Tambah Tindakan',`
+      <div class="form-group"><label>Kategori</label><select id="t_kat">${Object.entries(KATEGORI).map(([k,v])=>`<option value="${k}" ${t.kategori===k?'selected':''}>${v.icon} ${v.label}</option>`).join('')}</select></div>
+      <div class="form-group"><label>Nama Tindakan *</label><input id="t_nama" value="${esc(t.nama)}"/></div>
+      <div class="form-group"><label>Poin *</label><input type="number" id="t_poin" min="1" max="500" value="${t.poin}"/></div>`,
+      `<button class="btn btn-ghost" onclick="App.closeModal()">Batal</button><button class="btn btn-primary" onclick="App.saveTindakan('${id||''}')">Simpan</button>`);
+  }
+  function saveTindakan(id){
+    const kategori=$('#t_kat').value, nama=$('#t_nama').value.trim(), poin=parseInt($('#t_poin').value);
+    if(!nama||!poin||poin<1){ toast('Nama dan poin wajib valid','error'); return; }
+    if(id) Object.assign(state.tindakan.find(x=>x.id===id),{kategori,nama,poin});
+    else state.tindakan.push({id:uid('t'),kategori,nama,poin});
+    save(); closeModal(); renderKategori(); toast('Tersimpan');
+  }
+  function deleteTindakan(id){
+    confirmBox('Hapus Tindakan','Yakin hapus tindakan ini?',()=>{ state.tindakan=state.tindakan.filter(t=>t.id!==id); save(); renderKategori(); toast('Dihapus'); });
+  }
+
+  // ===== BADGE =====
+  function renderBadge(){
+    const isSiswa = state.role==='siswa';
+    const myBadges = isSiswa ? state.badgeSiswa.filter(b=>b.siswaId===state.siswaId).map(b=>b.badgeId) : [];
+    const html = state.badge.map(b=>{
+      const owned = isSiswa ? myBadges.includes(b.id) : true;
+      const tanggal = isSiswa ? (state.badgeSiswa.find(x=>x.badgeId===b.id&&x.siswaId===state.siswaId)?.tanggal||'') : '';
+      return `<div class="badge-card ${owned?'':'locked'}">
+        <span class="badge-icon">${b.ikon}</span>
+        <div class="badge-name">${esc(b.nama)}</div>
+        <div class="badge-desc">${esc(b.deskripsi)}</div>
+        ${!isSiswa?`<div class="badge-date">${state.badgeSiswa.filter(x=>x.badgeId===b.id).length} penerima</div>`:''}
+        ${tanggal?`<div class="badge-date">📅 ${tanggal}</div>`:''}
+        ${!isSiswa?`<button class="btn btn-ghost btn-sm" style="margin-top:6px" onclick="App.deleteBadge('${b.id}')">🗑️</button>`:''}
+      </div>`;
+    }).join('');
+    $('#badgeContent').innerHTML = `<div class="badge-grid">${html||'<div class="empty-state">Belum ada badge.</div>'}</div>`;
+  }
+  function modalBadge(){
+    openModal('Tambah Badge',`
+      <div class="form-group"><label>Nama Badge *</label><input id="b_nama"/></div>
+      <div class="form-group"><label>Ikon (emoji) *</label><input id="b_ikon" value="🏅" maxlength="4"/></div>
+      <div class="form-group"><label>Deskripsi *</label><input id="b_deskripsi"/></div>
+      <div class="form-row"><div class="form-group"><label>Syarat</label><select id="b_syarat"><option value="poin">Total Poin</option><option value="kategori">Poin Kategori</option></select></div>
+      <div class="form-group"><label>Kategori (jika ada)</label><select id="b_kat">${Object.entries(KATEGORI).map(([k,v])=>`<option value="${k}">${v.label}</option>`).join('')}</select></div></div>
+      <div class="form-group"><label>Minimal Poin *</label><input type="number" id="b_poin" value="100"/></div>`,
+      `<button class="btn btn-ghost" onclick="App.closeModal()">Batal</button><button class="btn btn-primary" onclick="App.saveBadge()">Simpan</button>`);
+  }
+  function saveBadge(){
+    const nama=$('#b_nama').value.trim(), ikon=$('#b_ikon').value||'🏅', deskripsi=$('#b_deskripsi').value.trim();
+    const syarat=$('#b_syarat').value, kategori=$('#b_kat').value, syaratPoin=parseInt($('#b_poin').value)||100;
+    if(!nama||!deskripsi){ toast('Nama & deskripsi wajib','error'); return; }
+    state.badge.push({id:uid('b'),nama,ikon,deskripsi,syarat,kategori,syaratPoin});
+    save(); closeModal(); renderBadge(); toast('Badge ditambahkan');
+  }
+  function deleteBadge(id){
+    confirmBox('Hapus Badge','Yakin?',()=>{ state.badge=state.badge.filter(b=>b.id!==id); state.badgeSiswa=state.badgeSiswa.filter(b=>b.badgeId!==id); save(); renderBadge(); toast('Dihapus'); });
+  }
+
+  // ===== LEVEL =====
+  function renderLevel(){
+    $('#tbodyLevel').innerHTML = state.level.map(l=>`<tr><td>${l.ikon} ${l.nama}</td><td>${l.minPoin}</td><td>${l.maxPoin||'∞'}</td><td>${l.ikon}</td><td style="text-align:right"><button class="btn btn-ghost btn-sm" onclick="App.deleteLevel('${l.id}')">🗑️</button></td></tr>`).join('');
+  }
+  function modalLevel(){
+    openModal('Tambah Level',`
+      <div class="form-group"><label>Nama Level *</label><input id="l_nama"/></div>
+      <div class="form-group"><label>Ikon</label><input id="l_ikon" value="⭐" maxlength="4"/></div>
+      <div class="form-row"><div class="form-group"><label>Min Poin</label><input type="number" id="l_min" value="0"/></div><div class="form-group"><label>Max Poin</label><input type="number" id="l_max" value="49"/></div></div>`,
+      `<button class="btn btn-ghost" onclick="App.closeModal()">Batal</button><button class="btn btn-primary" onclick="App.saveLevel()">Simpan</button>`);
+  }
+  function saveLevel(){
+    const nama=$('#l_nama').value.trim(), ikon=$('#l_ikon').value||'⭐', minPoin=parseInt($('#l_min').value)||0, maxPoin=parseInt($('#l_max').value)||0;
+    if(!nama){ toast('Nama wajib','error'); return; }
+    state.level.push({id:uid('l'),nama,ikon,minPoin,maxPoin});
+    state.level.sort((a,b)=>a.minPoin-b.minPoin);
+    save(); closeModal(); renderLevel(); toast('Level ditambahkan');
+  }
+  function deleteLevel(id){ confirmBox('Hapus Level','Yakin?',()=>{ state.level=state.level.filter(l=>l.id!==id); save(); renderLevel(); toast('Dihapus'); }); }
+
+  // ===== LEADERBOARD =====
+  function renderLeaderboard(){
+    // fill kelas
+    const kelas = [...new Set(state.siswa.map(s=>s.kelas))].sort();
+    const sel = $('#lbKelas'); const cur=sel.value;
+    sel.innerHTML='<option value="">Semua Kelas</option>'+kelas.map(k=>`<option value="${esc(k)}">${esc(k)}</option>`).join('');
+    if([...sel.options].some(o=>o.value===cur)) sel.value=cur;
+
+    const fk = sel.value, periode=$('#lbPeriode').value, kategori=$('#lbKategori').value;
+    const filter = {kelas:fk,kategori};
+    const now = new Date();
+    if(periode==='bulan') filter.bulan = now.toISOString().slice(0,7);
+    if(periode==='semester') filter.semester = now.getMonth()>=6?'1':'2';
+    if(periode==='tahun') filter.tahun = String(now.getFullYear());
+
+    let list = state.siswa.filter(s=>!fk||s.kelas===fk).map(s=>({s, poin: totalPoin(s.id, filter)})).sort((a,b)=>b.poin-a.poin);
+    const top3 = list.slice(0,3); const rest = list.slice(3,10);
+
+    const podiumHTML = top3.length ? `<div class="podium">
+      ${top3[1]?`<div class="podium-item podium-2"><div class="podium-avatar">${top3[1].s.nama.charAt(0)}</div><div class="podium-name">${esc(top3[1].s.nama)}</div><div class="podium-points">${top3[1].poin} poin</div><div class="podium-base">2</div></div>`:''}
+      ${top3[0]?`<div class="podium-item podium-1"><div class="podium-avatar">👑</div><div class="podium-name">${esc(top3[0].s.nama)}</div><div class="podium-points">${top3[0].poin} poin</div><div class="podium-base">1</div></div>`:''}
+      ${top3[2]?`<div class="podium-item podium-3"><div class="podium-avatar">${top3[2].s.nama.charAt(0)}</div><div class="podium-name">${esc(top3[2].s.nama)}</div><div class="podium-points">${top3[2].poin} poin</div><div class="podium-base">3</div></div>`:''}
+    </div>` : '<div class="empty-state">Belum ada data.</div>';
+
+    const restHTML = rest.length ? `<div class="card" style="margin-top:16px"><div class="table-wrap"><table><thead><tr><th>#</th><th>Nama</th><th>Kelas</th><th>Poin</th><th>Level</th></tr></thead><tbody>${rest.map((r,i)=>{
+      const lv=getLevel(r.poin);
+      return `<tr><td><strong>${i+4}</strong></td><td>${esc(r.s.nama)}</td><td><span class="badge biru">${esc(r.s.kelas)}</span></td><td><strong>${r.poin}</strong></td><td>${lv?lv.ikon+' '+lv.nama:'-'}</td></tr>`;
+    }).join('')}</tbody></table></div></div>` : '';
+
+    $('#leaderboardContent').innerHTML = podiumHTML + restHTML;
+  }
+
+  // ===== PAPAN BULANAN =====
+  function renderBulanan(){
+    const bulanSel = $('#bulanBulan'), tahunSel = $('#bulanTahun');
+    if(!bulanSel.options.length){
+      const bulanNames = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+      bulanSel.innerHTML = bulanNames.map((b,i)=>`<option value="${String(i+1).padStart(2,'0')}" ${i===new Date().getMonth()?'selected':''}>${b}</option>`).join('');
+      tahunSel.innerHTML = [2023,2024,2025,2026].map(y=>`<option value="${y}" ${y===new Date().getFullYear()?'selected':''}>${y}</option>`).join('');
+    }
+    const bulan = bulanSel.value, tahun = tahunSel.value;
+    const prefix = tahun+'-'+bulan;
+    const award = state.awardBulanan.find(a=>a.bulan===prefix);
+
+    let html = '';
+    if(award){
+      html += `<div class="card"><div class="card-header"><h3>🏆 Penerima Apresiasi Bulanan — ${prefix}</h3></div><div class="grid-3">`;
+      ['disiplin','prestasi','kepedulian','kolaborasi','inspiratif'].forEach(k=>{
+        const sid = award[k]; if(!sid) return;
+        const s = getSiswa(sid); if(!s) return;
+        const kat = KATEGORI[k] || {icon:'⭐',label:'Inspiratif',color:'#D4AF37'};
+        html += `<div class="card" style="text-align:center"><div style="font-size:44px">${kat.icon}</div><h4 style="margin:6px 0">${esc(s.nama)}</h4><div style="font-size:12px;color:var(--muted)">${esc(s.kelas)} • ${totalPoin(sid)} poin</div><div class="badge ${k==='inspiratif'?'emas':k}" style="margin-top:6px">${kat.label}</div></div>`;
+      });
+      html += `</div></div>`;
+    } else {
+      html += `<div class="card"><div class="empty-state"><div class="ico">📅</div>Belum ada penerima apresiasi untuk ${prefix}.<br><button class="btn btn-gold btn-sm" style="margin-top:12px" onclick="App.hitungBulanan('${prefix}')">Hitung Otomatis Berdasarkan Poin</button></div></div>`;
+    }
+    html += `<div class="card" style="margin-top:14px"><button class="btn btn-primary" onclick="App.hitungBulanan('${prefix}')">🔄 Hitung/Perbarui Penerima ${prefix}</button></div>`;
+    $('#bulananContent').innerHTML = html;
+  }
+  function hitungBulanan(prefix){
+    const [tahun,bulan] = prefix.split('-');
+    const filter = {bulan:prefix};
+    let best = {};
+    Object.keys(KATEGORI).forEach(k=>{
+      const arr = state.siswa.map(s=>({s,poin:totalPoin(s.id,{...filter,kategori:k})})).filter(x=>x.poin>0).sort((a,b)=>b.poin-a.poin);
+      if(arr[0]) best[k]=arr[0].s.id;
+    });
+    const totalArr = state.siswa.map(s=>({s,poin:totalPoin(s.id,filter)})).sort((a,b)=>b.poin-a.poin);
+    if(totalArr[0]) best.inspiratif = totalArr[0].s.id;
+    state.awardBulanan = state.awardBulanan.filter(a=>a.bulan!==prefix);
+    state.awardBulanan.push({bulan:prefix, ...best});
+    save(); renderBulanan(); confetti(); toast('Penerima apresiasi bulanan diperbarui','gold');
+  }
+
+  // ===== PROFIL =====
+  function fillProfilSelect(){
+    const sel = $('#profilSiswa');
+    if(state.role==='siswa'){ sel.innerHTML = `<option value="${state.siswaId}">${esc(getSiswa(state.siswaId)?.nama||'')}</option>`; sel.disabled=true; return; }
+    sel.innerHTML = state.siswa.map(s=>`<option value="${s.id}">${esc(s.nama)} (${esc(s.kelas)})</option>`).join('');
+  }
+  function renderProfil(){
+    const sid = $('#profilSiswa').value || (state.role==='siswa'?state.siswaId:state.siswa[0]?.id);
+    if(!sid){ $('#profilContent').innerHTML='<div class="card"><div class="empty-state">Pilih peserta didik.</div></div>'; return; }
+    const s = getSiswa(sid); if(!s){ return; }
+    const poin = totalPoin(sid); const lv = getLevel(poin);
+    const nextLv = state.level.find(l=>l.minPoin>poin);
+    const myBadges = state.badgeSiswa.filter(b=>b.siswaId===sid).map(bs=>({...state.badge.find(b=>b.id===bs.badgeId),tanggal:bs.tanggal})).filter(Boolean);
+    const riwayat = state.poin.filter(p=>p.siswaId===sid).sort((a,b)=>b.tanggal.localeCompare(a.tanggal));
+    // kategori tertinggi
+    const katPoin = Object.keys(KATEGORI).map(k=>({k,poin:totalPoin(sid,{kategori:k})})).sort((a,b)=>b.poin-a.poin);
+    const topKat = katPoin[0];
+    // progress
+    const progress = nextLv ? Math.min(100, Math.round((poin-lv.minPoin)/(nextLv.minPoin-lv.minPoin)*100)) : 100;
+    // chart data
+    const months = []; for(let i=5;i>=0;i--){ const d=new Date(); d.setMonth(d.getMonth()-i); months.push(d.toISOString().slice(0,7)); }
+    const monthData = months.map(m=>state.poin.filter(p=>p.siswaId===sid&&monthKey(p.tanggal)===m).reduce((a,p)=>a+p.poin,0));
+
+    $('#profilContent').innerHTML = `
+      <div class="card" style="margin-bottom:16px;background:linear-gradient(135deg,var(--kuning-soft),var(--biru-soft))">
+        <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+          <div class="user-avatar" style="width:64px;height:64px;font-size:28px">${esc(s.nama.charAt(0))}</div>
+          <div style="flex:1"><h2 style="font-size:20px">${esc(s.nama)}</h2><div style="color:var(--muted)">NIS ${esc(s.nis)} • Kelas ${esc(s.kelas)}</div></div>
+          <div style="text-align:right"><div style="font-size:32px;font-weight:800">${poin}</div><div style="font-size:11px;color:var(--muted)">TOTAL POIN</div></div>
+        </div>
+      </div>
+      <div class="grid-2" style="margin-bottom:16px">
+        <div class="level-card">
+          <div class="level-icon">${lv?lv.ikon:'⭐'}</div>
+          <h3>${lv?lv.nama:'-'}</h3>
+          <div style="font-size:12px;color:var(--muted)">${poin} / ${nextLv?nextLv.minPoin:'MAX'} poin</div>
+          <div class="progress-bar"><div class="progress-fill" style="width:${progress}%"></div></div>
+          <div style="font-size:11px;color:var(--muted)">${nextLv?'Menuju '+nextLv.nama+' ('+(nextLv.minPoin-poin)+' poin lagi)':'Level maksimal tercapai 🎉'}</div>
+        </div>
+        <div class="card">
+          <h3 style="margin-bottom:10px">🎯 Kategori Terkuat</h3>
+          ${topKat&&topKat.poin>0?`<div style="font-size:40px;margin-bottom:4px">${KATEGORI[topKat.k].icon}</div><div style="font-weight:700">${KATEGORI[topKat.k].label}</div><div style="color:var(--muted);font-size:12px">${topKat.poin} poin</div>`:'<div class="empty-state">Belum ada poin.</div>'}
+        </div>
+      </div>
+      <div class="card" style="margin-bottom:16px">
+        <div class="card-header"><h3>📈 Perkembangan Poin 6 Bulan Terakhir</h3></div>
+        <div class="chart-box"><canvas id="chartProfil"></canvas></div>
+      </div>
+      <div class="card" style="margin-bottom:16px">
+        <div class="card-header"><h3>🏅 Badge Diperoleh (${myBadges.length})</h3></div>
+        <div class="badge-grid">${myBadges.length?myBadges.map(b=>`<div class="badge-card"><span class="badge-icon">${b.ikon}</span><div class="badge-name">${esc(b.nama)}</div><div class="badge-desc">${esc(b.deskripsi)}</div><div class="badge-date">📅 ${b.tanggal}</div></div>`).join(''):'<div class="empty-state">Belum ada badge.</div>'}</div>
+      </div>
+      <div class="card">
+        <div class="card-header"><h3>📜 Riwayat Apresiasi (${riwayat.length})</h3></div>
+        ${riwayat.length?`<div class="table-wrap"><table><thead><tr><th>Tanggal</th><th>Tindakan</th><th>Kategori</th><th>Poin</th><th>Alasan</th><th>Pemberi</th></tr></thead><tbody>${riwayat.map(p=>`<tr><td>${p.tanggal}</td><td>${esc(p.tindakanNama)}</td><td><span class="badge ${p.kategori}">${KATEGORI[p.kategori].label}</span></td><td><span class="badge kuning">+${p.poin}</span></td><td>${esc(p.alasan)}</td><td>${esc(p.pemberi)}</td></tr>`).join('')}</tbody></table></div>`:'<div class="empty-state">Belum ada riwayat.</div>'}
+      </div>`;
+    drawChart('chartProfil','bar',months.map(m=>m.slice(5)),[{label:'Poin',data:monthData,backgroundColor:'#FFC93C',borderRadius:6}]);
+  }
+  function cetakSertifikat(){
+    const sid = $('#profilSiswa').value || (state.role==='siswa'?state.siswaId:null);
+    if(!sid){ toast('Pilih siswa dulu','warning'); return; }
+    const s = getSiswa(sid); const poin = totalPoin(sid); const lv = getLevel(poin);
+    const {jsPDF} = window.jspdf;
+    const doc = new jsPDF({orientation:'landscape',unit:'mm',format:'a4'});
+    // Border emas
+    doc.setDrawColor(212,175,55); doc.setLineWidth(1.5); doc.rect(10,10,277,190);
+    doc.setDrawColor(255,201,60); doc.setLineWidth(0.5); doc.rect(13,13,271,184);
+    // Title
+    doc.setFontSize(11); doc.setFont(undefined,'normal');
+    doc.text('SMA SWASTA RK BINTANG TIMUR PEMATANGSIANTAR',148,28,{align:'center'});
+    doc.setFontSize(26); doc.setFont(undefined,'bold'); doc.setTextColor(212,175,55);
+    doc.text('SERTIFIKAT APRESIASI',148,45,{align:'center'});
+    doc.setFontSize(11); doc.setFont(undefined,'normal'); doc.setTextColor(60,60,60);
+    doc.text('Diberikan kepada',148,62,{align:'center'});
+    doc.setFontSize(24); doc.setFont(undefined,'bold'); doc.setTextColor(44,62,80);
+    doc.text(s.nama,148,80,{align:'center'});
+    doc.setFontSize(12); doc.setFont(undefined,'normal'); doc.setTextColor(60,60,60);
+    doc.text('Kelas '+s.kelas+' • NIS '+s.nis,148,90,{align:'center'});
+    doc.setFontSize(11);
+    doc.text(`Atas dedikasi, perilaku positif, dan pencapaian luar biasa dengan total ${poin} poin.`,148,105,{align:'center',maxWidth:220});
+    doc.setFontSize(13); doc.setFont(undefined,'bold'); doc.setTextColor(212,175,55);
+    doc.text(`${lv?lv.ikon+' '+lv.nama:'⭐'}`,148,122,{align:'center'});
+    doc.setFontSize(10); doc.setFont(undefined,'normal'); doc.setTextColor(60,60,60);
+    doc.text(`${state.settings.sekolah}`,148,160,{align:'center'});
+    doc.text(`Pematangsiantar, ${new Date().toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'})}`,148,168,{align:'center'});
+    doc.setFont(undefined,'bold');
+    doc.text(state.settings.kepsek||'Kepala Sekolah',230,180,{align:'center'});
+    doc.setLineWidth(0.3); doc.line(195,182,265,182);
+    doc.save(`Sertifikat_${s.nama}.pdf`);
+    toast('Sertifikat diunduh','gold');
+  }
+
+  // ===== RIWAYAT =====
+  function renderRiwayat(){
+    const kelas = [...new Set(state.siswa.map(s=>s.kelas))].sort();
+    const sel = $('#filterKelasRiwayat'); const cur=sel.value;
+    sel.innerHTML='<option value="">Semua Kelas</option>'+kelas.map(k=>`<option value="${esc(k)}">${esc(k)}</option>`).join('');
+    if([...sel.options].some(o=>o.value===cur)) sel.value=cur;
+    const q = ($('#searchRiwayat')?.value||'').toLowerCase();
+    const fk = sel.value;
+    let list = state.poin.slice().sort((a,b)=>b.tanggal.localeCompare(a.tanggal));
+    if(fk) list = list.filter(p=>getSiswa(p.siswaId)?.kelas===fk);
+    if(q) list = list.filter(p=>{ const s=getSiswa(p.siswaId); return s?.nama.toLowerCase().includes(q)||p.alasan.toLowerCase().includes(q)||p.tindakanNama.toLowerCase().includes(q); });
+    const tbody = $('#tbodyRiwayat');
+    if(!list.length){ tbody.innerHTML='<tr><td colspan="8"><div class="empty-state">Belum ada riwayat.</div></td></tr>'; return; }
+    tbody.innerHTML = list.slice(0,200).map(p=>{
+      const s = getSiswa(p.siswaId); const k = KATEGORI[p.kategori];
+      return `<tr><td>${p.tanggal}</td><td><strong>${esc(s?.nama||'-')}</strong></td><td>${esc(s?.kelas||'-')}</td><td><span class="badge ${p.kategori}">${k.icon} ${k.label}</span></td><td>${esc(p.tindakanNama)}</td><td><span class="badge kuning">+${p.poin}</span></td><td>${esc(p.alasan)}</td><td>${esc(p.pemberi)}</td></tr>`;
+    }).join('');
+  }
+
+  // ===== SETTINGS =====
+  function renderSettings(){
+    $('#setSekolah').value = state.settings.sekolah||'';
+    $('#setKepsek').value = state.settings.kepsek||'';
+  }
+  function saveSettings(){
+    state.settings.sekolah = $('#setSekolah').value.trim();
+    state.settings.kepsek = $('#setKepsek').value.trim();
+    save(); toast('Pengaturan disimpan');
+  }
+
+  // ===== EXPORT/IMPORT =====
+  function exportSiswa(){
+    const data = state.siswa.map((s,i)=>({No:i+1,NIS:s.nis,Nama:s.nama,Kelas:s.kelas,Poin:totalPoin(s.id),Status:s.aktif?'Aktif':'Nonaktif'}));
+    downloadExcel([{name:'Siswa',data}],'Data_Siswa_Bintang.xlsx');
+  }
+  function importSiswa(){
+    const inp=$('#fileInput'); inp.accept='.xlsx,.xls'; inp.value='';
+    inp.onchange=e=>{ const f=e.target.files[0]; if(!f) return; const r=new FileReader();
+      r.onload=ev=>{ try{ const wb=XLSX.read(new Uint8Array(ev.target.result),{type:'array'});
+        const rows=XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]);
+        let added=0,skip=0;
+        rows.forEach(row=>{ const nis=String(row.NIS||row.nis||'').trim(),nama=String(row.Nama||row.nama||'').trim(),kelas=String(row.Kelas||row.kelas||'').trim();
+          if(!nis||!nama||!kelas||state.siswa.some(s=>s.nis===nis)){skip++;return;}
+          state.siswa.push({id:uid('s'),nis,nama,kelas,aktif:true}); added++;
+        });
+        save(); renderSiswa(); toast(`Impor: ${added} ditambahkan, ${skip} dilewati`,added?'success':'warning');
+      }catch(err){ toast('Gagal: '+err.message,'error'); } };
+      r.readAsArrayBuffer(f); };
+    inp.click();
+  }
+  function exportAllExcel(){
+    const sheets = [];
+    sheets.push({name:'Siswa',data:state.siswa.map((s,i)=>({No:i+1,NIS:s.nis,Nama:s.nama,Kelas:s.kelas,Poin:totalPoin(s.id),Status:s.aktif?'Aktif':'Nonaktif'}))});
+    sheets.push({name:'Poin',data:state.poin.map((p,i)=>{const s=getSiswa(p.siswaId);return{No:i+1,Tanggal:p.tanggal,NIS:s?.nis,Nama:s?.nama,Kelas:s?.kelas,Kategori:p.kategori,Tindakan:p.tindakanNama,Poin:p.poin,Alasan:p.alasan,Pemberi:p.pemberi};})});
+    sheets.push({name:'Badge',data:state.badgeSiswa.map((b,i)=>{const s=getSiswa(b.siswaId);const bd=state.badge.find(x=>x.id===b.badgeId);return{No:i+1,NIS:s?.nis,Nama:s?.nama,Kelas:s?.kelas,Badge:bd?.nama,Tanggal:b.tanggal};})});
+    sheets.push({name:'Level',data:state.level.map((l,i)=>({No:i+1,Nama:l.nama,MinPoin:l.minPoin,MaxPoin:l.maxPoin}))});
+    downloadExcel(sheets,'Bintang_Achievement_Lengkap.xlsx');
+  }
+  function downloadExcel(sheets,filename){
+    const wb = XLSX.utils.book_new();
+    sheets.forEach(s=>{ const ws=XLSX.utils.json_to_sheet(s.data); XLSX.utils.book_append_sheet(wb,ws,s.name.substring(0,31)); });
+    XLSX.writeFile(wb,filename); toast('Excel diunduh: '+filename);
+  }
+
+  // ===== PDF =====
+  function generatePDF(){
+    const {jsPDF} = window.jspdf;
+    const doc = new jsPDF({orientation:'landscape',unit:'mm',format:'a4'});
+    const jenis = $('#pdfJenis').value;
+    const now = new Date().toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'});
+    doc.setFontSize(16); doc.setFont(undefined,'bold'); doc.setTextColor(212,175,55);
+    doc.text('BINTANG ACHIEVEMENT',14,14);
+    doc.setFontSize(10); doc.setFont(undefined,'normal'); doc.setTextColor(60,60,60);
+    doc.text(state.settings.sekolah,14,20);
+    doc.text(`Tanggal: ${now}`,14,25);
+    doc.setDrawColor(212,175,55); doc.setLineWidth(0.8); doc.line(14,28,283,28);
+    const startY = 34;
+    let body=[], head=[];
+
+    if(jenis==='rekap-poin'){
+      head=[['No','NIS','Nama','Kelas','Total Poin','Level']];
+      body=state.siswa.map((s,i)=>{ const p=totalPoin(s.id); const lv=getLevel(p); return [i+1,s.nis,s.nama,s.kelas,p,lv?lv.nama:'-']; });
+      doc.text('Rekap Poin Seluruh Peserta Didik',14,startY);
+    } else if(jenis==='rekap-kelas'){
+      head=[['Kelas','Jumlah Siswa','Total Poin','Rata-rata']];
+      const kelasMap={};
+      state.siswa.forEach(s=>{ if(!kelasMap[s.kelas]) kelasMap[s.kelas]={n:0,p:0}; kelasMap[s.kelas].n++; kelasMap[s.kelas].p+=totalPoin(s.id); });
+      body=Object.keys(kelasMap).sort().map(k=>[k,kelasMap[k].n,kelasMap[k].p,fmt(kelasMap[k].p/kelasMap[k].n,1)]);
+      doc.text('Rekap Poin per Kelas',14,startY);
+    } else if(jenis==='rekap-kategori'){
+      head=[['Kategori','Jumlah Pemberian','Total Poin']];
+      body=Object.entries(KATEGORI).map(([k,v])=>{ const arr=state.poin.filter(p=>p.kategori===k); return [v.label,arr.length,arr.reduce((a,p)=>a+p.poin,0)]; });
+      doc.text('Rekap Poin per Kategori',14,startY);
+    } else if(jenis==='badge'){
+      head=[['No','NIS','Nama','Kelas','Badge','Tanggal']];
+      body=state.badgeSiswa.map((b,i)=>{ const s=getSiswa(b.siswaId); const bd=state.badge.find(x=>x.id===b.badgeId); return [i+1,s?.nis,s?.nama,s?.kelas,bd?.nama,b.tanggal]; });
+      doc.text('Daftar Penerima Badge',14,startY);
+    } else if(jenis==='bulanan'){
+      head=[['Bulan','Kategori','Nama','Kelas','Poin']];
+      body=state.awardBulanan.flatMap(a=>{
+        const arr=[];
+        Object.keys(KATEGORI).forEach(k=>{ if(a[k]){const s=getSiswa(a[k]); arr.push([a.bulan,KATEGORI[k].label,s?.nama,s?.kelas,totalPoin(a[k],{bulan:a.bulan,kategori:k})]);} });
+        if(a.inspiratif){ const s=getSiswa(a.inspiratif); arr.push([a.bulan,'Inspiratif',s?.nama,s?.kelas,totalPoin(a.inspiratif,{bulan:a.bulan})]); }
+        return arr;
+      });
+      doc.text('Papan Apresiasi Bulanan',14,startY);
+    }
+    doc.autoTable({startY:startY+6, head, body, styles:{fontSize:9}, headStyles:{fillColor:[212,175,55],textColor:[60,40,0]},
+      didDrawPage:()=>{ doc.setFontSize(8); doc.text(`Dibuat oleh BINTANG ACHIEVEMENT — ${now}`,14,205); }});
+    doc.save(`Bintang_${jenis}_${Date.now()}.pdf`);
+    toast('PDF diunduh','gold');
+  }
+
+  // ===== BACKUP =====
+  function backupData(){
+    const blob = new Blob([JSON.stringify(state,null,2)],{type:'application/json'});
+    const a = document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='bintang_backup_'+Date.now()+'.json'; a.click();
+    toast('Backup diunduh');
+  }
+  function restoreData(){
+    const inp=$('#fileInput'); inp.accept='.json'; inp.value='';
+    inp.onchange=e=>{ const f=e.target.files[0]; if(!f) return; const r=new FileReader();
+      r.onload=ev=>{ try{ const data=JSON.parse(ev.target.result); if(!data.siswa||!data.poin) throw new Error('Format tidak valid'); state=data; save(); renderAll(); toast('Data dipulihkan'); }
+      catch(err){ toast('Gagal: '+err.message,'error'); } }; r.readAsText(f); };
+    inp.click();
+  }
+  function loadDemo(){
+    confirmBox('Muat Ulang Demo','Data saat ini akan diganti data demo. Lanjutkan?',()=>{ seedDemo(); save(); renderAll(); toast('Data demo dimuat ulang'); });
+  }
+  function resetData(){
+    confirmBox('Hapus Semua Data','Semua data akan dihapus permanen. Yakin?',()=>{
+      state.siswa=[]; state.poin=[]; state.badgeSiswa=[]; state.awardBulanan=[];
+      save(); renderAll(); toast('Data dihapus');
+    });
+  }
+
+  // ===== SEED DEMO =====
+  function seedDemo(){
+    state.tindakan = [
+      {id:'t1',kategori:'disiplin',nama:'Datang tepat waktu',poin:5},
+      {id:'t2',kategori:'disiplin',nama:'Konsisten tugas piket',poin:10},
+      {id:'t3',kategori:'disiplin',nama:'Menjaga ketertiban kelas',poin:10},
+      {id:'t4',kategori:'disiplin',nama:'Menunjukkan tanggung jawab',poin:15},
+      {id:'t5',kategori:'prestasi',nama:'Juara lomba tingkat sekolah',poin:30},
+      {id:'t6',kategori:'prestasi',nama:'Juara lomba tingkat kota',poin:50},
+      {id:'t7',kategori:'prestasi',nama:'Juara lomba tingkat provinsi',poin:75},
+      {id:'t8',kategori:'prestasi',nama:'Juara lomba tingkat nasional',poin:100},
+      {id:'t9',kategori:'prestasi',nama:'Peningkatan prestasi akademik',poin:20},
+      {id:'t10',kategori:'kepedulian',nama:'Membantu teman kesulitan',poin:10},
+      {id:'t11',kategori:'kepedulian',nama:'Menjaga kebersihan lingkungan',poin:10},
+      {id:'t12',kategori:'kepedulian',nama:'Aksi sosial',poin:20},
+      {id:'t13',kategori:'kepedulian',nama:'Peduli warga sekolah',poin:15},
+      {id:'t14',kategori:'kolaborasi',nama:'Aktif kerja sama kelompok',poin:10},
+      {id:'t15',kategori:'kolaborasi',nama:'Penggerak kegiatan kelas',poin:15},
+      {id:'t16',kategori:'kolaborasi',nama:'Membantu keberhasilan sekolah',poin:20},
+      {id:'t17',kategori:'kolaborasi',nama:'Kepemimpinan & kerja sama',poin:25}
+    ];
+    state.level = [
+      {id:'l1',nama:'New Star',ikon:'🌱',minPoin:0,maxPoin:49},
+      {id:'l2',nama:'Rising Star',ikon:'⭐',minPoin:50,maxPoin:99},
+      {id:'l3',nama:'Bright Star',ikon:'🌟',minPoin:100,maxPoin:199},
+      {id:'l4',nama:'Super Star',ikon:'💫',minPoin:200,maxPoin:349},
+      {id:'l5',nama:'Golden Star',ikon:'🏆',minPoin:350,maxPoin:499},
+      {id:'l6',nama:'Bintang Inspiratif',ikon:'👑',minPoin:500,maxPoin:0}
+    ];
+    state.badge = [
+      {id:'b1',nama:'Early Bird',ikon:'🌅',deskripsi:'Konsisten datang tepat waktu',syarat:'kategori',kategori:'disiplin',syaratPoin:50},
+      {id:'b2',nama:'Responsibility Star',ikon:'🛡️',deskripsi:'Menunjukkan tanggung jawab',syarat:'kategori',kategori:'disiplin',syaratPoin:100},
+      {id:'b3',nama:'Rising Star',ikon:'⭐',deskripsi:'Perkembangan positif',syarat:'poin',syaratPoin:50},
+      {id:'b4',nama:'Academic Champion',ikon:'🎓',deskripsi:'Prestasi akademik',syarat:'kategori',kategori:'prestasi',syaratPoin:100},
+      {id:'b5',nama:'Golden Achievement',ikon:'🏆',deskripsi:'Pencapaian luar biasa',syarat:'poin',syaratPoin:200},
+      {id:'b6',nama:'Kindness Hero',ikon:'💝',deskripsi:'Membantu sesama',syarat:'kategori',kategori:'kepedulian',syaratPoin:50},
+      {id:'b7',nama:'Care Guardian',ikon:'🌿',deskripsi:'Peduli lingkungan',syarat:'kategori',kategori:'kepedulian',syaratPoin:100},
+      {id:'b8',nama:'Vincentian Spirit',ikon:'🕊️',deskripsi:'Semangat pelayanan',syarat:'poin',syaratPoin:300},
+      {id:'b9',nama:'Team Player',ikon:'🤝',deskripsi:'Aktif bekerja sama',syarat:'kategori',kategori:'kolaborasi',syaratPoin:50},
+      {id:'b10',nama:'Collaboration Star',ikon:'✨',deskripsi:'Kontribusi kelompok',syarat:'kategori',kategori:'kolaborasi',syaratPoin:100},
+      {id:'b11',nama:'Young Leader',ikon:'👑',deskripsi:'Kepemimpinan',syarat:'poin',syaratPoin:400}
+    ];
+    const nm = [
+      ['25001','Andreas Sitorus','X-1'],['25002','Bella Simanjuntak','X-1'],['25003','Cindy Hutapea','X-1'],['25004','Daniel Situmorang','X-1'],
+      ['25005','Ester Nainggolan','X-2'],['25006','Fransiskus Sihombing','X-2'],['25007','Grace Sinaga','X-2'],
+      ['25008','Hendrik Manurung','XI-1'],['25009','Irene Sitorus','XI-1'],['25010','Jefri Marpaung','XI-1'],['25011','Kezia Panjaitan','XI-1'],
+      ['25012','Lestari Sinambela','XI-2'],['25013','Mikael Sitohang','XI-2'],['25014','Natalia Hutagalung','XI-2'],
+      ['25015','Oscar Simbolon','XII-1'],['25016','Priscilla Silaen','XII-1'],['25017','Ronald Napitupulu','XII-1'],['25018','Silvia Sinulingga','XII-1'],
+      ['25019','Toni Sitepu','XII-2'],['25020','Vera Tarigan','XII-2']
+    ];
+    state.siswa = nm.map(([nis,nama,kelas])=>({id:uid('s'),nis,nama,kelas,aktif:true}));
+    // Generate poin demo
+    let seed=42; const rnd=()=>{seed=(seed*9301+49297)%233280; return seed/233280;};
+    const now = new Date();
+    state.poin = [];
+    state.siswa.forEach(s=>{
+      const n = 3+Math.floor(rnd()*8);
+      for(let i=0;i<n;i++){
+        const t = state.tindakan[Math.floor(rnd()*state.tindakan.length)];
+        const d = new Date(now); d.setDate(d.getDate()-Math.floor(rnd()*90));
+        const sudah = state.poin.some(p=>p.siswaId===s.id && p.tindakanId===t.id && p.tanggal===d.toISOString().slice(0,10));
+        if(sudah) continue;
+        state.poin.push({id:uid('p'),siswaId:s.id,tindakanId:t.id,tindakanNama:t.nama,kategori:t.kategori,poin:t.poin,alasan:'Apresiasi '+t.nama, tanggal:d.toISOString().slice(0,10),pemberi:'Admin Bintang'});
+      }
+    });
+    // reset badges dan hitung ulang
+    state.badgeSiswa = [];
+    state.siswa.forEach(s=>{
+      const total = totalPoin(s.id);
+      state.badge.forEach(b=>{
+        if(b.syarat==='poin' && total>=b.syaratPoin) state.badgeSiswa.push({siswaId:s.id,badgeId:b.id,tanggal:today()});
+        if(b.syarat==='kategori' && totalPoin(s.id,{kategori:b.kategori})>=b.syaratPoin) state.badgeSiswa.push({siswaId:s.id,badgeId:b.id,tanggal:today()});
+      });
+    });
+    state.awardBulanan = [];
+  }
+
+  // ===== RENDER ALL =====
+  function renderAll(){
+    renderDashboard();
+    renderSiswa();
+    renderKategori();
+    renderBadge();
+    renderLevel();
+    renderLeaderboard();
+    renderBulanan();
+    fillProfilSelect(); renderProfil();
+    renderRiwayat();
+    renderSettings();
+  }
+
+  // ===== INIT =====
+  function init(){
+    load();
+    if(!state.siswa.length || !state.tindakan.length){ seedDemo(); save(); }
+    // Theme
+    const t = localStorage.getItem('ba_theme');
+    if(t==='dark'){ document.documentElement.setAttribute('data-theme','dark'); $('#themeBtn').textContent='☀️'; }
+    // Populate login siswa select
+    const sel = $('#loginSiswaSelect');
+    sel.innerHTML = '<option value="">— Pilih —</option>'+state.siswa.map(s=>`<option value="${s.id}">${esc(s.nama)} (${esc(s.kelas)})</option>`).join('');
+    // Role change handler
+    $('#loginRole').onchange = ()=>{
+      const v = $('#loginRole').value;
+      $('#loginSiswaWrap').style.display = v==='siswa'?'block':'none';
+      const roles = {admin:'Admin Bintang',guru:'Guru Pengajar',wali:'Wali Kelas 10A',siswa:''};
+      $('#loginUser').value = roles[v];
+    };
+    document.addEventListener('keydown',e=>{if(e.key==='Escape') closeModal();});
+  }
+
+  return {
+    login, logout, toggleSidebar, toggleTheme, navigate, openModal, closeModal,
+    renderDashboard, renderSiswa, renderKategori, renderBadge, renderLevel, renderLeaderboard, renderBulanan, renderProfil, renderRiwayat, renderSettings,
+    fillAprSiswa, fillAprTindakan, updateAprPoin, submitApresiasi, initApresiasi,
+    modalSiswa, saveSiswa, deleteSiswa,
+    modalTindakan, saveTindakan, deleteTindakan,
+    modalBadge, saveBadge, deleteBadge,
+    modalLevel, saveLevel, deleteLevel,
+    hitungBulanan, cetakSertifikat,
+    importSiswa, exportSiswa, exportAllExcel, generatePDF, saveSettings,
+    backupData, restoreData, loadDemo, resetData,
+    init
+  };
+})();
+
+document.addEventListener('DOMContentLoaded', ()=>App.init());
+window.App = App;
+</script>
+</body>
+</html>
