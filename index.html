@@ -42,8 +42,7 @@ a{color:var(--biru-strong)}
 .login-card .tagline{text-align:center;color:var(--muted);font-size:12px;margin-bottom:2px;font-style:italic}
 .login-card .school{text-align:center;font-size:10.5px;color:var(--emas);font-weight:700;margin-bottom:16px;letter-spacing:.3px}
 
-/* Role picker */
-.role-picker{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:16px}
+.role-picker{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:14px}
 .role-btn{padding:12px 8px;border-radius:12px;border:2px solid var(--border);background:var(--bg);display:flex;flex-direction:column;align-items:center;gap:4px;transition:all .15s;cursor:pointer}
 .role-btn:hover{border-color:var(--kuning-strong);transform:translateY(-1px)}
 .role-btn.active{border-color:var(--kuning-strong);background:var(--kuning-soft);box-shadow:0 4px 14px rgba(255,201,60,.25)}
@@ -52,13 +51,23 @@ a{color:var(--biru-strong)}
 .role-btn.active .role-label{color:#B7791F}
 [data-theme="dark"] .role-btn.active .role-label{color:var(--kuning-strong)}
 
-/* Dynamic form */
-.login-card label{display:block;font-size:12px;font-weight:600;margin-bottom:5px;margin-top:10px}
+/* Form fields */
+.login-card label{display:block;font-size:12px;font-weight:600;margin-bottom:5px;margin-top:8px}
+.login-card label:first-child{margin-top:0}
 .login-card input,.login-card select{width:100%;padding:10px 13px;border:2px solid var(--border);border-radius:10px;background:var(--bg);font-size:13.5px}
 .login-card input:focus,.login-card select:focus{outline:none;border-color:var(--biru-strong)}
+
+/* Highlight password field */
+.pw-field{position:relative}
+.pw-field input{padding-right:40px;background:var(--kuning-soft)!important;border-color:var(--kuning-strong)!important;font-weight:600;letter-spacing:1px}
+[data-theme="dark"] .pw-field input{background:var(--kuning-soft)!important}
+.pw-toggle{position:absolute;right:8px;top:50%;transform:translateY(-50%);width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;background:transparent;cursor:pointer}
+.pw-toggle:hover{background:rgba(0,0,0,.08)}
+.pw-label{display:flex!important;align-items:center;gap:6px}
+.pw-label .pw-tag{background:var(--kuning-strong);color:#5D4037;font-size:9.5px;padding:1px 6px;border-radius:8px;font-weight:800;letter-spacing:.3px}
+
 .login-card button.btn-login{width:100%;padding:12px;border-radius:10px;font-weight:700;font-size:14.5px;background:linear-gradient(135deg,var(--biru-strong),var(--hijau-strong));color:#fff;margin-top:14px;transition:opacity .15s}
 .login-card button.btn-login:hover{opacity:.9}
-
 .form-section{animation:fadeIn .2s}
 @keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
 
@@ -245,7 +254,6 @@ tbody tr:hover{background:var(--bg)}
     <p class="tagline">Every Good Action Deserves Recognition</p>
     <p class="school">SMA Swasta RK Bintang Timur Pematangsiantar</p>
 
-    <!-- Pilih Role -->
     <label style="margin-top:0;text-align:center;color:var(--muted);font-size:11.5px;text-transform:uppercase;letter-spacing:1px">Masuk Sebagai</label>
     <div class="role-picker">
       <div class="role-btn" data-role="admin" onclick="App.selectRole('admin')">
@@ -266,7 +274,6 @@ tbody tr:hover{background:var(--bg)}
       </div>
     </div>
 
-    <!-- Dynamic Form -->
     <div id="loginForm"></div>
 
     <button class="btn-login" onclick="App.login()">⭐ Masuk</button>
@@ -276,9 +283,9 @@ tbody tr:hover{background:var(--bg)}
       <strong>🔑 Akun Demo:</strong>
       <div style="margin-top:4px">
         <b>Admin:</b> <code>admin</code> / <code>admin123</code><br>
-        <b>Guru:</b> <code>guru</code> / <code>guru123</code><br>
-        <b>Wali:</b> <code>wali</code> / <code>wali123</code><br>
-        <b>Siswa:</b> <code>siswa</code> / <code>siswa123</code>
+        <b>Guru:</b> pilih "Guru Pengajar" / <code>guru123</code><br>
+        <b>Wali:</b> pilih "Wali Kelas X-1" / <code>wali123</code><br>
+        <b>Siswa:</b> pilih "Andreas Sitorus" / <code>siswa123</code>
       </div>
     </div>
   </div>
@@ -462,7 +469,7 @@ tbody tr:hover{background:var(--bg)}
         <div class="card" style="margin-top:14px;background:var(--biru-soft);border-left:4px solid var(--biru-strong)">
           <p style="font-size:12.5px;line-height:1.7">
             ℹ️ <strong>Catatan:</strong> Admin mengatur password setiap akun secara berbeda di sini.
-            Untuk produksi gunakan <strong>Firebase Authentication</strong> — jangan simpan password plaintext di database.
+            Untuk produksi gunakan <strong>Firebase Authentication</strong>.
           </p>
         </div>
       </section>
@@ -526,10 +533,9 @@ tbody tr:hover{background:var(--bg)}
 <script>
 /* ============================================================
    BINTANG ACHIEVEMENT — APP LOGIC
-   Login multi-role dengan form dinamis
    ============================================================ */
 const App = (() => {
-  const KEY = 'bintang_achievement_demo_v3';
+  const KEY = 'bintang_achievement_demo_v4';
   const ROLES = {
     admin:{label:'Administrator',icon:'👑'},
     guru:{label:'Pendidik',icon:'👨‍🏫'},
@@ -599,7 +605,7 @@ const App = (() => {
     $('#confirmYes').onclick=()=>{closeModal();onYes();};
   }
 
-  // ===== LOGIN FORM DINAMIS =====
+  // ===== LOGIN FORM DINAMIS (DENGAN KOLOM PASSWORD) =====
   function selectRole(role){
     selectedLoginRole = role;
     $$('.role-btn').forEach(b=>b.classList.toggle('active', b.dataset.role===role));
@@ -608,19 +614,21 @@ const App = (() => {
 
   function renderLoginForm(role){
     const box = $('#loginForm');
-    const kelasList = [...new Set(state.siswa.map(s=>s.kelas))].sort();
-    const kelasOpts = kelasList.map(k=>`<option value="${esc(k)}">${esc(k)}</option>`).join('');
 
     if(role==='admin'){
       box.innerHTML = `
         <div class="form-section">
           <label>Username Administrator *</label>
-          <input type="text" id="li_username" placeholder="contoh: admin" autocomplete="username"/>
-          <div class="hint-role">💡 Masuk dengan username yang diberikan admin</div>
+          <input type="text" id="li_username" placeholder="contoh: admin" autocomplete="username" value="admin"/>
+          <label class="pw-label">Kata Sandi <span class="pw-tag">WAJIB</span></label>
+          <div class="pw-field">
+            <input type="password" id="li_pass" placeholder="Masukkan kata sandi" autocomplete="current-password" value="admin123"/>
+            <button type="button" class="pw-toggle" onclick="App.togglePw('li_pass',this)" title="Tampilkan">👁️</button>
+          </div>
+          <div class="hint-role">💡 Kata sandi diatur oleh Administrator</div>
         </div>`;
     }
     else if(role==='guru'){
-      // daftar guru dari akun
       const guruList = state.akun.filter(a=>a.role==='guru'&&a.aktif);
       const opts = guruList.map(a=>`<option value="${esc(a.username)}">${esc(a.nama||a.username)}</option>`).join('');
       box.innerHTML = `
@@ -630,7 +638,12 @@ const App = (() => {
             <option value="">— Pilih Nama Guru —</option>
             ${opts || '<option value="">(Belum ada akun guru)</option>'}
           </select>
-          <div class="hint-role">💡 Pilih nama Anda yang terdaftar sebagai pendidik</div>
+          <label class="pw-label">Kata Sandi <span class="pw-tag">WAJIB</span></label>
+          <div class="pw-field">
+            <input type="password" id="li_pass" placeholder="Masukkan kata sandi" autocomplete="current-password"/>
+            <button type="button" class="pw-toggle" onclick="App.togglePw('li_pass',this)" title="Tampilkan">👁️</button>
+          </div>
+          <div class="hint-role">💡 Kata sandi diatur oleh Administrator</div>
         </div>`;
     }
     else if(role==='wali'){
@@ -646,7 +659,12 @@ const App = (() => {
             <option value="">— Pilih Nama Wali Kelas —</option>
             ${opts || '<option value="">(Belum ada akun wali kelas)</option>'}
           </select>
-          <div class="hint-role">💡 Pilih nama Anda yang terdaftar sebagai wali kelas</div>
+          <label class="pw-label">Kata Sandi <span class="pw-tag">WAJIB</span></label>
+          <div class="pw-field">
+            <input type="password" id="li_pass" placeholder="Masukkan kata sandi" autocomplete="current-password"/>
+            <button type="button" class="pw-toggle" onclick="App.togglePw('li_pass',this)" title="Tampilkan">👁️</button>
+          </div>
+          <div class="hint-role">💡 Kata sandi diatur oleh Administrator</div>
         </div>`;
     }
     else if(role==='siswa'){
@@ -659,12 +677,31 @@ const App = (() => {
             <option value="">— Pilih Nama —</option>
             ${opts || '<option value="">(Belum ada data siswa)</option>'}
           </select>
-          <div class="form-row" style="margin-top:10px">
-            <div><label>Kelas</label><input type="text" id="li_kelas" readonly placeholder="otomatis" style="background:var(--bg);opacity:.8"/></div>
-            <div><label>NIS</label><input type="text" id="li_nis" readonly placeholder="otomatis" style="background:var(--bg);opacity:.8"/></div>
+          <div class="form-row" style="margin-top:8px">
+            <div><label>Kelas</label><input type="text" id="li_kelas" readonly placeholder="otomatis" style="background:var(--bg);opacity:.85"/></div>
+            <div><label>NIS</label><input type="text" id="li_nis" readonly placeholder="otomatis" style="background:var(--bg);opacity:.85"/></div>
           </div>
-          <div class="hint-role">💡 Kelas dan NIS terisi otomatis saat nama dipilih</div>
+          <label class="pw-label" style="margin-top:10px">Kata Sandi <span class="pw-tag">WAJIB</span></label>
+          <div class="pw-field">
+            <input type="password" id="li_pass" placeholder="Masukkan kata sandi" autocomplete="current-password"/>
+            <button type="button" class="pw-toggle" onclick="App.togglePw('li_pass',this)" title="Tampilkan">👁️</button>
+          </div>
+          <div class="hint-role">💡 Kata sandi diatur oleh Administrator</div>
         </div>`;
+    }
+  }
+
+  function togglePw(inputId, btn){
+    const input = document.getElementById(inputId);
+    if(!input) return;
+    if(input.type === 'password'){
+      input.type = 'text';
+      btn.textContent = '🙈';
+      btn.title = 'Sembunyikan';
+    } else {
+      input.type = 'password';
+      btn.textContent = '👁️';
+      btn.title = 'Tampilkan';
     }
   }
 
@@ -700,12 +737,8 @@ const App = (() => {
       if(!nis){ toast('Pilih nama Anda terlebih dahulu','error'); return; }
       const siswa = state.siswa.find(s=>s.nis===nis);
       if(!siswa){ toast('Data siswa tidak ditemukan','error'); return; }
-      // cari akun siswa yang tertaut ke siswa ini
       expectedAkun = state.akun.find(a=>a.role==='siswa' && a.siswaId===siswa.id);
-      if(!expectedAkun){
-        // fallback: cari akun siswa dengan username yang sama dengan NIS
-        expectedAkun = state.akun.find(a=>a.role==='siswa' && a.username===nis);
-      }
+      if(!expectedAkun){ expectedAkun = state.akun.find(a=>a.role==='siswa' && a.username===nis); }
       if(!expectedAkun){ toast('Akun siswa ini belum dibuat. Hubungi admin.','error'); return; }
       username = expectedAkun.username;
     }
@@ -715,7 +748,6 @@ const App = (() => {
     const hashed = await hashPw(pass);
     if(hashed !== expectedAkun.password){ toast('Kata sandi salah','error'); return; }
 
-    // Login sukses
     state.user = expectedAkun.nama || expectedAkun.username;
     state.role = expectedAkun.role;
     state.currentAkun = expectedAkun.id;
@@ -734,7 +766,6 @@ const App = (() => {
       $('#loginScreen').style.display='flex';
       $('#app').classList.remove('active');
       state.user=null; state.role=null; state.currentAkun=null; state.siswaId=null; save();
-      // reset login form
       selectedLoginRole = null;
       $$('.role-btn').forEach(b=>b.classList.remove('active'));
       $('#loginForm').innerHTML='';
@@ -1532,8 +1563,6 @@ const App = (() => {
       save(); renderAll(); refreshLoginForm(); toast('Data dihapus');
     });
   }
-
-  // Refresh login form jika sedang di halaman login
   function refreshLoginForm(){
     if(selectedLoginRole) renderLoginForm(selectedLoginRole);
   }
@@ -1612,7 +1641,6 @@ const App = (() => {
     });
     state.awardBulanan = [];
 
-    // === AKUN DEMO ===
     const siswaAndreas = state.siswa.find(s=>s.nis==='25001');
     const siswaBella = state.siswa.find(s=>s.nis==='25002');
     const akunDefs = [
@@ -1620,7 +1648,6 @@ const App = (() => {
       {username:'guru', password:'guru123', role:'guru', nama:'Guru Pengajar'},
       {username:'wali', password:'wali123', role:'wali', nama:'Wali Kelas X-1', kelas:'X-1'},
       {username:'siswa', password:'siswa123', role:'siswa', nama:'Andreas Sitorus', siswaId:siswaAndreas?.id||''},
-      // akun siswa kedua (untuk demonstrasi password berbeda)
       {username:'25002', password:'bella123', role:'siswa', nama:'Bella Simanjuntak', siswaId:siswaBella?.id||''}
     ];
     state.akun = [];
@@ -1652,11 +1679,8 @@ const App = (() => {
   async function init(){
     load();
     if(!state.akun || !state.akun.length){ await seedDemo(); save(); }
-    // Pilih role default
-    const defaultRole = 'admin';
-    selectRole(defaultRole);
-    // isi default value untuk form admin
-    setTimeout(()=>{ const el=$('#li_username'); if(el) el.value='admin'; }, 50);
+    // Pilih role default admin dan tampilkan form login
+    selectRole('admin');
     // Theme
     const t = localStorage.getItem('ba_theme');
     if(t==='dark'){ document.documentElement.setAttribute('data-theme','dark'); $('#themeBtn').textContent='☀️'; }
@@ -1664,7 +1688,7 @@ const App = (() => {
   }
 
   return {
-    selectRole, onPilihSiswa, login, logout, toggleSidebar, toggleTheme, navigate, openModal, closeModal,
+    selectRole, onPilihSiswa, togglePw, login, logout, toggleSidebar, toggleTheme, navigate, openModal, closeModal,
     renderDashboard, renderSiswa, renderKategori, renderBadge, renderLevel, renderLeaderboard, renderBulanan, renderProfil, renderRiwayat, renderSettings,
     renderAkun,
     fillAprSiswa, fillAprTindakan, updateAprPoin, submitApresiasi, initApresiasi,
