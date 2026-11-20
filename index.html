@@ -11,7 +11,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.1/jspdf.plugin.autotable.min.js"></script>
 
 <style>
-/* ===== VARIABEL ===== */
 :root{
   --kuning:#FFE082; --kuning-strong:#FFC93C; --kuning-soft:#FFF8E1;
   --biru:#90CAF9; --biru-strong:#42A5F5; --biru-soft:#E3F2FD;
@@ -34,22 +33,22 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 input,select,textarea{font-family:inherit;font-size:14px;color:var(--text)}
 a{color:var(--biru-strong)}
 
-/* ===== LOGIN ===== */
 #loginScreen{position:fixed;inset:0;z-index:2000;display:flex;align-items:center;justify-content:center;padding:20px;background:linear-gradient(135deg,#E3F2FD 0%,#FFF8E1 50%,#E8F5E9 100%)}
 [data-theme="dark"] #loginScreen{background:linear-gradient(135deg,#0F1720,#1B2E40,#1B3320)}
 .login-card{background:var(--card);padding:36px 30px;border-radius:22px;box-shadow:0 24px 70px rgba(0,0,0,.18);width:100%;max-width:420px}
 .login-logo{width:88px;height:88px;border-radius:22px;margin:0 auto 14px;background:linear-gradient(135deg,var(--kuning-strong),var(--emas),var(--biru-strong));display:flex;align-items:center;justify-content:center;font-size:44px;box-shadow:0 8px 24px rgba(255,201,60,.4)}
-.login-card h1{font-size:22px;text-align:center;letter-spacing:.5px;color:var(--text)}
+.login-card h1{font-size:22px;text-align:center;letter-spacing:.5px}
 .login-card .tagline{text-align:center;color:var(--muted);font-size:12.5px;margin-bottom:4px;font-style:italic}
-.login-card .school{text-align:center;font-size:11px;color:var(--emas);font-weight:700;margin-bottom:22px;letter-spacing:.3px}
+.login-card .school{text-align:center;font-size:11px;color:var(--emas);font-weight:700;margin-bottom:22px}
 .login-card label{display:block;font-size:12px;font-weight:600;margin-bottom:6px}
-.login-card input,.login-card select{width:100%;padding:11px 14px;border:2px solid var(--border);border-radius:10px;margin-bottom:12px;background:var(--bg)}
-.login-card input:focus,.login-card select:focus{outline:none;border-color:var(--biru-strong)}
+.login-card input{width:100%;padding:11px 14px;border:2px solid var(--border);border-radius:10px;margin-bottom:12px;background:var(--bg)}
+.login-card input:focus{outline:none;border-color:var(--biru-strong)}
 .login-card button{width:100%;padding:13px;border-radius:10px;font-weight:700;font-size:15px;background:linear-gradient(135deg,var(--biru-strong),var(--hijau-strong));color:#fff;margin-top:4px}
 .login-card button:hover{opacity:.92}
 .demo-badge{display:block;text-align:center;margin-top:14px;padding:5px 12px;border-radius:20px;background:var(--kuning-soft);color:#B7791F;font-size:11px;font-weight:700}
+.login-hint{font-size:11px;color:var(--muted);text-align:center;margin-top:10px;line-height:1.6;padding:8px;background:var(--bg);border-radius:8px}
+.login-hint code{background:var(--kuning-soft);padding:1px 6px;border-radius:4px;font-weight:700;color:#B7791F}
 
-/* ===== LAYOUT ===== */
 #app{display:none} #app.active{display:block}
 .sidebar{position:fixed;top:0;left:0;bottom:0;width:var(--sidebar-w);background:var(--card);border-right:1px solid var(--border);display:flex;flex-direction:column;z-index:100;transition:transform .25s}
 .sidebar-brand{padding:18px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--border)}
@@ -67,15 +66,14 @@ a{color:var(--biru-strong)}
 .topbar{background:var(--card);border-bottom:1px solid var(--border);padding:13px 22px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:90;gap:12px}
 .topbar h2{font-size:17px}
 .topbar-actions{display:flex;align-items:center;gap:8px}
-.icon-btn{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;background:var(--bg);font-size:16px;transition:background .15s}
+.icon-btn{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;background:var(--bg);font-size:16px}
 .icon-btn:hover{background:var(--border)}
-.user-chip{display:flex;align-items:center;gap:8px;padding:6px 12px;border-radius:20px;background:var(--bg);font-size:12px;font-weight:600}
+.user-chip{display:flex;align-items:center;gap:8px;padding:6px 12px;border-radius:20px;background:var(--bg);font-size:12px;font-weight:600;cursor:pointer}
 .user-avatar{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--kuning-strong),var(--emas));display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff;font-weight:700}
 .content{flex:1;padding:22px;max-width:1400px;width:100%;margin:0 auto}
 .page{display:none} .page.active{display:block;animation:fade .25s}
 @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 
-/* ===== KOMPONEN ===== */
 .card{background:var(--card);border-radius:var(--radius);padding:18px 20px;box-shadow:var(--shadow);border:1px solid var(--border)}
 .card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;gap:10px;flex-wrap:wrap}
 .card-header h3{font-size:15px}
@@ -159,7 +157,6 @@ tbody tr:hover{background:var(--bg)}
 .empty-state{text-align:center;padding:40px 20px;color:var(--muted)}
 .empty-state .ico{font-size:40px;margin-bottom:10px;opacity:.5}
 
-/* Badge lencana */
 .badge-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:14px}
 .badge-card{background:var(--card);border:2px solid var(--border);border-radius:14px;padding:16px 12px;text-align:center;transition:transform .15s,box-shadow .15s}
 .badge-card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
@@ -169,14 +166,11 @@ tbody tr:hover{background:var(--bg)}
 .badge-card .badge-desc{font-size:10.5px;color:var(--muted);line-height:1.35}
 .badge-card .badge-date{font-size:10px;color:var(--emas);font-weight:700;margin-top:6px}
 
-/* Level progress */
 .level-card{background:linear-gradient(135deg,var(--kuning-soft),var(--biru-soft));border-radius:14px;padding:18px;border:1px solid var(--border)}
-[data-theme="dark"] .level-card{background:linear-gradient(135deg,var(--kuning-soft),var(--biru-soft))}
 .level-card .level-icon{font-size:40px;margin-bottom:4px}
 .progress-bar{height:12px;background:rgba(255,255,255,.6);border-radius:20px;overflow:hidden;margin:10px 0 6px;border:1px solid rgba(0,0,0,.05)}
 .progress-fill{height:100%;background:linear-gradient(90deg,var(--hijau-strong),var(--kuning-strong),var(--emas));border-radius:20px;transition:width .6s}
 
-/* Podium */
 .podium{display:flex;align-items:flex-end;justify-content:center;gap:12px;margin:20px 0;min-height:220px}
 .podium-item{flex:1;max-width:160px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:flex-end}
 .podium-avatar{width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:800;color:#fff;margin-bottom:8px;box-shadow:0 4px 16px rgba(0,0,0,.15)}
@@ -190,11 +184,18 @@ tbody tr:hover{background:var(--bg)}
 .podium-2 .podium-base{background:linear-gradient(135deg,#BDBDBD,#9E9E9E);height:80px}
 .podium-3 .podium-base{background:linear-gradient(135deg,#CD7F32,#A0522D);height:65px}
 
-/* Confetti animation */
 @keyframes confettiFall{0%{transform:translateY(-100vh) rotate(0)}100%{transform:translateY(100vh) rotate(720deg)}}
 .confetti{position:fixed;top:0;font-size:20px;pointer-events:none;z-index:5000;animation:confettiFall linear forwards}
 
-/* Mobile */
+/* Akun styling */
+.role-chip{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700}
+.role-admin{background:#FFF3C4;color:#8D6E1F}
+.role-guru{background:#E3F2FD;color:#1565C0}
+.role-wali{background:#E8F5E9;color:#2E7D32}
+.role-siswa{background:#FCE4EC;color:#C2185B}
+.pw-cell{font-family:monospace;letter-spacing:2px;color:var(--muted)}
+.pw-visible{font-family:monospace;letter-spacing:1px;color:var(--merah);font-weight:700}
+
 .mobile-toggle{display:none}
 .overlay-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:95}
 @media(max-width:900px){
@@ -225,27 +226,21 @@ tbody tr:hover{background:var(--bg)}
     <p class="tagline">Every Good Action Deserves Recognition</p>
     <p class="school">SMA Swasta RK Bintang Timur Pematangsiantar</p>
 
-    <label>Masuk Sebagai</label>
-    <select id="loginRole">
-      <option value="admin">👑 Administrator</option>
-      <option value="guru">👨‍🏫 Pendidik</option>
-      <option value="wali">🏫 Wali Kelas</option>
-      <option value="siswa">🎓 Peserta Didik</option>
-    </select>
-
-    <div id="loginSiswaWrap" style="display:none">
-      <label>Pilih Nama Peserta Didik</label>
-      <select id="loginSiswaSelect"><option value="">— Pilih —</option></select>
-    </div>
-
-    <label>Nama Pengguna</label>
-    <input type="text" id="loginUser" placeholder="Nama Anda" value="Admin Bintang" />
+    <label>Username</label>
+    <input type="text" id="loginUser" placeholder="Masukkan username" value="admin" autocomplete="username" />
 
     <label>Kata Sandi</label>
-    <input type="password" id="loginPass" placeholder="Mode demo: apa saja" value="demo" />
+    <input type="password" id="loginPass" placeholder="Masukkan kata sandi" value="admin123" autocomplete="current-password" />
 
     <button onclick="App.login()">⭐ Masuk ke Aplikasi</button>
     <span class="demo-badge">⚠️ MODE DEMO — data tersimpan di localStorage browser</span>
+    <div class="login-hint">
+      Akun demo:<br>
+      <code>admin</code> / <code>admin123</code> — Administrator<br>
+      <code>guru</code> / <code>guru123</code> — Pendidik<br>
+      <code>wali</code> / <code>wali123</code> — Wali Kelas<br>
+      <code>siswa</code> / <code>siswa123</code> — Peserta Didik
+    </div>
   </div>
 </div>
 
@@ -276,13 +271,15 @@ tbody tr:hover{background:var(--bg)}
       <div class="topbar-actions">
         <span class="demo-badge" style="margin:0">DEMO</span>
         <button class="icon-btn" id="themeBtn" onclick="App.toggleTheme()" title="Mode Gelap">🌙</button>
-        <div class="user-chip"><div class="user-avatar" id="userAvatar">A</div><span id="userName">Admin</span></div>
+        <div class="user-chip" onclick="App.modalGantiPasswordSendiri()" title="Klik untuk ganti password">
+          <div class="user-avatar" id="userAvatar">A</div>
+          <span id="userName">Admin</span>
+        </div>
       </div>
     </header>
 
     <div class="content" id="content">
 
-      <!-- DASHBOARD -->
       <section class="page active" id="page-dashboard">
         <div class="stat-grid" id="dashboardStats"></div>
         <div class="grid-2" style="margin-bottom:16px">
@@ -299,7 +296,6 @@ tbody tr:hover{background:var(--bg)}
         </div>
       </section>
 
-      <!-- BERI APRESIASI -->
       <section class="page" id="page-apresiasi">
         <div class="card">
           <div class="card-header"><h3>⭐ Berikan Apresiasi</h3><span class="sub">Pilih peserta didik (bisa lebih dari satu)</span></div>
@@ -318,7 +314,6 @@ tbody tr:hover{background:var(--bg)}
         </div>
       </section>
 
-      <!-- DATA SISWA -->
       <section class="page" id="page-siswa">
         <div class="toolbar">
           <input type="text" id="searchSiswa" placeholder="🔍 Cari nama / NIS..." oninput="App.renderSiswa()" />
@@ -334,19 +329,16 @@ tbody tr:hover{background:var(--bg)}
         </table></div></div>
       </section>
 
-      <!-- KATEGORI & POIN -->
       <section class="page" id="page-kategori">
         <div class="toolbar"><div class="spacer"></div><button class="btn btn-primary btn-sm" onclick="App.modalTindakan()">+ Tambah Tindakan</button></div>
         <div id="kategoriContent"></div>
       </section>
 
-      <!-- BADGE -->
       <section class="page" id="page-badge">
         <div class="toolbar"><div class="spacer"></div><button class="btn btn-primary btn-sm" onclick="App.modalBadge()">+ Tambah Badge</button></div>
         <div id="badgeContent"></div>
       </section>
 
-      <!-- LEVEL -->
       <section class="page" id="page-level">
         <div class="card">
           <div class="card-header"><h3>🎖️ Sistem Level Pencapaian</h3><button class="btn btn-ghost btn-sm" onclick="App.modalLevel()">+ Tambah Level</button></div>
@@ -357,7 +349,6 @@ tbody tr:hover{background:var(--bg)}
         </div>
       </section>
 
-      <!-- LEADERBOARD -->
       <section class="page" id="page-leaderboard">
         <div class="toolbar">
           <select id="lbKelas" onchange="App.renderLeaderboard()"><option value="">Semua Kelas</option></select>
@@ -379,7 +370,6 @@ tbody tr:hover{background:var(--bg)}
         <div id="leaderboardContent"></div>
       </section>
 
-      <!-- PAPAN APRESIASI BULANAN -->
       <section class="page" id="page-bulanan">
         <div class="toolbar">
           <select id="bulanBulan" onchange="App.renderBulanan()"></select>
@@ -388,7 +378,6 @@ tbody tr:hover{background:var(--bg)}
         <div id="bulananContent"></div>
       </section>
 
-      <!-- PROFIL SISWA -->
       <section class="page" id="page-profil">
         <div class="toolbar">
           <select id="profilSiswa" onchange="App.renderProfil()"></select>
@@ -398,7 +387,6 @@ tbody tr:hover{background:var(--bg)}
         <div id="profilContent"></div>
       </section>
 
-      <!-- RIWAYAT -->
       <section class="page" id="page-riwayat">
         <div class="toolbar">
           <input type="text" id="searchRiwayat" placeholder="🔍 Cari nama / alasan..." oninput="App.renderRiwayat()" />
@@ -411,7 +399,36 @@ tbody tr:hover{background:var(--bg)}
         </table></div></div>
       </section>
 
-      <!-- LAPORAN -->
+      <!-- MANAJEMEN AKUN (khusus admin) -->
+      <section class="page" id="page-akun">
+        <div class="toolbar">
+          <input type="text" id="searchAkun" placeholder="🔍 Cari username / nama..." oninput="App.renderAkun()" />
+          <select id="filterRoleAkun" onchange="App.renderAkun()">
+            <option value="">Semua Role</option>
+            <option value="admin">Administrator</option>
+            <option value="guru">Pendidik</option>
+            <option value="wali">Wali Kelas</option>
+            <option value="siswa">Peserta Didik</option>
+          </select>
+          <div class="spacer"></div>
+          <button class="btn btn-primary btn-sm" onclick="App.modalAkun()">+ Tambah Akun</button>
+        </div>
+        <div class="card" style="padding:0"><div class="table-wrap"><table>
+          <thead><tr>
+            <th>No</th><th>Username</th><th>Nama</th><th>Role</th><th>Kelas</th>
+            <th>Password</th><th>Status</th><th>Diubah</th><th style="text-align:right">Aksi</th>
+          </tr></thead>
+          <tbody id="tbodyAkun"></tbody>
+        </table></div></div>
+        <div class="card" style="margin-top:14px;background:var(--biru-soft);border-left:4px solid var(--biru-strong)">
+          <p style="font-size:12.5px;line-height:1.7">
+            ℹ️ <strong>Catatan Keamanan:</strong> Password di mode DEMO disimpan ter-hash (SHA-256) di localStorage.
+            Untuk produksi, gunakan <strong>Firebase Authentication</strong> — jangan pernah menyimpan password plaintext di database.
+            Admin dapat mengubah password <em>setiap akun secara berbeda</em> di sini.
+          </p>
+        </div>
+      </section>
+
       <section class="page" id="page-laporan">
         <div class="grid-2">
           <div class="card">
@@ -429,13 +446,12 @@ tbody tr:hover{background:var(--bg)}
           </div>
           <div class="card">
             <div class="card-header"><h3>📊 Ekspor Excel</h3></div>
-            <p style="color:var(--muted);margin-bottom:14px;font-size:13px">Ekspor seluruh data (siswa, poin, badge, level) ke satu file Excel.</p>
+            <p style="color:var(--muted);margin-bottom:14px;font-size:13px">Ekspor seluruh data ke Excel.</p>
             <button class="btn btn-success btn-block" onclick="App.exportAllExcel()">📤 Unduh Excel Lengkap</button>
           </div>
         </div>
       </section>
 
-      <!-- PENGATURAN -->
       <section class="page" id="page-pengaturan">
         <div class="grid-2">
           <div class="card">
@@ -471,15 +487,15 @@ tbody tr:hover{background:var(--bg)}
 
 <script>
 /* ============================================================
-   BINTANG ACHIEVEMENT — APP LOGIC
+   BINTANG ACHIEVEMENT — APP LOGIC (dengan Manajemen Akun)
    ============================================================ */
 const App = (() => {
-  const KEY = 'bintang_achievement_demo_v1';
+  const KEY = 'bintang_achievement_demo_v2';
   const ROLES = {
-    admin:{label:'Administrator',icon:'👑',name:'Admin Bintang'},
-    guru:{label:'Pendidik',icon:'👨‍🏫',name:'Guru Pengajar'},
-    wali:{label:'Wali Kelas',icon:'🏫',name:'Wali Kelas 10A'},
-    siswa:{label:'Peserta Didik',icon:'🎓',name:''}
+    admin:{label:'Administrator',icon:'👑'},
+    guru:{label:'Pendidik',icon:'👨‍🏫'},
+    wali:{label:'Wali Kelas',icon:'🏫'},
+    siswa:{label:'Peserta Didik',icon:'🎓'}
   };
   const KATEGORI = {
     disiplin:{label:'Kedisiplinan',icon:'🛡️',color:'#42A5F5'},
@@ -488,8 +504,9 @@ const App = (() => {
     kolaborasi:{label:'Kolaborasi',icon:'🤝',color:'#66BB6A'}
   };
   let state = {
-    user:null, role:null,
+    user:null, role:null, currentAkun:null,
     settings:{sekolah:'SMA Swasta RK Bintang Timur Pematangsiantar',kepsek:'Drs. Robert Sihombing, M.Pd'},
+    akun:[],
     siswa:[], tindakan:[], poin:[], badge:[], badgeSiswa:[], level:[], awardBulanan:[]
   };
   let charts = {};
@@ -503,6 +520,13 @@ const App = (() => {
   const today = () => new Date().toISOString().slice(0,10);
   const monthKey = d => (d||'').slice(0,7);
 
+  // Hash password sederhana (SHA-256) — hanya untuk DEMO
+  async function hashPw(pw){
+    const buf = new TextEncoder().encode(pw + '|bintang-salt');
+    const h = await crypto.subtle.digest('SHA-256', buf);
+    return Array.from(new Uint8Array(h)).map(b=>b.toString(16).padStart(2,'0')).join('');
+  }
+
   function save(){ localStorage.setItem(KEY, JSON.stringify(state)); }
   function load(){ const r=localStorage.getItem(KEY); if(r){try{state=JSON.parse(r);}catch(e){console.warn(e);}} }
 
@@ -512,7 +536,6 @@ const App = (() => {
     $('#toastContainer').appendChild(el);
     setTimeout(()=>{el.style.opacity='0';el.style.transform='translateX(120%)';el.style.transition='.3s';setTimeout(()=>el.remove(),300);},2800);
   }
-
   function confetti(){
     const icons=['⭐','🌟','✨','🏅','🎉','💫'];
     for(let i=0;i<30;i++){
@@ -537,25 +560,16 @@ const App = (() => {
     $('#confirmYes').onclick=()=>{closeModal();onYes();};
   }
 
-  // ===== HITUNG POIN =====
+  // ===== POIN =====
   function totalPoin(siswaId, filter={}){
     let arr = state.poin.filter(p=>p.siswaId===siswaId);
     if(filter.kategori) arr = arr.filter(p=>p.kategori===filter.kategori);
-    if(filter.kelas) arr = arr.filter(p=>{const s=getSiswa(p.siswaId); return s&&s.kelas===filter.kelas;});
-    if(filter.bulan){ arr = arr.filter(p=>monthKey(p.tanggal)===filter.bulan); }
+    if(filter.bulan) arr = arr.filter(p=>monthKey(p.tanggal)===filter.bulan);
     if(filter.semester){
-      const yr = new Date().getFullYear();
       arr = arr.filter(p=>{const m=parseInt(p.tanggal.slice(5,7)); return filter.semester==='1'?(m>=7&&m<=12):(m>=1&&m<=6);});
     }
-    if(filter.tahun){ arr = arr.filter(p=>p.tanggal.startsWith(filter.tahun)); }
+    if(filter.tahun) arr = arr.filter(p=>p.tanggal.startsWith(filter.tahun));
     return arr.reduce((a,p)=>a+p.poin,0);
-  }
-  function poinFiltered(filter={}){
-    let arr = state.poin.slice();
-    if(filter.kelas) arr = arr.filter(p=>{const s=getSiswa(p.siswaId); return s&&s.kelas===filter.kelas;});
-    if(filter.kategori) arr = arr.filter(p=>p.kategori===filter.kategori);
-    if(filter.bulan) arr = arr.filter(p=>monthKey(p.tanggal)===filter.bulan);
-    return arr;
   }
   const getSiswa = id => state.siswa.find(s=>s.id===id);
   const getLevel = poin => state.level.find(l=>poin>=l.minPoin && poin<=(l.maxPoin||999999)) || state.level[state.level.length-1];
@@ -574,33 +588,44 @@ const App = (() => {
         newBadges.push(b);
       }
     });
-    if(newBadges.length){ save(); }
+    if(newBadges.length) save();
     return newBadges;
   }
 
+  // ===== AKUN HELPERS =====
+  const getAkunByUsername = u => state.akun.find(a=>a.username.toLowerCase()===u.toLowerCase());
+  const getAkunById = id => state.akun.find(a=>a.id===id);
+
   // ===== LOGIN =====
-  function login(){
-    const role = $('#loginRole').value;
-    let name = $('#loginUser').value.trim() || ROLES[role].name || 'Pengguna';
-    if(role==='siswa'){
-      const sid = $('#loginSiswaSelect').value;
-      if(!sid){ toast('Pilih nama peserta didik','error'); return; }
-      const s = getSiswa(sid); name = s ? s.nama : name;
-      state.user = name; state.role = role; state.siswaId = sid;
-    } else { state.user = name; state.role = role; }
+  async function login(){
+    const username = $('#loginUser').value.trim();
+    const pass = $('#loginPass').value;
+    if(!username || !pass){ toast('Username dan password wajib diisi','error'); return; }
+    const akun = getAkunByUsername(username);
+    if(!akun){ toast('Username tidak ditemukan','error'); return; }
+    if(!akun.aktif){ toast('Akun nonaktif. Hubungi administrator.','error'); return; }
+    const hashed = await hashPw(pass);
+    if(hashed !== akun.password){ toast('Kata sandi salah','error'); return; }
+    // Login sukses
+    state.user = akun.nama || akun.username;
+    state.role = akun.role;
+    state.currentAkun = akun.id;
+    if(akun.role==='siswa' && akun.siswaId) state.siswaId = akun.siswaId;
     save();
     $('#loginScreen').style.display='none';
     $('#app').classList.add('active');
-    $('#userName').textContent = name;
-    $('#userAvatar').textContent = name.charAt(0).toUpperCase();
+    $('#userName').textContent = state.user;
+    $('#userAvatar').textContent = state.user.charAt(0).toUpperCase();
     initNav(); renderAll();
-    toast(`Selamat datang, ${name} (${ROLES[role].label})`, 'gold');
+    toast(`Selamat datang, ${state.user} (${ROLES[akun.role].label})`, 'gold');
   }
   function logout(){
     confirmBox('Keluar','Yakin ingin keluar dari aplikasi?',()=>{
       $('#loginScreen').style.display='flex';
       $('#app').classList.remove('active');
-      state.user=null; state.role=null; state.siswaId=null; save();
+      state.user=null; state.role=null; state.currentAkun=null; state.siswaId=null; save();
+      // reset field login
+      $('#loginUser').value=''; $('#loginPass').value='';
     });
   }
 
@@ -616,6 +641,7 @@ const App = (() => {
     {id:'bulanan',label:'Papan Apresiasi Bulanan',ico:'📅',roles:['admin','guru','wali','siswa']},
     {id:'profil',label:'Profil Pencapaian',ico:'👤',roles:['admin','guru','wali','siswa']},
     {id:'riwayat',label:'Riwayat Apresiasi',ico:'📜',roles:['admin','guru','wali']},
+    {id:'akun',label:'Manajemen Akun',ico:'🔑',roles:['admin']},
     {id:'laporan',label:'Laporan',ico:'📄',roles:['admin','guru','wali']},
     {id:'pengaturan',label:'Pengaturan',ico:'⚙️',roles:['admin']}
   ];
@@ -623,14 +649,7 @@ const App = (() => {
     const role = state.role;
     const items = MENU.filter(m=>m.roles.includes(role));
     $('#navList').innerHTML = items.map(m=>`<div class="nav-item" data-page="${m.id}" onclick="App.navigate('${m.id}')"><span class="ico">${m.ico}</span> ${m.label}</div>`).join('');
-    // Default page sesuai role
-    if(role==='siswa'){
-      navigate('profil');
-    } else if(role==='wali'){
-      navigate('dashboard');
-    } else {
-      navigate('dashboard');
-    }
+    navigate(role==='siswa'?'profil':'dashboard');
   }
   function navigate(page){
     $$('.nav-item[data-page]').forEach(n=>n.classList.toggle('active',n.dataset.page===page));
@@ -639,7 +658,6 @@ const App = (() => {
     const m = MENU.find(x=>x.id===page);
     $('#pageTitle').textContent = m?m.label:page;
     if(window.innerWidth<=900) closeSidebar();
-    // render
     if(page==='dashboard') renderDashboard();
     if(page==='apresiasi') initApresiasi();
     if(page==='siswa') renderSiswa();
@@ -650,11 +668,11 @@ const App = (() => {
     if(page==='bulanan') renderBulanan();
     if(page==='profil') fillProfilSelect(), renderProfil();
     if(page==='riwayat') renderRiwayat();
+    if(page==='akun') renderAkun();
     if(page==='pengaturan') renderSettings();
   }
   function toggleSidebar(){ $('#sidebar').classList.toggle('open'); $('#overlayBackdrop').classList.toggle('active'); }
   function closeSidebar(){ $('#sidebar').classList.remove('open'); $('#overlayBackdrop').classList.remove('active'); }
-
   function toggleTheme(){
     const dark = document.documentElement.getAttribute('data-theme')==='dark';
     document.documentElement.setAttribute('data-theme',dark?'light':'dark');
@@ -672,43 +690,31 @@ const App = (() => {
     const poinBulan = state.poin.filter(p=>monthKey(p.tanggal)===thisMonth).length;
     const badgeCount = state.badgeSiswa.length;
     const topSiswa = state.siswa.map(s=>({s,poin:totalPoin(s.id)})).sort((a,b)=>b.poin-a.poin)[0];
-
     $('#dashboardStats').innerHTML = `
       <div class="stat-card biru"><div class="label">Total Peserta Didik</div><div class="value">${totalSiswa}</div><div class="hint">terdaftar</div></div>
-      <div class="stat-card kuning"><div class="label">Total Poin Diberikan</div><div class="value">${totalPoinAll}</div><div class="hint">seluruh apresiasi</div></div>
+      <div class="stat-card kuning"><div class="label">Total Poin</div><div class="value">${totalPoinAll}</div><div class="hint">seluruh apresiasi</div></div>
       <div class="stat-card hijau"><div class="label">Penghargaan Bulan Ini</div><div class="value">${poinBulan}</div><div class="hint">${thisMonth}</div></div>
-      <div class="stat-card emas"><div class="label">Badge Diperoleh</div><div class="value">${badgeCount}</div><div class="hint">total badge</div></div>
+      <div class="stat-card emas"><div class="label">Badge Diperoleh</div><div class="value">${badgeCount}</div></div>
       <div class="stat-card biru"><div class="label">Pencapaian Tertinggi</div><div class="value" style="font-size:16px">${topSiswa?esc(topSiswa.s.nama):'-'}</div><div class="hint">${topSiswa?topSiswa.poin+' poin':''}</div></div>
     `;
-
-    // Chart bulanan (12 bulan terakhir)
     const months = [];
     for(let i=11;i>=0;i--){ const d=new Date(); d.setMonth(d.getMonth()-i); months.push(d.toISOString().slice(0,7)); }
     const bulanData = months.map(m=>state.poin.filter(p=>monthKey(p.tanggal)===m).reduce((a,p)=>a+p.poin,0));
     drawChart('chartBulan','line',months.map(m=>m.slice(5)),[{label:'Poin',data:bulanData,borderColor:'#FFC93C',backgroundColor:'rgba(255,201,60,.2)',fill:true,tension:.35,pointRadius:4,pointBackgroundColor:'#D4AF37'}]);
-
-    // Kategori
     const katData = Object.keys(KATEGORI).map(k=>state.poin.filter(p=>p.kategori===k).reduce((a,p)=>a+p.poin,0));
     drawChart('chartKategori','doughnut',Object.values(KATEGORI).map(k=>k.label),[{data:katData,backgroundColor:Object.values(KATEGORI).map(k=>k.color),borderWidth:0}],{cutout:'60%'});
-
-    // Kelas
     const kelasMap = {};
     state.siswa.forEach(s=>{ if(!kelasMap[s.kelas]) kelasMap[s.kelas]=0; kelasMap[s.kelas]+=totalPoin(s.id); });
     drawChart('chartKelas','bar',Object.keys(kelasMap).sort(),[{label:'Total Poin',data:Object.keys(kelasMap).sort().map(k=>kelasMap[k]),backgroundColor:'#90CAF9',borderRadius:6}]);
-
-    // Badge
     const badgeCountMap = {};
     state.badge.forEach(b=>{ badgeCountMap[b.nama] = state.badgeSiswa.filter(bs=>bs.badgeId===b.id).length; });
     drawChart('chartBadge','bar',Object.keys(badgeCountMap),[{label:'Penerima',data:Object.values(badgeCountMap),backgroundColor:'#A5D6A7',borderRadius:6}]);
-
-    // Recent activity
     const recent = state.poin.slice().sort((a,b)=>b.tanggal.localeCompare(a.tanggal)).slice(0,8);
     $('#recentActivity').innerHTML = recent.length ? `<div class="table-wrap"><table><thead><tr><th>Tanggal</th><th>Nama</th><th>Tindakan</th><th>Poin</th><th>Kategori</th></tr></thead><tbody>${recent.map(p=>{
       const s=getSiswa(p.siswaId); const k=KATEGORI[p.kategori];
       return `<tr><td>${p.tanggal}</td><td><strong>${esc(s?.nama||'-')}</strong></td><td>${esc(p.tindakanNama)}</td><td><span class="badge kuning">+${p.poin}</span></td><td><span class="badge ${p.kategori}">${k.icon} ${k.label}</span></td></tr>`;
-    }).join('')}</tbody></table></div>` : '<div class="empty-state"><div class="ico">⭐</div>Belum ada aktivitas apresiasi.</div>';
+    }).join('')}</tbody></table></div>` : '<div class="empty-state">Belum ada aktivitas.</div>';
   }
-
   function drawChart(id,type,labels,datasets,extra={}){
     if(charts[id]) charts[id].destroy();
     const c=document.getElementById(id); if(!c) return;
@@ -726,19 +732,16 @@ const App = (() => {
 
   // ===== APRESIASI =====
   function initApresiasi(){
-    // Isi kelas
     const kelas = [...new Set(state.siswa.map(s=>s.kelas))].sort();
     $('#aprKelas').innerHTML = '<option value="">Semua Kelas</option>'+kelas.map(k=>`<option value="${esc(k)}">${esc(k)}</option>`).join('');
-    // Kategori
     $('#aprKategori').innerHTML = Object.entries(KATEGORI).map(([k,v])=>`<option value="${k}">${v.icon} ${v.label}</option>`).join('');
-    // Tanggal
     $('#aprTanggal').value = today();
     fillAprSiswa(); fillAprTindakan();
   }
   function fillAprSiswa(){
     const kelas = $('#aprKelas').value;
     const list = state.siswa.filter(s=>!kelas || s.kelas===kelas);
-    $('#aprSiswaList').innerHTML = list.length ? list.map(s=>`<label class="checkbox-item"><input type="checkbox" value="${s.id}" data-kelas="${esc(s.kelas)}" /> ${esc(s.nama)} <small style="color:var(--muted)">(${esc(s.kelas)})</small></label>`).join('') : '<div style="padding:10px;color:var(--muted)">Tidak ada siswa.</div>';
+    $('#aprSiswaList').innerHTML = list.length ? list.map(s=>`<label class="checkbox-item"><input type="checkbox" value="${s.id}" /> ${esc(s.nama)} <small style="color:var(--muted)">(${esc(s.kelas)})</small></label>`).join('') : '<div style="padding:10px;color:var(--muted)">Tidak ada siswa.</div>';
   }
   function fillAprTindakan(){
     const kat = $('#aprKategori').value;
@@ -761,7 +764,6 @@ const App = (() => {
     if(!tanggal){ toast('Tanggal wajib diisi','error'); return; }
     const t = state.tindakan.find(x=>x.id===tid);
     const pemberi = state.user;
-    // validasi poin ganda (siswa + tindakan + tanggal sama)
     const dup = checked.filter(sid => state.poin.some(p=>p.siswaId===sid && p.tindakanId===tid && p.tanggal===tanggal));
     if(dup.length){ toast(`${dup.length} siswa sudah menerima tindakan ini di tanggal tersebut. Dilewati.`,'warning'); }
     const valid = checked.filter(sid=>!dup.includes(sid));
@@ -778,11 +780,10 @@ const App = (() => {
     $$('#aprSiswaList input:checked').forEach(i=>i.checked=false);
   }
 
-  // ===== DATA SISWA =====
+  // ===== SISWA =====
   function renderSiswa(){
     const q = ($('#searchSiswa')?.value||'').toLowerCase();
     const fk = $('#filterKelasSiswa')?.value||'';
-    // fill kelas filter
     const kelas = [...new Set(state.siswa.map(s=>s.kelas))].sort();
     const sel = $('#filterKelasSiswa');
     if(sel){ const cur=sel.value; sel.innerHTML='<option value="">Semua Kelas</option>'+kelas.map(k=>`<option value="${esc(k)}">${esc(k)}</option>`).join(''); if([...sel.options].some(o=>o.value===cur)) sel.value=cur; }
@@ -816,17 +817,18 @@ const App = (() => {
       state.siswa=state.siswa.filter(x=>x.id!==id);
       state.poin=state.poin.filter(p=>p.siswaId!==id);
       state.badgeSiswa=state.badgeSiswa.filter(b=>b.siswaId!==id);
+      // hapus akun siswa terkait
+      state.akun=state.akun.filter(a=>a.siswaId!==id);
       save(); renderSiswa(); toast('Dihapus');
     });
   }
 
-  // ===== KATEGORI & TINDAKAN =====
+  // ===== KATEGORI =====
   function renderKategori(){
     let html='';
     Object.entries(KATEGORI).forEach(([k,v])=>{
       const list = state.tindakan.filter(t=>t.kategori===k);
-      html+=`<div class="card" style="margin-bottom:14px"><div class="card-header"><h3>${v.icon} ${v.label}</h3></div>`;
-      html+=`<div class="table-wrap"><table><thead><tr><th>Tindakan</th><th>Poin</th><th style="text-align:right">Aksi</th></tr></thead><tbody>`;
+      html+=`<div class="card" style="margin-bottom:14px"><div class="card-header"><h3>${v.icon} ${v.label}</h3></div><div class="table-wrap"><table><thead><tr><th>Tindakan</th><th>Poin</th><th style="text-align:right">Aksi</th></tr></thead><tbody>`;
       html+= list.length ? list.map(t=>`<tr><td>${esc(t.nama)}</td><td><span class="badge kuning">+${t.poin}</span></td><td style="text-align:right"><button class="btn btn-ghost btn-sm" onclick="App.modalTindakan('${t.id}')">✏️</button> <button class="btn btn-ghost btn-sm" onclick="App.deleteTindakan('${t.id}')">🗑️</button></td></tr>`).join('') : '<tr><td colspan="3"><div class="empty-state">Belum ada.</div></td></tr>';
       html+=`</tbody></table></div></div>`;
     });
@@ -847,24 +849,23 @@ const App = (() => {
     else state.tindakan.push({id:uid('t'),kategori,nama,poin});
     save(); closeModal(); renderKategori(); toast('Tersimpan');
   }
-  function deleteTindakan(id){
-    confirmBox('Hapus Tindakan','Yakin hapus tindakan ini?',()=>{ state.tindakan=state.tindakan.filter(t=>t.id!==id); save(); renderKategori(); toast('Dihapus'); });
-  }
+  function deleteTindakan(id){ confirmBox('Hapus Tindakan','Yakin?',()=>{ state.tindakan=state.tindakan.filter(t=>t.id!==id); save(); renderKategori(); toast('Dihapus'); }); }
 
   // ===== BADGE =====
   function renderBadge(){
     const isSiswa = state.role==='siswa';
-    const myBadges = isSiswa ? state.badgeSiswa.filter(b=>b.siswaId===state.siswaId).map(b=>b.badgeId) : [];
+    const sid = state.currentAkun ? getAkunById(state.currentAkun)?.siswaId : null;
+    const myBadges = isSiswa && sid ? state.badgeSiswa.filter(b=>b.siswaId===sid).map(b=>b.badgeId) : [];
     const html = state.badge.map(b=>{
       const owned = isSiswa ? myBadges.includes(b.id) : true;
-      const tanggal = isSiswa ? (state.badgeSiswa.find(x=>x.badgeId===b.id&&x.siswaId===state.siswaId)?.tanggal||'') : '';
+      const tanggal = isSiswa && sid ? (state.badgeSiswa.find(x=>x.badgeId===b.id&&x.siswaId===sid)?.tanggal||'') : '';
       return `<div class="badge-card ${owned?'':'locked'}">
         <span class="badge-icon">${b.ikon}</span>
         <div class="badge-name">${esc(b.nama)}</div>
         <div class="badge-desc">${esc(b.deskripsi)}</div>
         ${!isSiswa?`<div class="badge-date">${state.badgeSiswa.filter(x=>x.badgeId===b.id).length} penerima</div>`:''}
         ${tanggal?`<div class="badge-date">📅 ${tanggal}</div>`:''}
-        ${!isSiswa?`<button class="btn btn-ghost btn-sm" style="margin-top:6px" onclick="App.deleteBadge('${b.id}')">🗑️</button>`:''}
+        ${state.role==='admin'?`<button class="btn btn-ghost btn-sm" style="margin-top:6px" onclick="App.deleteBadge('${b.id}')">🗑️</button>`:''}
       </div>`;
     }).join('');
     $('#badgeContent').innerHTML = `<div class="badge-grid">${html||'<div class="empty-state">Belum ada badge.</div>'}</div>`;
@@ -886,9 +887,7 @@ const App = (() => {
     state.badge.push({id:uid('b'),nama,ikon,deskripsi,syarat,kategori,syaratPoin});
     save(); closeModal(); renderBadge(); toast('Badge ditambahkan');
   }
-  function deleteBadge(id){
-    confirmBox('Hapus Badge','Yakin?',()=>{ state.badge=state.badge.filter(b=>b.id!==id); state.badgeSiswa=state.badgeSiswa.filter(b=>b.badgeId!==id); save(); renderBadge(); toast('Dihapus'); });
-  }
+  function deleteBadge(id){ confirmBox('Hapus Badge','Yakin?',()=>{ state.badge=state.badge.filter(b=>b.id!==id); state.badgeSiswa=state.badgeSiswa.filter(b=>b.badgeId!==id); save(); renderBadge(); toast('Dihapus'); }); }
 
   // ===== LEVEL =====
   function renderLevel(){
@@ -912,37 +911,30 @@ const App = (() => {
 
   // ===== LEADERBOARD =====
   function renderLeaderboard(){
-    // fill kelas
     const kelas = [...new Set(state.siswa.map(s=>s.kelas))].sort();
     const sel = $('#lbKelas'); const cur=sel.value;
     sel.innerHTML='<option value="">Semua Kelas</option>'+kelas.map(k=>`<option value="${esc(k)}">${esc(k)}</option>`).join('');
     if([...sel.options].some(o=>o.value===cur)) sel.value=cur;
-
     const fk = sel.value, periode=$('#lbPeriode').value, kategori=$('#lbKategori').value;
-    const filter = {kelas:fk,kategori};
-    const now = new Date();
-    if(periode==='bulan') filter.bulan = now.toISOString().slice(0,7);
-    if(periode==='semester') filter.semester = now.getMonth()>=6?'1':'2';
-    if(periode==='tahun') filter.tahun = String(now.getFullYear());
-
+    const filter = {kategori};
+    if(periode==='bulan') filter.bulan = today().slice(0,7);
+    if(periode==='semester') filter.semester = new Date().getMonth()>=6?'1':'2';
+    if(periode==='tahun') filter.tahun = String(new Date().getFullYear());
     let list = state.siswa.filter(s=>!fk||s.kelas===fk).map(s=>({s, poin: totalPoin(s.id, filter)})).sort((a,b)=>b.poin-a.poin);
     const top3 = list.slice(0,3); const rest = list.slice(3,10);
-
     const podiumHTML = top3.length ? `<div class="podium">
       ${top3[1]?`<div class="podium-item podium-2"><div class="podium-avatar">${top3[1].s.nama.charAt(0)}</div><div class="podium-name">${esc(top3[1].s.nama)}</div><div class="podium-points">${top3[1].poin} poin</div><div class="podium-base">2</div></div>`:''}
       ${top3[0]?`<div class="podium-item podium-1"><div class="podium-avatar">👑</div><div class="podium-name">${esc(top3[0].s.nama)}</div><div class="podium-points">${top3[0].poin} poin</div><div class="podium-base">1</div></div>`:''}
       ${top3[2]?`<div class="podium-item podium-3"><div class="podium-avatar">${top3[2].s.nama.charAt(0)}</div><div class="podium-name">${esc(top3[2].s.nama)}</div><div class="podium-points">${top3[2].poin} poin</div><div class="podium-base">3</div></div>`:''}
     </div>` : '<div class="empty-state">Belum ada data.</div>';
-
     const restHTML = rest.length ? `<div class="card" style="margin-top:16px"><div class="table-wrap"><table><thead><tr><th>#</th><th>Nama</th><th>Kelas</th><th>Poin</th><th>Level</th></tr></thead><tbody>${rest.map((r,i)=>{
       const lv=getLevel(r.poin);
       return `<tr><td><strong>${i+4}</strong></td><td>${esc(r.s.nama)}</td><td><span class="badge biru">${esc(r.s.kelas)}</span></td><td><strong>${r.poin}</strong></td><td>${lv?lv.ikon+' '+lv.nama:'-'}</td></tr>`;
     }).join('')}</tbody></table></div></div>` : '';
-
     $('#leaderboardContent').innerHTML = podiumHTML + restHTML;
   }
 
-  // ===== PAPAN BULANAN =====
+  // ===== BULANAN =====
   function renderBulanan(){
     const bulanSel = $('#bulanBulan'), tahunSel = $('#bulanTahun');
     if(!bulanSel.options.length){
@@ -950,28 +942,27 @@ const App = (() => {
       bulanSel.innerHTML = bulanNames.map((b,i)=>`<option value="${String(i+1).padStart(2,'0')}" ${i===new Date().getMonth()?'selected':''}>${b}</option>`).join('');
       tahunSel.innerHTML = [2023,2024,2025,2026].map(y=>`<option value="${y}" ${y===new Date().getFullYear()?'selected':''}>${y}</option>`).join('');
     }
-    const bulan = bulanSel.value, tahun = tahunSel.value;
-    const prefix = tahun+'-'+bulan;
+    const prefix = tahunSel.value+'-'+bulanSel.value;
     const award = state.awardBulanan.find(a=>a.bulan===prefix);
-
     let html = '';
     if(award){
       html += `<div class="card"><div class="card-header"><h3>🏆 Penerima Apresiasi Bulanan — ${prefix}</h3></div><div class="grid-3">`;
       ['disiplin','prestasi','kepedulian','kolaborasi','inspiratif'].forEach(k=>{
         const sid = award[k]; if(!sid) return;
         const s = getSiswa(sid); if(!s) return;
-        const kat = KATEGORI[k] || {icon:'⭐',label:'Inspiratif',color:'#D4AF37'};
-        html += `<div class="card" style="text-align:center"><div style="font-size:44px">${kat.icon}</div><h4 style="margin:6px 0">${esc(s.nama)}</h4><div style="font-size:12px;color:var(--muted)">${esc(s.kelas)} • ${totalPoin(sid)} poin</div><div class="badge ${k==='inspiratif'?'emas':k}" style="margin-top:6px">${kat.label}</div></div>`;
+        const kat = KATEGORI[k] || {icon:'⭐',label:'Inspiratif'};
+        html += `<div class="card" style="text-align:center"><div style="font-size:44px">${kat.icon}</div><h4 style="margin:6px 0">${esc(s.nama)}</h4><div style="font-size:12px;color:var(--muted)">${esc(s.kelas)} • ${totalPoin(sid,{bulan:prefix})} poin</div><div class="badge ${k==='inspiratif'?'emas':k}" style="margin-top:6px">${kat.label}</div></div>`;
       });
       html += `</div></div>`;
     } else {
-      html += `<div class="card"><div class="empty-state"><div class="ico">📅</div>Belum ada penerima apresiasi untuk ${prefix}.<br><button class="btn btn-gold btn-sm" style="margin-top:12px" onclick="App.hitungBulanan('${prefix}')">Hitung Otomatis Berdasarkan Poin</button></div></div>`;
+      html += `<div class="card"><div class="empty-state"><div class="ico">📅</div>Belum ada penerima untuk ${prefix}.<br><button class="btn btn-gold btn-sm" style="margin-top:12px" onclick="App.hitungBulanan('${prefix}')">Hitung Otomatis</button></div></div>`;
     }
-    html += `<div class="card" style="margin-top:14px"><button class="btn btn-primary" onclick="App.hitungBulanan('${prefix}')">🔄 Hitung/Perbarui Penerima ${prefix}</button></div>`;
+    if(state.role==='admin'){
+      html += `<div class="card" style="margin-top:14px"><button class="btn btn-primary" onclick="App.hitungBulanan('${prefix}')">🔄 Hitung/Perbarui ${prefix}</button></div>`;
+    }
     $('#bulananContent').innerHTML = html;
   }
   function hitungBulanan(prefix){
-    const [tahun,bulan] = prefix.split('-');
     const filter = {bulan:prefix};
     let best = {};
     Object.keys(KATEGORI).forEach(k=>{
@@ -982,32 +973,37 @@ const App = (() => {
     if(totalArr[0]) best.inspiratif = totalArr[0].s.id;
     state.awardBulanan = state.awardBulanan.filter(a=>a.bulan!==prefix);
     state.awardBulanan.push({bulan:prefix, ...best});
-    save(); renderBulanan(); confetti(); toast('Penerima apresiasi bulanan diperbarui','gold');
+    save(); renderBulanan(); confetti(); toast('Penerima diperbarui','gold');
   }
 
   // ===== PROFIL =====
   function fillProfilSelect(){
     const sel = $('#profilSiswa');
-    if(state.role==='siswa'){ sel.innerHTML = `<option value="${state.siswaId}">${esc(getSiswa(state.siswaId)?.nama||'')}</option>`; sel.disabled=true; return; }
+    if(state.role==='siswa'){
+      const akun = getAkunById(state.currentAkun);
+      const sid = akun?.siswaId;
+      if(sid){ sel.innerHTML = `<option value="${sid}">${esc(getSiswa(sid)?.nama||'')}</option>`; sel.disabled=true; }
+      else { sel.innerHTML='<option value="">-</option>'; }
+      return;
+    }
+    sel.disabled = false;
     sel.innerHTML = state.siswa.map(s=>`<option value="${s.id}">${esc(s.nama)} (${esc(s.kelas)})</option>`).join('');
   }
   function renderProfil(){
-    const sid = $('#profilSiswa').value || (state.role==='siswa'?state.siswaId:state.siswa[0]?.id);
-    if(!sid){ $('#profilContent').innerHTML='<div class="card"><div class="empty-state">Pilih peserta didik.</div></div>'; return; }
+    const akun = getAkunById(state.currentAkun);
+    let sid = $('#profilSiswa').value;
+    if(state.role==='siswa') sid = akun?.siswaId;
+    if(!sid){ $('#profilContent').innerHTML='<div class="card"><div class="empty-state">Akun ini belum tertaut ke data siswa.</div></div>'; return; }
     const s = getSiswa(sid); if(!s){ return; }
     const poin = totalPoin(sid); const lv = getLevel(poin);
     const nextLv = state.level.find(l=>l.minPoin>poin);
     const myBadges = state.badgeSiswa.filter(b=>b.siswaId===sid).map(bs=>({...state.badge.find(b=>b.id===bs.badgeId),tanggal:bs.tanggal})).filter(Boolean);
     const riwayat = state.poin.filter(p=>p.siswaId===sid).sort((a,b)=>b.tanggal.localeCompare(a.tanggal));
-    // kategori tertinggi
     const katPoin = Object.keys(KATEGORI).map(k=>({k,poin:totalPoin(sid,{kategori:k})})).sort((a,b)=>b.poin-a.poin);
     const topKat = katPoin[0];
-    // progress
     const progress = nextLv ? Math.min(100, Math.round((poin-lv.minPoin)/(nextLv.minPoin-lv.minPoin)*100)) : 100;
-    // chart data
     const months = []; for(let i=5;i>=0;i--){ const d=new Date(); d.setMonth(d.getMonth()-i); months.push(d.toISOString().slice(0,7)); }
     const monthData = months.map(m=>state.poin.filter(p=>p.siswaId===sid&&monthKey(p.tanggal)===m).reduce((a,p)=>a+p.poin,0));
-
     $('#profilContent').innerHTML = `
       <div class="card" style="margin-bottom:16px;background:linear-gradient(135deg,var(--kuning-soft),var(--biru-soft))">
         <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
@@ -1017,42 +1013,32 @@ const App = (() => {
         </div>
       </div>
       <div class="grid-2" style="margin-bottom:16px">
-        <div class="level-card">
-          <div class="level-icon">${lv?lv.ikon:'⭐'}</div>
-          <h3>${lv?lv.nama:'-'}</h3>
+        <div class="level-card"><div class="level-icon">${lv?lv.ikon:'⭐'}</div><h3>${lv?lv.nama:'-'}</h3>
           <div style="font-size:12px;color:var(--muted)">${poin} / ${nextLv?nextLv.minPoin:'MAX'} poin</div>
           <div class="progress-bar"><div class="progress-fill" style="width:${progress}%"></div></div>
-          <div style="font-size:11px;color:var(--muted)">${nextLv?'Menuju '+nextLv.nama+' ('+(nextLv.minPoin-poin)+' poin lagi)':'Level maksimal tercapai 🎉'}</div>
+          <div style="font-size:11px;color:var(--muted)">${nextLv?'Menuju '+nextLv.nama+' ('+(nextLv.minPoin-poin)+' poin lagi)':'Level maksimal 🎉'}</div>
         </div>
-        <div class="card">
-          <h3 style="margin-bottom:10px">🎯 Kategori Terkuat</h3>
+        <div class="card"><h3 style="margin-bottom:10px">🎯 Kategori Terkuat</h3>
           ${topKat&&topKat.poin>0?`<div style="font-size:40px;margin-bottom:4px">${KATEGORI[topKat.k].icon}</div><div style="font-weight:700">${KATEGORI[topKat.k].label}</div><div style="color:var(--muted);font-size:12px">${topKat.poin} poin</div>`:'<div class="empty-state">Belum ada poin.</div>'}
         </div>
       </div>
-      <div class="card" style="margin-bottom:16px">
-        <div class="card-header"><h3>📈 Perkembangan Poin 6 Bulan Terakhir</h3></div>
-        <div class="chart-box"><canvas id="chartProfil"></canvas></div>
-      </div>
-      <div class="card" style="margin-bottom:16px">
-        <div class="card-header"><h3>🏅 Badge Diperoleh (${myBadges.length})</h3></div>
-        <div class="badge-grid">${myBadges.length?myBadges.map(b=>`<div class="badge-card"><span class="badge-icon">${b.ikon}</span><div class="badge-name">${esc(b.nama)}</div><div class="badge-desc">${esc(b.deskripsi)}</div><div class="badge-date">📅 ${b.tanggal}</div></div>`).join(''):'<div class="empty-state">Belum ada badge.</div>'}</div>
-      </div>
-      <div class="card">
-        <div class="card-header"><h3>📜 Riwayat Apresiasi (${riwayat.length})</h3></div>
+      <div class="card" style="margin-bottom:16px"><div class="card-header"><h3>📈 Perkembangan 6 Bulan</h3></div><div class="chart-box"><canvas id="chartProfil"></canvas></div></div>
+      <div class="card" style="margin-bottom:16px"><div class="card-header"><h3>🏅 Badge (${myBadges.length})</h3></div><div class="badge-grid">${myBadges.length?myBadges.map(b=>`<div class="badge-card"><span class="badge-icon">${b.ikon}</span><div class="badge-name">${esc(b.nama)}</div><div class="badge-desc">${esc(b.deskripsi)}</div><div class="badge-date">📅 ${b.tanggal}</div></div>`).join(''):'<div class="empty-state">Belum ada badge.</div>'}</div></div>
+      <div class="card"><div class="card-header"><h3>📜 Riwayat (${riwayat.length})</h3></div>
         ${riwayat.length?`<div class="table-wrap"><table><thead><tr><th>Tanggal</th><th>Tindakan</th><th>Kategori</th><th>Poin</th><th>Alasan</th><th>Pemberi</th></tr></thead><tbody>${riwayat.map(p=>`<tr><td>${p.tanggal}</td><td>${esc(p.tindakanNama)}</td><td><span class="badge ${p.kategori}">${KATEGORI[p.kategori].label}</span></td><td><span class="badge kuning">+${p.poin}</span></td><td>${esc(p.alasan)}</td><td>${esc(p.pemberi)}</td></tr>`).join('')}</tbody></table></div>`:'<div class="empty-state">Belum ada riwayat.</div>'}
       </div>`;
     drawChart('chartProfil','bar',months.map(m=>m.slice(5)),[{label:'Poin',data:monthData,backgroundColor:'#FFC93C',borderRadius:6}]);
   }
   function cetakSertifikat(){
-    const sid = $('#profilSiswa').value || (state.role==='siswa'?state.siswaId:null);
+    const akun = getAkunById(state.currentAkun);
+    let sid = $('#profilSiswa').value;
+    if(state.role==='siswa') sid = akun?.siswaId;
     if(!sid){ toast('Pilih siswa dulu','warning'); return; }
     const s = getSiswa(sid); const poin = totalPoin(sid); const lv = getLevel(poin);
     const {jsPDF} = window.jspdf;
     const doc = new jsPDF({orientation:'landscape',unit:'mm',format:'a4'});
-    // Border emas
     doc.setDrawColor(212,175,55); doc.setLineWidth(1.5); doc.rect(10,10,277,190);
     doc.setDrawColor(255,201,60); doc.setLineWidth(0.5); doc.rect(13,13,271,184);
-    // Title
     doc.setFontSize(11); doc.setFont(undefined,'normal');
     doc.text('SMA SWASTA RK BINTANG TIMUR PEMATANGSIANTAR',148,28,{align:'center'});
     doc.setFontSize(26); doc.setFont(undefined,'bold'); doc.setTextColor(212,175,55);
@@ -1096,6 +1082,191 @@ const App = (() => {
     }).join('');
   }
 
+  // ===== MANAJEMEN AKUN =====
+  function renderAkun(){
+    if(state.role!=='admin'){ toast('Hanya administrator','error'); return; }
+    const q = ($('#searchAkun')?.value||'').toLowerCase();
+    const fr = $('#filterRoleAkun')?.value||'';
+    let list = state.akun.filter(a=>
+      (!fr || a.role===fr) &&
+      (!q || a.username.toLowerCase().includes(q) || (a.nama||'').toLowerCase().includes(q))
+    ).sort((a,b)=>a.role.localeCompare(b.role)||a.username.localeCompare(b.username));
+    const tbody = $('#tbodyAkun');
+    if(!list.length){ tbody.innerHTML='<tr><td colspan="9"><div class="empty-state">Belum ada akun.</div></td></tr>'; return; }
+    tbody.innerHTML = list.map((a,i)=>{
+      const s = a.siswaId ? getSiswa(a.siswaId) : null;
+      const isSelf = a.id === state.currentAkun;
+      return `<tr>
+        <td>${i+1}</td>
+        <td><strong>${esc(a.username)}</strong>${isSelf?' <span class="badge emas">Anda</span>':''}</td>
+        <td>${esc(a.nama||'-')}</td>
+        <td><span class="role-chip role-${a.role}">${ROLES[a.role].icon} ${ROLES[a.role].label}</span></td>
+        <td>${s?esc(s.kelas):'-'}</td>
+        <td><span class="pw-cell">••••••••</span> <button class="btn btn-ghost btn-sm" onclick="App.togglePwRow('${a.id}',this)" data-pw="${esc(a.password)}" title="Tampilkan hash">👁️</button></td>
+        <td>${a.aktif?'<span class="badge tuntas">Aktif</span>':'<span class="badge gray">Nonaktif</span>'}</td>
+        <td style="font-size:11px;color:var(--muted)">${a.diubah||a.dibuat||'-'}</td>
+        <td style="text-align:right;white-space:nowrap">
+          <button class="btn btn-warning btn-sm" onclick="App.modalGantiPassword('${a.id}')" title="Ganti kata sandi">🔑</button>
+          <button class="btn btn-ghost btn-sm" onclick="App.modalAkun('${a.id}')" title="Edit">✏️</button>
+          <button class="btn btn-ghost btn-sm" onclick="App.toggleAktifAkun('${a.id}')" title="${a.aktif?'Nonaktifkan':'Aktifkan'}">${a.aktif?'⏸️':'▶️'}</button>
+          ${!isSelf?`<button class="btn btn-ghost btn-sm" onclick="App.deleteAkun('${a.id}')" title="Hapus">🗑️</button>`:''}
+        </td>
+      </tr>`;
+    }).join('');
+  }
+  function togglePwRow(id, btn){
+    const td = btn.parentElement;
+    const span = td.querySelector('span');
+    if(span.classList.contains('pw-visible')){ span.classList.remove('pw-visible'); span.classList.add('pw-cell'); span.textContent='••••••••'; btn.textContent='👁️'; }
+    else { span.classList.remove('pw-cell'); span.classList.add('pw-visible'); span.textContent=btn.dataset.pw.slice(0,16)+'…'; btn.textContent='🙈'; }
+  }
+
+  function modalAkun(id){
+    const a = id?getAkunById(id):{username:'',nama:'',role:'guru',aktif:true,siswaId:''};
+    const isEdit = !!id;
+    // opsi siswa untuk role siswa
+    const siswaOptions = state.siswa.map(s=>`<option value="${s.id}" ${a.siswaId===s.id?'selected':''}>${esc(s.nama)} (${esc(s.kelas)})</option>`).join('');
+    openModal(isEdit?'Edit Akun':'Tambah Akun Baru',`
+      <div class="form-row">
+        <div class="form-group"><label>Username *</label><input id="a_username" value="${esc(a.username)}" ${isEdit?'readonly style="background:var(--bg);opacity:.7"':''} placeholder="huruf kecil, tanpa spasi"/></div>
+        <div class="form-group"><label>Nama Lengkap</label><input id="a_nama" value="${esc(a.nama||'')}"/></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Role *</label>
+          <select id="a_role" onchange="App.onAkunRoleChange()">
+            ${Object.entries(ROLES).map(([k,v])=>`<option value="${k}" ${a.role===k?'selected':''}>${v.icon} ${v.label}</option>`).join('')}
+          </select>
+        </div>
+        <div class="form-group"><label>Status</label>
+          <select id="a_aktif"><option value="1" ${a.aktif?'selected':''}>Aktif</option><option value="0" ${!a.aktif?'selected':''}>Nonaktif</option></select>
+        </div>
+      </div>
+      <div class="form-group" id="a_siswaWrap" style="display:${a.role==='siswa'?'block':'none'}">
+        <label>Tautkan ke Peserta Didik *</label>
+        <select id="a_siswaId"><option value="">— Pilih Siswa —</option>${siswaOptions}</select>
+      </div>
+      ${!isEdit?`<div class="form-row">
+        <div class="form-group"><label>Password Awal *</label><input type="text" id="a_password" value="bintang123" /></div>
+        <div class="form-group"><label>Konfirmasi Password *</label><input type="text" id="a_password2" value="bintang123" /></div>
+      </div>`:''}
+      <p style="font-size:11.5px;color:var(--muted);line-height:1.6;margin-top:6px">
+        💡 Setelah dibuat, admin dapat mengubah password <strong>setiap akun secara berbeda</strong> melalui tombol 🔑 di daftar akun.
+      </p>`,
+      `<button class="btn btn-ghost" onclick="App.closeModal()">Batal</button>
+       <button class="btn btn-primary" onclick="App.saveAkun('${id||''}')">Simpan</button>`);
+  }
+  function onAkunRoleChange(){
+    const r = $('#a_role').value;
+    $('#a_siswaWrap').style.display = r==='siswa'?'block':'none';
+  }
+  async function saveAkun(id){
+    const username = $('#a_username').value.trim().toLowerCase();
+    const nama = $('#a_nama').value.trim();
+    const role = $('#a_role').value;
+    const aktif = $('#a_aktif').value==='1';
+    const siswaId = role==='siswa' ? $('#a_siswaId').value : '';
+    if(!username){ toast('Username wajib','error'); return; }
+    if(!/^[a-z0-9._-]{3,30}$/.test(username)){ toast('Username 3-30 karakter (a-z, 0-9, . _ -)','error'); return; }
+    if(!id && getAkunByUsername(username)){ toast('Username sudah dipakai','error'); return; }
+    if(role==='siswa' && !siswaId){ toast('Pilih siswa untuk akun ini','error'); return; }
+    const now = today();
+    if(id){
+      const a = getAkunById(id);
+      a.nama = nama; a.role = role; a.aktif = aktif; a.siswaId = siswaId; a.diubah = now;
+      save(); closeModal(); renderAkun(); toast('Akun diperbarui');
+      return;
+    }
+    // baru — verifikasi password
+    const pw = $('#a_password').value;
+    const pw2 = $('#a_password2').value;
+    if(pw.length < 6){ toast('Password minimal 6 karakter','error'); return; }
+    if(pw !== pw2){ toast('Konfirmasi password tidak cocok','error'); return; }
+    const hashed = await hashPw(pw);
+    state.akun.push({id:uid('a'),username,password:hashed,nama,role,siswaId,aktif,dibuat:now,diubah:now});
+    save(); closeModal(); renderAkun(); toast('Akun baru ditambahkan','gold');
+  }
+
+  function modalGantiPassword(id){
+    if(state.role!=='admin'){ toast('Hanya administrator','error'); return; }
+    const a = getAkunById(id);
+    openModal(`🔑 Ganti Password — ${esc(a.username)}`, `
+      <div class="form-group"><label>Nama Akun</label><input value="${esc(a.nama||a.username)}" readonly style="background:var(--bg);opacity:.7"/></div>
+      <div class="form-group"><label>Password Baru *</label><input type="text" id="gp_new" placeholder="minimal 6 karakter" /></div>
+      <div class="form-group"><label>Konfirmasi Password Baru *</label><input type="text" id="gp_new2" /></div>
+      <div class="form-row">
+        <div class="form-group"><label>Opsi Cepat</label>
+          <select id="gp_preset" onchange="App.applyPresetPw(this.value)">
+            <option value="">— pilih —</option>
+            <option value="bintang123">bintang123 (default)</option>
+            <option value="sandi2024">sandi2024</option>
+            <option value="acak">🎲 Buat acak</option>
+          </select>
+        </div>
+      </div>
+      <p style="font-size:11.5px;color:var(--muted);margin-top:6px">Password akan disimpan ter-hash. Setiap akun dapat memiliki password berbeda.</p>`,
+      `<button class="btn btn-ghost" onclick="App.closeModal()">Batal</button>
+       <button class="btn btn-warning" onclick="App.saveNewPassword('${id}')">🔑 Simpan Password</button>`);
+  }
+  function applyPresetPw(val){
+    if(!val) return;
+    let pw = val;
+    if(val==='acak'){
+      const chars='abcdefghijkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+      pw=''; for(let i=0;i<10;i++) pw+=chars[Math.floor(Math.random()*chars.length)];
+    }
+    $('#gp_new').value = pw; $('#gp_new2').value = pw;
+  }
+  async function saveNewPassword(id){
+    const pw = $('#gp_new').value;
+    const pw2 = $('#gp_new2').value;
+    if(pw.length < 6){ toast('Password minimal 6 karakter','error'); return; }
+    if(pw !== pw2){ toast('Konfirmasi tidak cocok','error'); return; }
+    const a = getAkunById(id);
+    a.password = await hashPw(pw);
+    a.diubah = today();
+    save(); closeModal(); renderAkun(); toast(`Password ${a.username} berhasil diubah`,'gold');
+  }
+  function toggleAktifAkun(id){
+    const a = getAkunById(id);
+    if(a.id === state.currentAkun){ toast('Tidak bisa menonaktifkan akun sendiri','warning'); return; }
+    a.aktif = !a.aktif; a.diubah = today();
+    save(); renderAkun(); toast(`Akun ${a.username} ${a.aktif?'diaktifkan':'dinonaktifkan'}`);
+  }
+  function deleteAkun(id){
+    const a = getAkunById(id);
+    if(a.id === state.currentAkun){ toast('Tidak bisa menghapus akun sendiri','error'); return; }
+    confirmBox('Hapus Akun', `Hapus akun "${a.username}"?`, ()=>{
+      state.akun = state.akun.filter(x=>x.id!==id);
+      save(); renderAkun(); toast('Akun dihapus');
+    });
+  }
+
+  // ===== GANTI PASSWORD SENDIRI =====
+  function modalGantiPasswordSendiri(){
+    if(!state.currentAkun){ return; }
+    const a = getAkunById(state.currentAkun);
+    openModal('🔑 Ganti Password Saya', `
+      <div class="form-group"><label>Username</label><input value="${esc(a.username)}" readonly style="background:var(--bg);opacity:.7"/></div>
+      <div class="form-group"><label>Password Lama *</label><input type="password" id="sp_old" /></div>
+      <div class="form-group"><label>Password Baru *</label><input type="password" id="sp_new" placeholder="minimal 6 karakter"/></div>
+      <div class="form-group"><label>Konfirmasi Password Baru *</label><input type="password" id="sp_new2" /></div>`,
+      `<button class="btn btn-ghost" onclick="App.closeModal()">Batal</button>
+       <button class="btn btn-primary" onclick="App.savePasswordSendiri()">Simpan</button>`);
+  }
+  async function savePasswordSendiri(){
+    const a = getAkunById(state.currentAkun);
+    const oldPw = $('#sp_old').value;
+    const newPw = $('#sp_new').value;
+    const newPw2 = $('#sp_new2').value;
+    const oldHash = await hashPw(oldPw);
+    if(oldHash !== a.password){ toast('Password lama salah','error'); return; }
+    if(newPw.length<6){ toast('Password baru minimal 6 karakter','error'); return; }
+    if(newPw !== newPw2){ toast('Konfirmasi tidak cocok','error'); return; }
+    a.password = await hashPw(newPw);
+    a.diubah = today();
+    save(); closeModal(); toast('Password Anda berhasil diubah','gold');
+  }
+
   // ===== SETTINGS =====
   function renderSettings(){
     $('#setSekolah').value = state.settings.sekolah||'';
@@ -1132,7 +1303,7 @@ const App = (() => {
     sheets.push({name:'Siswa',data:state.siswa.map((s,i)=>({No:i+1,NIS:s.nis,Nama:s.nama,Kelas:s.kelas,Poin:totalPoin(s.id),Status:s.aktif?'Aktif':'Nonaktif'}))});
     sheets.push({name:'Poin',data:state.poin.map((p,i)=>{const s=getSiswa(p.siswaId);return{No:i+1,Tanggal:p.tanggal,NIS:s?.nis,Nama:s?.nama,Kelas:s?.kelas,Kategori:p.kategori,Tindakan:p.tindakanNama,Poin:p.poin,Alasan:p.alasan,Pemberi:p.pemberi};})});
     sheets.push({name:'Badge',data:state.badgeSiswa.map((b,i)=>{const s=getSiswa(b.siswaId);const bd=state.badge.find(x=>x.id===b.badgeId);return{No:i+1,NIS:s?.nis,Nama:s?.nama,Kelas:s?.kelas,Badge:bd?.nama,Tanggal:b.tanggal};})});
-    sheets.push({name:'Level',data:state.level.map((l,i)=>({No:i+1,Nama:l.nama,MinPoin:l.minPoin,MaxPoin:l.maxPoin}))});
+    sheets.push({name:'Akun',data:state.akun.map((a,i)=>({No:i+1,Username:a.username,Nama:a.nama,Role:a.role,Aktif:a.aktif?'Ya':'Tidak',Diubah:a.diubah}))});
     downloadExcel(sheets,'Bintang_Achievement_Lengkap.xlsx');
   }
   function downloadExcel(sheets,filename){
@@ -1155,7 +1326,6 @@ const App = (() => {
     doc.setDrawColor(212,175,55); doc.setLineWidth(0.8); doc.line(14,28,283,28);
     const startY = 34;
     let body=[], head=[];
-
     if(jenis==='rekap-poin'){
       head=[['No','NIS','Nama','Kelas','Total Poin','Level']];
       body=state.siswa.map((s,i)=>{ const p=totalPoin(s.id); const lv=getLevel(p); return [i+1,s.nis,s.nama,s.kelas,p,lv?lv.nama:'-']; });
@@ -1204,17 +1374,18 @@ const App = (() => {
     inp.click();
   }
   function loadDemo(){
-    confirmBox('Muat Ulang Demo','Data saat ini akan diganti data demo. Lanjutkan?',()=>{ seedDemo(); save(); renderAll(); toast('Data demo dimuat ulang'); });
+    confirmBox('Muat Ulang Demo','Data saat ini akan diganti data demo. Lanjutkan?',()=>{ seedDemo().then(()=>{ save(); renderAll(); toast('Data demo dimuat'); }); });
   }
   function resetData(){
     confirmBox('Hapus Semua Data','Semua data akan dihapus permanen. Yakin?',()=>{
-      state.siswa=[]; state.poin=[]; state.badgeSiswa=[]; state.awardBulanan=[];
+      state.siswa=[]; state.poin=[]; state.badgeSiswa=[]; state.awardBulanan=[]; state.akun=[];
       save(); renderAll(); toast('Data dihapus');
     });
   }
 
   // ===== SEED DEMO =====
-  function seedDemo(){
+  async function seedDemo(){
+    // Reset
     state.tindakan = [
       {id:'t1',kategori:'disiplin',nama:'Datang tepat waktu',poin:5},
       {id:'t2',kategori:'disiplin',nama:'Konsisten tugas piket',poin:10},
@@ -1264,7 +1435,6 @@ const App = (() => {
       ['25019','Toni Sitepu','XII-2'],['25020','Vera Tarigan','XII-2']
     ];
     state.siswa = nm.map(([nis,nama,kelas])=>({id:uid('s'),nis,nama,kelas,aktif:true}));
-    // Generate poin demo
     let seed=42; const rnd=()=>{seed=(seed*9301+49297)%233280; return seed/233280;};
     const now = new Date();
     state.poin = [];
@@ -1278,7 +1448,6 @@ const App = (() => {
         state.poin.push({id:uid('p'),siswaId:s.id,tindakanId:t.id,tindakanNama:t.nama,kategori:t.kategori,poin:t.poin,alasan:'Apresiasi '+t.nama, tanggal:d.toISOString().slice(0,10),pemberi:'Admin Bintang'});
       }
     });
-    // reset badges dan hitung ulang
     state.badgeSiswa = [];
     state.siswa.forEach(s=>{
       const total = totalPoin(s.id);
@@ -1288,51 +1457,61 @@ const App = (() => {
       });
     });
     state.awardBulanan = [];
+
+    // === AKUN DEMO ===
+    const akunDefs = [
+      {username:'admin', password:'admin123', role:'admin', nama:'Administrator'},
+      {username:'guru', password:'guru123', role:'guru', nama:'Guru Pengajar'},
+      {username:'wali', password:'wali123', role:'wali', nama:'Wali Kelas X-1'},
+      {username:'siswa', password:'siswa123', role:'siswa', nama:'Andreas Sitorus', siswaNis:'25001'}
+    ];
+    state.akun = [];
+    for(const def of akunDefs){
+      const siswaObj = def.siswaNis ? state.siswa.find(x=>x.nis===def.siswaNis) : null;
+      state.akun.push({
+        id: uid('a'),
+        username: def.username,
+        password: await hashPw(def.password),
+        role: def.role,
+        nama: def.nama,
+        siswaId: siswaObj?.id || '',
+        aktif: true,
+        dibuat: today(),
+        diubah: today()
+      });
+    }
   }
 
   // ===== RENDER ALL =====
   function renderAll(){
-    renderDashboard();
-    renderSiswa();
-    renderKategori();
-    renderBadge();
-    renderLevel();
-    renderLeaderboard();
-    renderBulanan();
-    fillProfilSelect(); renderProfil();
-    renderRiwayat();
+    renderDashboard(); renderSiswa(); renderKategori(); renderBadge(); renderLevel();
+    renderLeaderboard(); renderBulanan(); fillProfilSelect(); renderProfil(); renderRiwayat();
+    if(state.role==='admin') renderAkun();
     renderSettings();
   }
 
   // ===== INIT =====
-  function init(){
+  async function init(){
     load();
-    if(!state.siswa.length || !state.tindakan.length){ seedDemo(); save(); }
-    // Theme
+    if(!state.akun || !state.akun.length){ await seedDemo(); save(); }
     const t = localStorage.getItem('ba_theme');
     if(t==='dark'){ document.documentElement.setAttribute('data-theme','dark'); $('#themeBtn').textContent='☀️'; }
-    // Populate login siswa select
-    const sel = $('#loginSiswaSelect');
-    sel.innerHTML = '<option value="">— Pilih —</option>'+state.siswa.map(s=>`<option value="${s.id}">${esc(s.nama)} (${esc(s.kelas)})</option>`).join('');
-    // Role change handler
-    $('#loginRole').onchange = ()=>{
-      const v = $('#loginRole').value;
-      $('#loginSiswaWrap').style.display = v==='siswa'?'block':'none';
-      const roles = {admin:'Admin Bintang',guru:'Guru Pengajar',wali:'Wali Kelas 10A',siswa:''};
-      $('#loginUser').value = roles[v];
-    };
     document.addEventListener('keydown',e=>{if(e.key==='Escape') closeModal();});
   }
 
   return {
     login, logout, toggleSidebar, toggleTheme, navigate, openModal, closeModal,
     renderDashboard, renderSiswa, renderKategori, renderBadge, renderLevel, renderLeaderboard, renderBulanan, renderProfil, renderRiwayat, renderSettings,
+    renderAkun,
     fillAprSiswa, fillAprTindakan, updateAprPoin, submitApresiasi, initApresiasi,
     modalSiswa, saveSiswa, deleteSiswa,
     modalTindakan, saveTindakan, deleteTindakan,
     modalBadge, saveBadge, deleteBadge,
     modalLevel, saveLevel, deleteLevel,
     hitungBulanan, cetakSertifikat,
+    modalAkun, saveAkun, onAkunRoleChange,
+    modalGantiPassword, saveNewPassword, applyPresetPw, toggleAktifAkun, deleteAkun, togglePwRow,
+    modalGantiPasswordSendiri, savePasswordSendiri,
     importSiswa, exportSiswa, exportAllExcel, generatePDF, saveSettings,
     backupData, restoreData, loadDemo, resetData,
     init
