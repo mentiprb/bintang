@@ -36,7 +36,7 @@ a{color:var(--biru-strong)}
 /* ===== LOGIN ===== */
 #loginScreen{position:fixed;inset:0;z-index:2000;display:flex;align-items:center;justify-content:center;padding:20px;background:linear-gradient(135deg,#E3F2FD 0%,#FFF8E1 50%,#E8F5E9 100%);overflow-y:auto}
 [data-theme="dark"] #loginScreen{background:linear-gradient(135deg,#0F1720,#1B2E40,#1B3320)}
-.login-card{background:var(--card);padding:32px 28px;border-radius:22px;box-shadow:0 24px 70px rgba(0,0,0,.18);width:100%;max-width:440px;margin:auto}
+.login-card{background:var(--card);padding:32px 28px;border-radius:22px;box-shadow:0 24px 70px rgba(0,0,0,.18);width:100%;max-width:460px;margin:auto}
 .login-logo{width:76px;height:76px;border-radius:20px;margin:0 auto 12px;background:linear-gradient(135deg,var(--kuning-strong),var(--emas),var(--biru-strong));display:flex;align-items:center;justify-content:center;font-size:38px;box-shadow:0 8px 24px rgba(255,201,60,.4)}
 .login-card h1{font-size:20px;text-align:center;letter-spacing:.5px}
 .login-card .tagline{text-align:center;color:var(--muted);font-size:12px;margin-bottom:2px;font-style:italic}
@@ -51,13 +51,11 @@ a{color:var(--biru-strong)}
 .role-btn.active .role-label{color:#B7791F}
 [data-theme="dark"] .role-btn.active .role-label{color:var(--kuning-strong)}
 
-/* Form fields */
 .login-card label{display:block;font-size:12px;font-weight:600;margin-bottom:5px;margin-top:8px}
 .login-card label:first-child{margin-top:0}
 .login-card input,.login-card select{width:100%;padding:10px 13px;border:2px solid var(--border);border-radius:10px;background:var(--bg);font-size:13.5px}
 .login-card input:focus,.login-card select:focus{outline:none;border-color:var(--biru-strong)}
 
-/* Highlight password field */
 .pw-field{position:relative}
 .pw-field input{padding-right:40px;background:var(--kuning-soft)!important;border-color:var(--kuning-strong)!important;font-weight:600;letter-spacing:1px}
 [data-theme="dark"] .pw-field input{background:var(--kuning-soft)!important}
@@ -71,10 +69,6 @@ a{color:var(--biru-strong)}
 .form-section{animation:fadeIn .2s}
 @keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
 
-.demo-badge{display:block;text-align:center;margin-top:12px;padding:5px 12px;border-radius:20px;background:var(--kuning-soft);color:#B7791F;font-size:10.5px;font-weight:700}
-.login-hint{font-size:11px;color:var(--muted);margin-top:10px;line-height:1.6;padding:8px 10px;background:var(--bg);border-radius:8px;border:1px dashed var(--border)}
-.login-hint strong{color:var(--text);display:block;margin-bottom:3px;font-size:11px}
-.login-hint code{background:var(--kuning-soft);padding:1px 5px;border-radius:4px;font-weight:700;color:#B7791F;font-size:10.5px}
 .hint-role{font-size:11px;color:var(--muted);margin-top:4px;font-style:italic}
 
 /* ===== APP ===== */
@@ -98,7 +92,8 @@ a{color:var(--biru-strong)}
 .icon-btn{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;background:var(--bg);font-size:16px}
 .icon-btn:hover{background:var(--border)}
 .user-chip{display:flex;align-items:center;gap:8px;padding:6px 12px;border-radius:20px;background:var(--bg);font-size:12px;font-weight:600;cursor:pointer}
-.user-avatar{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--kuning-strong),var(--emas));display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff;font-weight:700}
+.user-avatar{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--kuning-strong),var(--emas));display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff;font-weight:700;overflow:hidden}
+.user-avatar img{width:100%;height:100%;object-fit:cover}
 .content{flex:1;padding:22px;max-width:1400px;width:100%;margin:0 auto}
 .page{display:none} .page.active{display:block;animation:fade .25s}
 @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
@@ -146,10 +141,10 @@ tbody tr:hover{background:var(--bg)}
 .badge.biru{background:var(--biru-soft);color:#1565C0}
 .badge.gray{background:var(--bg);color:var(--muted)}
 .badge.emas{background:var(--emas-soft);color:#8D6E1F}
-.badge.discipline{background:#E3F2FD;color:#1565C0}
-.badge.achievement{background:#FFF8E1;color:#B7791F}
-.badge.care{background:#FCE4EC;color:#C2185B}
-.badge.collab{background:#E8F5E9;color:#2E7D32}
+.badge.disiplin{background:#E3F2FD;color:#1565C0}
+.badge.prestasi{background:#FFF8E1;color:#B7791F}
+.badge.kepedulian{background:#FCE4EC;color:#C2185B}
+.badge.kolaborasi{background:#E8F5E9;color:#2E7D32}
 
 .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;align-items:center}
 .toolbar input,.toolbar select{padding:9px 12px;border:1px solid var(--border);border-radius:9px;background:var(--card)}
@@ -224,6 +219,40 @@ tbody tr:hover{background:var(--bg)}
 .pw-cell{font-family:monospace;letter-spacing:2px;color:var(--muted)}
 .pw-visible{font-family:monospace;letter-spacing:1px;color:var(--merah);font-weight:700}
 
+/* NOTIFIKASI BELL */
+.notif-bell{position:relative}
+.notif-bell .notif-count{position:absolute;top:-4px;right:-4px;background:var(--merah);color:#fff;font-size:9px;font-weight:800;min-width:16px;height:16px;border-radius:10px;display:flex;align-items:center;justify-content:center;padding:0 4px}
+.notif-panel{position:absolute;top:44px;right:0;width:340px;max-height:420px;overflow-y:auto;background:var(--card);border:1px solid var(--border);border-radius:14px;box-shadow:0 12px 40px rgba(0,0,0,.2);z-index:200;display:none}
+.notif-panel.active{display:block}
+.notif-panel-header{padding:12px 16px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;font-weight:700;font-size:13px}
+.notif-item{padding:10px 16px;border-bottom:1px solid var(--border);font-size:12.5px;display:flex;gap:10px;align-items:flex-start}
+.notif-item:last-child{border-bottom:none}
+.notif-item .ni-icon{font-size:20px;flex-shrink:0}
+.notif-item .ni-body{flex:1}
+.notif-item .ni-title{font-weight:700;margin-bottom:2px}
+.notif-item .ni-time{font-size:10.5px;color:var(--muted);margin-top:2px}
+.notif-item.unread{background:var(--kuning-soft)}
+.notif-empty{padding:30px;text-align:center;color:var(--muted);font-size:12px}
+
+/* FOTO PROFIL */
+.foto-picker{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-bottom:12px}
+.foto-opt{aspect-ratio:1;border-radius:10px;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:26px;cursor:pointer;background:var(--bg);transition:all .15s}
+.foto-opt:hover{border-color:var(--kuning-strong);transform:scale(1.05)}
+.foto-opt.active{border-color:var(--kuning-strong);background:var(--kuning-soft);box-shadow:0 3px 10px rgba(255,201,60,.3)}
+.profil-foto{width:80px;height:80px;border-radius:50%;object-fit:cover;border:3px solid var(--emas);background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:40px;overflow:hidden}
+.profil-foto img{width:100%;height:100%;object-fit:cover}
+
+/* LOGIN SISWA: KELAS + NAMA */
+.siswa-kelas-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:10px}
+.siswa-kelas-btn{padding:8px 4px;border-radius:9px;border:2px solid var(--border);background:var(--bg);font-size:11.5px;font-weight:700;cursor:pointer;transition:all .15s;text-align:center}
+.siswa-kelas-btn:hover{border-color:var(--kuning-strong)}
+.siswa-kelas-btn.active{border-color:var(--kuning-strong);background:var(--kuning-soft);color:#B7791F}
+.name-suggest{position:relative}
+.name-suggest-list{position:absolute;top:100%;left:0;right:0;background:var(--card);border:1px solid var(--border);border-radius:9px;max-height:180px;overflow-y:auto;z-index:50;display:none;box-shadow:0 8px 24px rgba(0,0,0,.15);margin-top:2px}
+.name-suggest-list.active{display:block}
+.name-suggest-item{padding:8px 12px;font-size:12.5px;cursor:pointer}
+.name-suggest-item:hover{background:var(--kuning-soft)}
+
 .mobile-toggle{display:none}
 .overlay-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:95}
 @media(max-width:900px){
@@ -240,6 +269,7 @@ tbody tr:hover{background:var(--bg)}
   .podium{gap:6px}
   .podium-avatar{width:48px;height:48px;font-size:18px}
   .podium-1 .podium-avatar{width:56px;height:56px;font-size:22px}
+  .notif-panel{width:calc(100vw - 32px);right:-8px}
 }
 @media(max-width:520px){.stat-grid{grid-template-columns:1fr}}
 </style>
@@ -275,19 +305,7 @@ tbody tr:hover{background:var(--bg)}
     </div>
 
     <div id="loginForm"></div>
-
     <button class="btn-login" onclick="App.login()">⭐ Masuk</button>
-
-    <span class="demo-badge">⚠️ MODE DEMO — password diatur oleh Administrator</span>
-    <div class="login-hint">
-      <strong>🔑 Akun Demo:</strong>
-      <div style="margin-top:4px">
-        <b>Admin:</b> <code>admin</code> / <code>admin123</code><br>
-        <b>Guru:</b> pilih "Guru Pengajar" / <code>guru123</code><br>
-        <b>Wali:</b> pilih "Wali Kelas X-1" / <code>wali123</code><br>
-        <b>Siswa:</b> pilih "Andreas Sitorus" / <code>siswa123</code>
-      </div>
-    </div>
   </div>
 </div>
 
@@ -316,7 +334,17 @@ tbody tr:hover{background:var(--bg)}
         <h2 id="pageTitle">Dashboard</h2>
       </div>
       <div class="topbar-actions">
-        <span class="demo-badge" style="margin:0">DEMO</span>
+        <div class="notif-bell" style="position:relative">
+          <button class="icon-btn" id="notifBtn" onclick="App.toggleNotifPanel()" title="Notifikasi">🔔</button>
+          <span class="notif-count" id="notifCount" style="display:none">0</span>
+          <div class="notif-panel" id="notifPanel">
+            <div class="notif-panel-header">
+              <span>🔔 Notifikasi</span>
+              <button class="btn btn-ghost btn-sm" onclick="App.markAllNotifRead()">Tandai Dibaca</button>
+            </div>
+            <div id="notifList"></div>
+          </div>
+        </div>
         <button class="icon-btn" id="themeBtn" onclick="App.toggleTheme()" title="Mode Gelap">🌙</button>
         <div class="user-chip" onclick="App.modalGantiPasswordSendiri()" title="Klik untuk ganti password">
           <div class="user-avatar" id="userAvatar">A</div>
@@ -466,12 +494,6 @@ tbody tr:hover{background:var(--bg)}
           </tr></thead>
           <tbody id="tbodyAkun"></tbody>
         </table></div></div>
-        <div class="card" style="margin-top:14px;background:var(--biru-soft);border-left:4px solid var(--biru-strong)">
-          <p style="font-size:12.5px;line-height:1.7">
-            ℹ️ <strong>Catatan:</strong> Admin mengatur password setiap akun secara berbeda di sini.
-            Untuk produksi gunakan <strong>Firebase Authentication</strong>.
-          </p>
-        </div>
       </section>
 
       <section class="page" id="page-laporan">
@@ -484,7 +506,6 @@ tbody tr:hover{background:var(--bg)}
                 <option value="rekap-kelas">Rekap Poin per Kelas</option>
                 <option value="rekap-kategori">Rekap Poin per Kategori</option>
                 <option value="badge">Daftar Penerima Badge</option>
-                <option value="bulanan">Papan Apresiasi Bulanan</option>
               </select>
             </div>
             <button class="btn btn-primary btn-block" onclick="App.generatePDF()">📄 Unduh PDF</button>
@@ -529,13 +550,11 @@ tbody tr:hover{background:var(--bg)}
 
 <div id="toastContainer"></div>
 <input type="file" id="fileInput" style="display:none" />
+<input type="file" id="fotoInput" accept="image/*" style="display:none" />
 
 <script>
-/* ============================================================
-   BINTANG ACHIEVEMENT — APP LOGIC
-   ============================================================ */
 const App = (() => {
-  const KEY = 'bintang_achievement_demo_v4';
+  const KEY = 'bintang_achievement_v5';
   const ROLES = {
     admin:{label:'Administrator',icon:'👑'},
     guru:{label:'Pendidik',icon:'👨‍🏫'},
@@ -548,21 +567,48 @@ const App = (() => {
     kepedulian:{label:'Kepedulian',icon:'💝',color:'#EC407A'},
     kolaborasi:{label:'Kolaborasi',icon:'🤝',color:'#66BB6A'}
   };
+  const KELAS_LIST = ['Antonius 1','Antonius 2','Antonius 3','Antonius 4','Antonius 5','Antonius 6','Antonius 7','Antonius 8','Antonius 9'];
+  const FOTO_PRESET = ['🦁','🐯','🦊','🐼','🐨','🐸','🦉','🐧','🦋','🌟','⭐','🎓'];
+
+  // ===== DATA SISWA (dari Excel) =====
+  // Format: [NIS, NAMA, KELAS]
+  const SISWA_DATA = [
+    // ANTONIUS 1
+    ['278','AARON NATHANIEL SARAGIH','Antonius 1'],['0117307324','ADE ALVIANO SIBAGARIANG','Antonius 1'],['442','ADRYAN NARA XAVIER SIANIPAR','Antonius 1'],['1','AMOS AMBARITA','Antonius 1'],['0115674748','APRILIA HANAYA MANULLANG','Antonius 1'],['0118338704','ARUN ANDARY GULTOM','Antonius 1'],['519','CATHERINE LAVIOLA AMBARITA','Antonius 1'],['0118979359','CHARISA ANINDYA SILALAHI','Antonius 1'],['0116623740','CHINDY ESRAYANI SIJABAT','Antonius 1'],['0104834582','CHINTYA ROMAITO MANIK','Antonius 1'],['0108120963','CHRISTIAN DEVAGO SAMUEL SINURAT','Antonius 1'],['0104280066','CRISTIANO HALOHO','Antonius 1'],['0118412994','DINDA DAHLIA PASARIBU','Antonius 1'],['212','ELLO JUNIMAR SIHOMBING','Antonius 1'],['378','ERIJON EFRANANTA PURBA','Antonius 1'],['543','EVO YEHEZKIEL MANGATUR SINAGA','Antonius 1'],['0118698982','FANIA PENTASYA SITINJAK','Antonius 1'],['377','FELICIA AILSA SARAGIH','Antonius 1'],['406','FITRI DEVI MANURUNG','Antonius 1'],['0116817064','FRANSISKA HANI EPIFANI NABABAN','Antonius 1'],['0119222117','GOM GOM STEVE VAI SINAGA','Antonius 1'],['0112914991','IMELDYANI NAINGGOLAN','Antonius 1'],['455','IRNA ISYABEL SIALLAGAN','Antonius 1'],['316','JEREMIA SOLAFIDE BUTAR BUTAR','Antonius 1'],['1','JOGI HERNANDES SITANGGANG','Antonius 1'],['124','JOVANCO LIONEL MANIK','Antonius 1'],['0112056299','KASDIN BERKAT MANURUNG','Antonius 1'],['0103159612','LASTI ADELINA SIMARMATA','Antonius 1'],['64','LOVITA CL SIJABAT','Antonius 1'],['555','MAHENDRA CRYSTOFER MAS DEWA LUMBAN TOBING','Antonius 1'],['0119545005','MEWANY LESTISYA SARAGIH','Antonius 1'],['0108388772','NADIA OKTAVIA GULTOM','Antonius 1'],['398','PEDRO CAESAR PARDOMUAN HUTAHAEAN','Antonius 1'],['0117591826','RACHEL TALITA','Antonius 1'],['0116393740','RAFHAEL PUTRA NABABAN','Antonius 1'],['0109142008','RENATA ANGELIN SIPAYUNG','Antonius 1'],['451','RUTH CALISTA SIMANJUNTAK','Antonius 1'],['0117739181','SANGGAM MOSES GABRIEL SINAGA','Antonius 1'],['0116124057','SAUL ZAPONET PANEAH PANE','Antonius 1'],['0096178569','SHEILA PERANGIN-ANGIN','Antonius 1'],['0111380103','TASYA INTAN PANJAITAN','Antonius 1'],['0102723347','YENI SEPTRIANA BR. SIMBOLON','Antonius 1'],
+    // ANTONIUS 2
+    ['246','ABBYGHAIL NARA SITORUS','Antonius 2'],['364','ADINDA SAGALA','Antonius 2'],['4','AMEYKHA MAGDALENA SINAGA','Antonius 2'],['448','ANDRE SIBARANI','Antonius 2'],['145','ARY GLEND SINAGA','Antonius 2'],['336','BLESSMAN SIHOTANG','Antonius 2'],['92','CECILIA ANGGINI SIPAYUNG','Antonius 2'],['171','CHARLY PARDAMEAN SITUMORANG','Antonius 2'],['308','CHYINTIARTA ROGATRIS PURBA','Antonius 2'],['422','CITRA CEMARA BR.SINAGA','Antonius 2'],['196','DELLA MARIA KRISTIN SUMBAYAK','Antonius 2'],['247','DESTIANA GRACIALIANI SIGIRO','Antonius 2'],['61','DHANUARGA MALAU','Antonius 2'],['307','DINDA CLARISA PANJAITAN','Antonius 2'],['118','ERVAN GABRIEL GULTOM','Antonius 2'],['490','ESRA KRISTA KLARISSA NABABAN','Antonius 2'],['335','FELIX SITINJAK','Antonius 2'],['541','FRISKA MARTINA BR HUTABALIAN','Antonius 2'],['222','GARY SATAHI SINAGA','Antonius 2'],['25','GIO GILBERT SIHOTANG','Antonius 2'],['389','GRACIA TELAUMBANUA','Antonius 2'],['513','INDRIANA GULTOM','Antonius 2'],['221','JAYA JOY AKIM SIHOMBING','Antonius 2'],['391','JOID TRI ANGGI SINAGA','Antonius 2'],['272','JOSEFINTO ANUGERAH TAMBA','Antonius 2'],['274','KEVIN JUDIKA SIMANJUNTAK','Antonius 2'],['419','MELATI VAULIANA BR LIMBONG','Antonius 2'],['91','MELYNDA SEPTRIANI SINAGA','Antonius 2'],['365','MICELL  ANABELLE PURBA','Antonius 2'],['72','MONIKA BR GINTING','Antonius 2'],['511','NADYA CHRISTABEL ADORA SINAGA','Antonius 2'],['470','PUAN SYLFIA RAJAGUKGUK','Antonius 2'],['491','RAHUT CHRISTIAN HAHOLONGAN SARAGIH','Antonius 2'],['567','RICHAD FREDRICK SIMANJUNTAK','Antonius 2'],['63','RINA KARTINI SIMANJUNTAK','Antonius 2'],['119','SABRINA WULANDARI HUTAHAEAN','Antonius 2'],['144','SAMUEL RAJAGUKGUK','Antonius 2'],['23','SAROHA CHRISENSIA GULTOM','Antonius 2'],['169','SUCI OCTA CAROLINA SARAGIH','Antonius 2'],['471','THYMOTIA KASIH MARGARETH TL. PADANG','Antonius 2'],['449','WILLY GOMGOM HAPOSAN LUMBANTORUAN','Antonius 2'],['540','YOBEL SIAHAAN','Antonius 2'],['194','YOHANNA YULIASTY BR SITOHANG','Antonius 2'],['564','YOSEP HERDSMAN MUNTHE','Antonius 2'],
+    // ANTONIUS 3
+    ['538','ABIGAIL MARYLIN PANDAONI SIMANJUNTAK','Antonius 3'],['279','ADINDA DAMERIA NAINGGOLAN','Antonius 3'],['142','AFNER GABRIEL LUBIS','Antonius 3'],['388','AGUNG RAFANDY SIDABUTAR','Antonius 3'],['563','ANDIEN IRA PUTRI SINAGA','Antonius 3'],['467','ANDREAS RAFAEL SIHOTANG','Antonius 3'],['223','BONI HASIHOLAN SITORUS','Antonius 3'],['424','CISHELIA VANKA BR SIANIPAR','Antonius 3'],['219','CORNELIUS NEHA NAINGGOLAN','Antonius 3'],['475','DEPHA GERALDUS SIRAIT','Antonius 3'],['542','DHITAREJEKI SILALAHI','Antonius 3'],['585','ELIFELET','Antonius 3'],['248','ENJELI NOVIARTHA SIHALOHO','Antonius 3'],['174','EVLINE JODY SINURAT','Antonius 3'],['147','GABRIEL SIMBOLON','Antonius 3'],['488','GITA ROSALIA SIMANJUNTAK','Antonius 3'],['193','GRECIA REGINA PUTRI TURNIP','Antonius 3'],['197','GUIDO ALBERTUS TUA SARAGIH','Antonius 3'],['337','HANNA ANGELIA SIRAIT','Antonius 3'],['5','HANS CHRISTOFFEL SAMOSIR','Antonius 3'],['418','IMELDA.THERESIA.SIMARE-MARE','Antonius 3'],['271','INRI ROVELLY SINAGA','Antonius 3'],['21','JEREMY WILIAM SIBURIAN','Antonius 3'],['306','JESICA MEYSIA BR PASARIBU','Antonius 3'],['168','JESSIE BELVA NAIBAHO','Antonius 3'],['510','KESIA IMELDA MANURUNG','Antonius 3'],['93','LASRIA NOPITA LUMBANTORUAN','Antonius 3'],['243','MANUEL PERDANA SIREGAR','Antonius 3'],['393','MARIETTA ELISABETH LUBIS','Antonius 3'],['31','MARTA DELLA PUTRI BR TAMBA','Antonius 3'],['65','NATHAN JOSE MIYARCHO SINAGA','Antonius 3'],['445','NICKY FIRMANDO PURBA','Antonius 3'],['568','REVI BERLIANA BANCIN','Antonius 3'],['492','RIBKA MEI HONEY SIANIPAR','Antonius 3'],['58','RICHAN BONAR SARAGIH TAMBA','Antonius 3'],['334','RISMELATI MANIK','Antonius 3'],['514','RODEARNI SUNNY GRASILDA SARAGIH','Antonius 3'],['450','ROYESKA DAOMARA GARCIA DAMANIK','Antonius 3'],['90','STEVAN GENOAH MALAU','Antonius 3'],['309','TRI WANDA FLORA SIPAYUNG','Antonius 3'],['120','YEMIMA SERLIANTY BANJARNAHOR','Antonius 3'],['117','YONATHAN CRISTIAN JUNIOR MANIM','Antonius 3'],['366','YORIVA SASKIA PURBA','Antonius 3'],['362','YOSIA ANDREAS TORANG SITORUS','Antonius 3'],
+    // ANTONIUS 4
+    ['544','ALDO HAGANTA GINTING','Antonius 4'],['414','CORINTHIAN N. N. PURBA DASUHA','Antonius 4'],['283','CRISTIAN MANGOLOI TAMBA','Antonius 4'],['476','DANIEL SIMANJUNTAK','Antonius 4'],['361','DANRIS PUTRA BERNARDUS SIMARMATA','Antonius 4'],['562','DANUARTHA HUTAHAEAN','Antonius 4'],['199','DAUD MAURICE SILABAN','Antonius 4'],['190','DESSTAR SARDION SIBUEA','Antonius 4'],['269','DONCLEON EDSELSSANO.M.TAMBUNAN','Antonius 4'],['305','ELSA PUTRI MALAU','Antonius 4'],['167','EXAUDY RANANTHA MALAU','Antonius 4'],['32','GABRIEL FREDLY SIHITE','Antonius 4'],['487','GIBRAN AQUERO SITORUS','Antonius 4'],['139','GIDEON RAYPANDO SAMOSIR','Antonius 4'],['6','GRACE ANASTASYA SINAGA','Antonius 4'],['394','GRACESIELLA MARANATA SIAHAAN','Antonius 4'],['508','GRACIO HOT MARULI TUA SIMARMATA','Antonius 4'],['387','GUNAWAN SIANTURI','Antonius 4'],['67','HANSEL IGNASIUS HUGO SIAHAAN','Antonius 4'],['466','IKRI SANDO EMMANUEL SIHALOHO','Antonius 4'],['569','JESICA AMELIA ELVA SILALAHI','Antonius 4'],['444','JOCELYN OKTAVIA DN SITUMORANG','Antonius 4'],['225','JOEL OSTEEN TURNIP','Antonius 4'],['331','JONAH SOTARDUGA SIADARI','Antonius 4'],['584','JOSE HONTAS HAMONANGAN LUMBAN GAOL','Antonius 4'],['148','JOSEPH GUARDIOLA A. SIMANJUNTAK','Antonius 4'],['57','JOVITA BEATRICE SIPAYUNG','Antonius 4'],['94','JUAN FELIX MORHA GIRSANG','Antonius 4'],['493','JUSTIN BONARDO PARDOSI','Antonius 4'],['452','KATHERINE MANAPAR TAMBUNAN','Antonius 4'],['175','LAURA GRESILIA GULTOM','Antonius 4'],['121','MARKUS EPANO MANURUNG','Antonius 4'],['116','METHA NABABAN','Antonius 4'],['242','MICHELLE KATARINA HUTABARAT','Antonius 4'],['20','MIKHA OCTAVIANI JULIANA NAHULAE','Antonius 4'],['425','MORGAN TAMBUNAN','Antonius 4'],['218','RAHEL JUWITA BR.SIRAIT','Antonius 4'],['367','RAINA FAUSTINA QUINN NADAPDAP','Antonius 4'],['537','REYMONDO SITUMORANG','Antonius 4'],['515','SALSA PANJAITAN','Antonius 4'],['312','SOFYAN CHRISVAN DOLY PANJAITAN','Antonius 4'],['88','SONDANG OCTAVIANI DAMANIK','Antonius 4'],['251','STEVAN HORAS SIMAMORA','Antonius 4'],['338','ZEVANA GRATIA SIPAYUNG','Antonius 4'],
+    // ANTONIUS 5
+    ['313','ADE FERNANDO DAMANIK','Antonius 5'],['507','ADLY RISKI SIPAYUNG','Antonius 5'],['33','ARCEL RAFAEL PANGARIBUAN','Antonius 5'],['583','ARTHA WINATA NAINGGOLAN','Antonius 5'],['443','ARTHUR ASIAN ARYANTO MANURUNG','Antonius 5'],['96','ARTIKA GULTOM','Antonius 5'],['113','BONARDO T.U. NAINGGOLAN','Antonius 5'],['226','CHRISYANTO PRAYER HUTAGAOL','Antonius 5'],['70','CRISTIE VINERA DAMANIK','Antonius 5'],['369','DAVID GLADEN SARAGIH','Antonius 5'],['7','DEBORA WIDYA GIOVANI SILALAHI','Antonius 5'],['267','DESTIA KEIZA PURBA','Antonius 5'],['380','EDELINA RODUITA GIRSANG','Antonius 5'],['570','ELISA MANUELA SIJABAT','Antonius 5'],['454','ELLYA VANESCA SINAGA','Antonius 5'],['413','ELVRIDA HUTAURUK','Antonius 5'],['465','EZRA LUMBANTOBING','Antonius 5'],['304','FAREL EVRAN PASARIBU','Antonius 5'],['56','GEORGE HAMONANGAN SARAGIH','Antonius 5'],['123','GISA GRACELLA BR BUKIT','Antonius 5'],['200','HESTI QUINSA SILABAN','Antonius 5'],['494','JOACHIM ERLANDO TAMBUNAN','Antonius 5'],['287','JOSEPH HANS MORENO DAMANIK','Antonius 5'],['216','JULIUS FRANSISCO SINAGA','Antonius 5'],['486','KESITA SYIKAL DOMINIQUE SILABAN','Antonius 5'],['561','KEYLA PUTRI LASMARIANA SIANIPAR','Antonius 5'],['360','LEON ZERO NAINGGOLAN','Antonius 5'],['330','MICHELLE CLAUDYA SIHOMBING','Antonius 5'],['426','PITER LIONEL SIRAIT','Antonius 5'],['166','RAHEL TRINITA SIMAMORA','Antonius 5'],['189','RASTI AGATA SIMATUPANG','Antonius 5'],['518','REGINA CAELIN SIALLAGAN','Antonius 5'],['150','REGINA ROSLIN SITUMORANG','Antonius 5'],['176','REVALDO PRATAMA LUMBAN RAJA','Antonius 5'],['395','REVAZITA ANASTASYA SITUMEANG','Antonius 5'],['138','SELA CINTA SARAGIH','Antonius 5'],['477','SHENDY MARIA CRISTIN SILABAN','Antonius 5'],['87','SHINTYA CLARISA SIMBOLON','Antonius 5'],['19','SONYA LOVENAULI NAIBAHO','Antonius 5'],['340','TESA DAME SARI SARAGIH','Antonius 5'],['534','TRIVENA CAROLINE','Antonius 5'],['241','VINSENSIUS GOMGOM TUA SIRAIT','Antonius 5'],['252','YEHEZKIEL DARREL SINAGA','Antonius 5'],['547','YOHANA AXELLA PANJAITAN','Antonius 5'],
+    // ANTONIUS 6
+    ['520','ADRIEL STEVEN HOWART SIMANJUNTAK','Antonius 6'],['86','ADVENTA PAKPAHAN','Antonius 6'],['456','AGNIESTHIA S.M. SINAGA','Antonius 6'],['485','ALVARO GAMARA GINTING','Antonius 6'],['288','AMELIN PEBIANA SIAHAAN','Antonius 6'],['215','ARIYANTI YULINDA MANIHURUK','Antonius 6'],['379','BELFANIA ANGEL SITEPU','Antonius 6'],['137','BRYGITA SEPTIANA TIURMA SIAGIAN','Antonius 6'],['264','CHOKI J. L SITOHANG','Antonius 6'],['411','DWI DIVIA BUTAR BUTAR','Antonius 6'],['439','ELIZABETH SIJABAT','Antonius 6'],['55','FAJAR SARAGIH','Antonius 6'],['343','GRACIA CATHERINE TAMPUBOLON','Antonius 6'],['370','GRACIO R.H.BANJARNAHOR','Antonius 6'],['301','GRACYA MELODINA MANULLANG','Antonius 6'],['464','GREYSIA FANNI PURBA','Antonius 6'],['164','HANA JUBELA AGLESTARI SAMOSIR','Antonius 6'],['427','HENDARDI HENRIKUS H.R SINAGA','Antonius 6'],['506','IBRENA BASTANTA SEMBIRING','Antonius 6'],['201','IKA NIKITA SINAGA','Antonius 6'],['478','IMMANUEL JOGI T SIMAMORA','Antonius 6'],['152','IZAH PAKPAHAN','Antonius 6'],['495','JESSISCA CLAUDIA SITORUS','Antonius 6'],['314','KESYA VIOLITA SINAGA','Antonius 6'],['328','LOREN MARGARETHA TAMBUN','Antonius 6'],['240','MARCAHAYA GLORY GRACETO MANURUNG','Antonius 6'],['549','MELANI ZUPANA BR TAMBUNAN','Antonius 6'],['582','MIKAEL SILITONGA','Antonius 6'],['97','NADA BRIGITTA GULTOM','Antonius 6'],['18','NANDA SRI NURCAHAYA MANIK','Antonius 6'],['397','NIA REVEWELLA SINAGA','Antonius 6'],['571','QUEEN SHENLY SINURAT','Antonius 6'],['35','RAFAEL ABEDNEGO NABABAN','Antonius 6'],['177','REVALDI PRADITA LUMBAN RAJA','Antonius 6'],['112','RICARDUS RAMAHDANI SINAGA','Antonius 6'],['253','SAMUEL HAGABEON GULTOM','Antonius 6'],['125','STEVEN JOSIA SILAEN','Antonius 6'],['9','TERESIA ADE RAPIKA SILAEN','Antonius 6'],['73','TIURMAIDA PARDEDE','Antonius 6'],['228','WIDI AYU OKTAVIANI SIANTURI','Antonius 6'],['558','YEREMIA HATORANGAN SILALAHI','Antonius 6'],['359','YOAKIM LUMBAN TOBING','Antonius 6'],['533','YOCHELYN RIBKA TURNIP','Antonius 6'],['187','YOSEFHINE NABABAN','Antonius 6'],
+    // ANTONIUS 7
+    ['438','ALDO DIVANDO SIANIPAR','Antonius 7'],['532','ALEXANDRO GIRSANG','Antonius 7'],['410','APRILANI ROSENTA HOPE SIMBOLON','Antonius 7'],['371','BOAZ AGAVITO RAZDO SIPAYUNG','Antonius 7'],['85','BRIGITA AMORA NATALIE','Antonius 7'],['300','CHARIN PURNAMA DARANEFRIL SIPAYUNG','Antonius 7'],['10','CHATRINE DWI SAGITA BR TARIGAN','Antonius 7'],['102','CLARA FEBITANIA PURBA','Antonius 7'],['428','DANIEL BRIGATOS SARULIAMAN SARAGIH','Antonius 7'],['557','DIAN APRILIA RAJAGUKGUK','Antonius 7'],['550','EGY ALVARO BASTANTA SEMBIRING','Antonius 7'],['291','ELVANIA QUEEN PURBA','Antonius 7'],['505','FALENAI LAILA SIMARMATA','Antonius 7'],['41','GABRIEL HERMANUS IMMANUEL MANURUNG','Antonius 7'],['572','GERY KEVIN MANURUNG','Antonius 7'],['202','GIHON PUTRA SIHALOHO','Antonius 7'],['153','GRACE MICHAEL TURNIP','Antonius 7'],['230','GUIDO SITANGGANG','Antonius 7'],['317','HEZKIEL DION RITONGA','Antonius 7'],['211','JOHANDA OKIRAY PURBA','Antonius 7'],['234','HANSEL PATRICIO SIREGAR','Antonius 7'],['235','RANGGI MARTINUS MANIK','Antonius 7'],['236','AURY NADINE RUMAPEA','Antonius 7'],['239','ROHASIANNA RUTH AGATHA','Antonius 7'],['124','JOVANCO LIONEL MANIK','Antonius 7'],
+    // ANTONIUS 8 (dari sisa sheet SELEKSI)
+    ['318','VITA ANGEL SIAHAAN','Antonius 8'],['320','TESSALONIKA SITANGGANG','Antonius 8'],['321','IGNASIA LEONI PANGARIBUAN','Antonius 8'],['322','KANCINDISA LEORA SIANTURI','Antonius 8'],['325','SOFIA SIHOMBING','Antonius 8'],['328','LOREN MARGARETHA TAMBUN','Antonius 8'],['330','MICHELLE CLAUDYA SIHOMBING','Antonius 8'],['331','JONAH SOTARDUGA SIADARI','Antonius 8'],['334','RISMELATI MANIK','Antonius 8'],['335','FELIX SITINJAK','Antonius 8'],['336','BLESSMAN SIHOTANG','Antonius 8'],['337','HANNA ANGELIA SIRAIT','Antonius 8'],['338','ZEVANA GRATIA SIPAYUNG','Antonius 8'],['340','TESA DAME SARI SARAGIH','Antonius 8'],['343','GRACIA CATHERINE TAMPUBOLON','Antonius 8'],['347','RAPAEL CARLITO MANURUNG','Antonius 8'],['349','DONNATA ALENA BARINGBING','Antonius 8'],['350','TRIHANA CLONIKA SITUMORANG','Antonius 8'],['352','INTAN ARGARIA PANGGABEAN','Antonius 8'],['355','SILVIA BERKAT CLAUDIA SIHOMBING','Antonius 8'],['358','THALITA BONITA SIMANJUNTAK','Antonius 8'],['359','YOAKIM LUMBAN TOBING','Antonius 8'],['360','LEON ZERO NAINGGOLAN','Antonius 8'],['361','DANRIS PUTRA BERNARDUS SIMARMATA','Antonius 8'],['362','YOSIA ANDREAS TORANG SITORUS','Antonius 8'],['364','ADINDA SAGALA','Antonius 8'],['365','MICELL  ANABELLE PURBA','Antonius 8'],['366','YORIVA SASKIA PURBA','Antonius 8'],['367','RAINA FAUSTINA QUINN NADAPDAP','Antonius 8'],['369','DAVID GLADEN SARAGIH','Antonius 8'],['370','GRACIO R.H.BANJARNAHOR','Antonius 8'],['371','BOAZ AGAVITO RAZDO SIPAYUNG','Antonius 8'],['372','GIOVANNY TAMBA','Antonius 8'],['373','REFAND HASIBUAN','Antonius 8'],['374','MELKA CRISTIN DAMANIK','Antonius 8'],['375','YOEL PRATAMA DAEL SAMOSIR','Antonius 8'],['376','RIDO MANIK','Antonius 8'],['377','FELICIA AILSA SARAGIH','Antonius 8'],['378','ERIJON EFRANANTA PURBA','Antonius 8'],['379','BELFANIA ANGEL SITEPU','Antonius 8'],['380','EDELINA RODUITA GIRSANG','Antonius 8'],['387','GUNAWAN SIANTURI','Antonius 8'],['388','AGUNG RAFANDY SIDABUTAR','Antonius 8'],['389','GRACIA TELAUMBANUA','Antonius 8'],
+    // ANTONIUS 9
+    ['391','JOID TRI ANGGI SINAGA','Antonius 9'],['393','MARIETTA ELISABETH LUBIS','Antonius 9'],['394','GRACESIELLA MARANATA SIAHAAN','Antonius 9'],['395','REVAZITA ANASTASYA SITUMEANG','Antonius 9'],['397','NIA REVEWELLA SINAGA','Antonius 9'],['398','PEDRO CAESAR PARDOMUAN HUTAHAEAN','Antonius 9'],['399','STEVEN MARZUKI MARBUN','Antonius 9'],['400','DEVI VALERINA PURBA','Antonius 9'],['402','CHELSEA MONICA PAKPAHAN','Antonius 9'],['405','GABRIELLA CHATERINE APRILIA BUTAR-BUTAR','Antonius 9'],['406','FITRI DEVI MANURUNG','Antonius 9'],['407','YOHANA PATRICIA SHARON PANE','Antonius 9'],['410','APRILANI ROSENTA HOPE SIMBOLON','Antonius 9'],['411','DWI DIVIA BUTAR BUTAR','Antonius 9'],['413','ELVRIDA HUTAURUK','Antonius 9'],['414','CORINTHIAN N. N. PURBA DASUHA','Antonius 9'],['418','IMELDA.THERESIA.SIMARE-MARE','Antonius 9'],['419','MELATI VAULIANA BR LIMBONG','Antonius 9'],['422','CITRA CEMARA BR.SINAGA','Antonius 9'],['424','CISHELIA VANKA BR SIANIPAR','Antonius 9'],['425','MORGAN TAMBUNAN','Antonius 9'],['426','PITER LIONEL SIRAIT','Antonius 9'],['427','HENDARDI HENRIKUS H.R SINAGA','Antonius 9'],['428','DANIEL BRIGATOS SARULIAMAN SARAGIH','Antonius 9'],['431','EYJI KLEMENSIA SARAGIH','Antonius 9'],['435','RANI APRILIA SINAGA','Antonius 9'],['436','SINTA MARITO SIHOTANG','Antonius 9'],['437','BUNGA MUTIARA BR SILABAN','Antonius 9'],['438','ALDO DIVANDO SIANIPAR','Antonius 9'],['439','ELIZABETH SIJABAT','Antonius 9'],['442','ADRYAN NARA XAVIER SIANIPAR','Antonius 9'],['443','ARTHUR ASIAN ARYANTO MANURUNG','Antonius 9'],['444','JOCELYN OKTAVIA DN SITUMORANG','Antonius 9'],['445','NICKY FIRMANDO PURBA','Antonius 9'],['448','ANDRE SIBARANI','Antonius 9'],['449','WILLY GOMGOM HAPOSAN LUMBANTORUAN','Antonius 9'],['450','ROYESKA DAOMARA GARCIA DAMANIK','Antonius 9'],['451','RUTH CALISTA SIMANJUNTAK','Antonius 9'],['452','KATHERINE MANAPAR TAMBUNAN','Antonius 9'],['454','ELLYA VANESCA SINAGA','Antonius 9'],['455','IRNA ISYABEL SIALLAGAN','Antonius 9'],['456','AGNIESTHIA S.M. SINAGA','Antonius 9'],['457','IRENE NOVINTAN SIMANJUNTAK','Antonius 9']
+  ];
+
   let state = {
-    user:null, role:null, currentAkun:null,
-    settings:{sekolah:'SMA Swasta RK Bintang Timur Pematangsiantar',kepsek:'Drs. Robert Sihombing, M.Pd'},
-    akun:[],
-    siswa:[], tindakan:[], poin:[], badge:[], badgeSiswa:[], level:[], awardBulanan:[]
+    user:null, role:null, currentAkun:null, siswaId:null,
+    settings:{sekolah:'SMA Swasta RK Bintang Timur Pematangsiantar',kepsek:'Megaria Parhusip, M.Pd'},
+    akun:[], siswa:[], tindakan:[], poin:[], badge:[], badgeSiswa:[], level:[], awardBulanan:[],
+    notifikasi:[]
   };
   let charts = {};
   let selectedLoginRole = null;
+  let selectedKelasLogin = '';
+  let notifPanelOpen = false;
 
   // ===== UTIL =====
   const $ = s => document.querySelector(s);
   const $$ = s => document.querySelectorAll(s);
   const esc = s => String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const uid = (p='id') => p+'_'+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
-  const fmt = (n,d=0) => (n==null||isNaN(n))?'-':Number(n).toFixed(d);
   const today = () => new Date().toISOString().slice(0,10);
   const monthKey = d => (d||'').slice(0,7);
 
@@ -605,9 +651,63 @@ const App = (() => {
     $('#confirmYes').onclick=()=>{closeModal();onYes();};
   }
 
-  // ===== LOGIN FORM DINAMIS (DENGAN KOLOM PASSWORD) =====
+  // ===== SEED DATA =====
+  async function seedData(){
+    state.siswa = SISWA_DATA.map(([nis,nama,kelas])=>({id:uid('s'),nis,nama,kelas,aktif:true,foto:''}));
+    state.tindakan = [
+      {id:uid('t'),kategori:'disiplin',nama:'Datang tepat waktu',poin:5},
+      {id:uid('t'),kategori:'disiplin',nama:'Mengumpulkan tugas tepat waktu',poin:10},
+      {id:uid('t'),kategori:'disiplin',nama:'Tidak pernah terlambat sebulan',poin:20},
+      {id:uid('t'),kategori:'prestasi',nama:'Juara kelas',poin:50},
+      {id:uid('t'),kategori:'prestasi',nama:'Juara lomba akademik',poin:40},
+      {id:uid('t'),kategori:'prestasi',nama:'Juara lomba non-akademik',poin:30},
+      {id:uid('t'),kategori:'kepedulian',nama:'Membantu teman kesulitan',poin:10},
+      {id:uid('t'),kategori:'kepedulian',nama:'Berbagi dengan sesama',poin:15},
+      {id:uid('t'),kategori:'kolaborasi',nama:'Aktif dalam kerja kelompok',poin:10},
+      {id:uid('t'),kategori:'kolaborasi',nama:'Menjadi ketua kelompok',poin:15}
+    ];
+    state.badge = [
+      {id:uid('b'),nama:'Bintang Pertama',ikon:'⭐',deskripsi:'Mendapat 50 poin pertama',syarat:'poin',syaratPoin:50},
+      {id:uid('b'),nama:'Bintang Perak',ikon:'🌟',deskripsi:'Mendapat 150 poin',syarat:'poin',syaratPoin:150},
+      {id:uid('b'),nama:'Bintang Emas',ikon:'✨',deskripsi:'Mendapat 300 poin',syarat:'poin',syaratPoin:300},
+      {id:uid('b'),nama:'Bintang Utama',ikon:'💫',deskripsi:'Mendapat 500 poin',syarat:'poin',syaratPoin:500},
+      {id:uid('b'),nama:'Ahli Disiplin',ikon:'🛡️',deskripsi:'100 poin kedisiplinan',syarat:'kategori',kategori:'disiplin',syaratPoin:100},
+      {id:uid('b'),nama:'Peraih Prestasi',ikon:'🏆',deskripsi:'100 poin prestasi',syarat:'kategori',kategori:'prestasi',syaratPoin:100},
+      {id:uid('b'),nama:'Jiwa Peduli',ikon:'💝',deskripsi:'100 poin kepedulian',syarat:'kategori',kategori:'kepedulian',syaratPoin:100},
+      {id:uid('b'),nama:'Raja Kolaborasi',ikon:'🤝',deskripsi:'100 poin kolaborasi',syarat:'kategori',kategori:'kolaborasi',syaratPoin:100}
+    ];
+    state.level = [
+      {id:uid('l'),nama:'Pemula',ikon:'🌱',minPoin:0,maxPoin:49},
+      {id:uid('l'),nama:'Berkembang',ikon:'🌿',minPoin:50,maxPoin:149},
+      {id:uid('l'),nama:'Bintang Muda',ikon:'⭐',minPoin:150,maxPoin:299},
+      {id:uid('l'),nama:'Bintang Cemerlang',ikon:'🌟',minPoin:300,maxPoin:499},
+      {id:uid('l'),nama:'Bintang Utama',ikon:'💫',minPoin:500,maxPoin:999999}
+    ];
+    // Akun: admin, guru, wali (password 1), siswa (password NIS)
+    const pwAdmin = await hashPw('1');
+    const pwGuru = await hashPw('1');
+    const pwWali = await hashPw('1');
+    state.akun = [
+      {id:uid('a'),username:'admin',password:pwAdmin,nama:'Administrator',role:'admin',aktif:true,dibuat:today()},
+      {id:uid('a'),username:'guru1',password:pwGuru,nama:'Guru Pengajar 1',role:'guru',aktif:true,dibuat:today()},
+      {id:uid('a'),username:'guru2',password:pwGuru,nama:'Guru Pengajar 2',role:'guru',aktif:true,dibuat:today()}
+    ];
+    // Wali kelas 1-9
+    for(let i=1;i<=9;i++){
+      state.akun.push({id:uid('a'),username:'wali'+i,password:pwWali,nama:'Wali Kelas Antonius '+i,role:'wali',kelas:'Antonius '+i,aktif:true,dibuat:today()});
+    }
+    // Akun siswa (password = NIS)
+    for(const s of state.siswa){
+      const pwSiswa = await hashPw(s.nis);
+      state.akun.push({id:uid('a'),username:'siswa_'+s.nis,password:pwSiswa,nama:s.nama,role:'siswa',siswaId:s.id,aktif:true,dibuat:today()});
+    }
+    save();
+  }
+
+  // ===== LOGIN FORM =====
   function selectRole(role){
     selectedLoginRole = role;
+    selectedKelasLogin = '';
     $$('.role-btn').forEach(b=>b.classList.toggle('active', b.dataset.role===role));
     renderLoginForm(role);
   }
@@ -619,98 +719,85 @@ const App = (() => {
       box.innerHTML = `
         <div class="form-section">
           <label>Username Administrator *</label>
-          <input type="text" id="li_username" placeholder="contoh: admin" autocomplete="username" value="admin"/>
+          <input type="text" id="li_username" placeholder="admin" value="admin"/>
           <label class="pw-label">Kata Sandi <span class="pw-tag">WAJIB</span></label>
           <div class="pw-field">
-            <input type="password" id="li_pass" placeholder="Masukkan kata sandi" autocomplete="current-password" value="admin123"/>
-            <button type="button" class="pw-toggle" onclick="App.togglePw('li_pass',this)" title="Tampilkan">👁️</button>
+            <input type="password" id="li_pass" placeholder="Masukkan kata sandi" value="1"/>
+            <button type="button" class="pw-toggle" onclick="App.togglePw('li_pass',this)">👁️</button>
           </div>
-          <div class="hint-role">💡 Kata sandi diatur oleh Administrator</div>
         </div>`;
     }
-    else if(role==='guru'){
-      const guruList = state.akun.filter(a=>a.role==='guru'&&a.aktif);
-      const opts = guruList.map(a=>`<option value="${esc(a.username)}">${esc(a.nama||a.username)}</option>`).join('');
+    else if(role==='guru' || role==='wali'){
+      const list = state.akun.filter(a=>a.role===role&&a.aktif);
+      const opts = list.map(a=>`<option value="${esc(a.username)}">${esc(a.nama)}${a.kelas?' — '+esc(a.kelas):''}</option>`).join('');
       box.innerHTML = `
         <div class="form-section">
-          <label>Nama Guru *</label>
-          <select id="li_username">
-            <option value="">— Pilih Nama Guru —</option>
-            ${opts || '<option value="">(Belum ada akun guru)</option>'}
-          </select>
+          <label>Nama ${role==='guru'?'Guru':'Wali Kelas'} *</label>
+          <select id="li_username"><option value="">— Pilih —</option>${opts||'<option value="">(Belum ada akun)</option>'}</select>
           <label class="pw-label">Kata Sandi <span class="pw-tag">WAJIB</span></label>
           <div class="pw-field">
-            <input type="password" id="li_pass" placeholder="Masukkan kata sandi" autocomplete="current-password"/>
-            <button type="button" class="pw-toggle" onclick="App.togglePw('li_pass',this)" title="Tampilkan">👁️</button>
+            <input type="password" id="li_pass" placeholder="Masukkan kata sandi"/>
+            <button type="button" class="pw-toggle" onclick="App.togglePw('li_pass',this)">👁️</button>
           </div>
-          <div class="hint-role">💡 Kata sandi diatur oleh Administrator</div>
-        </div>`;
-    }
-    else if(role==='wali'){
-      const waliList = state.akun.filter(a=>a.role==='wali'&&a.aktif);
-      const opts = waliList.map(a=>{
-        const k = a.kelas || '-';
-        return `<option value="${esc(a.username)}">${esc(a.nama||a.username)} — Kelas ${esc(k)}</option>`;
-      }).join('');
-      box.innerHTML = `
-        <div class="form-section">
-          <label>Nama Wali Kelas *</label>
-          <select id="li_username">
-            <option value="">— Pilih Nama Wali Kelas —</option>
-            ${opts || '<option value="">(Belum ada akun wali kelas)</option>'}
-          </select>
-          <label class="pw-label">Kata Sandi <span class="pw-tag">WAJIB</span></label>
-          <div class="pw-field">
-            <input type="password" id="li_pass" placeholder="Masukkan kata sandi" autocomplete="current-password"/>
-            <button type="button" class="pw-toggle" onclick="App.togglePw('li_pass',this)" title="Tampilkan">👁️</button>
-          </div>
-          <div class="hint-role">💡 Kata sandi diatur oleh Administrator</div>
         </div>`;
     }
     else if(role==='siswa'){
-      const siswaList = state.siswa.filter(s=>s.aktif).sort((a,b)=>a.kelas.localeCompare(b.kelas)||a.nama.localeCompare(b.nama));
-      const opts = siswaList.map(s=>`<option value="${esc(s.nis)}" data-kelas="${esc(s.kelas)}" data-nama="${esc(s.nama)}">${esc(s.nama)} — ${esc(s.kelas)} — NIS ${esc(s.nis)}</option>`).join('');
       box.innerHTML = `
         <div class="form-section">
-          <label>Nama Peserta Didik *</label>
-          <select id="li_nama_siswa" onchange="App.onPilihSiswa()">
-            <option value="">— Pilih Nama —</option>
-            ${opts || '<option value="">(Belum ada data siswa)</option>'}
-          </select>
-          <div class="form-row" style="margin-top:8px">
-            <div><label>Kelas</label><input type="text" id="li_kelas" readonly placeholder="otomatis" style="background:var(--bg);opacity:.85"/></div>
-            <div><label>NIS</label><input type="text" id="li_nis" readonly placeholder="otomatis" style="background:var(--bg);opacity:.85"/></div>
+          <label>Pilih Kelas *</label>
+          <div class="siswa-kelas-grid">
+            ${KELAS_LIST.map(k=>`<div class="siswa-kelas-btn" data-kelas="${esc(k)}" onclick="App.pilihKelasLogin('${esc(k)}')">${esc(k)}</div>`).join('')}
           </div>
-          <label class="pw-label" style="margin-top:10px">Kata Sandi <span class="pw-tag">WAJIB</span></label>
+          <label>Ketik Nama Anda *</label>
+          <div class="name-suggest">
+            <input type="text" id="li_nama_input" placeholder="Ketik nama..." autocomplete="off" oninput="App.onNamaInput()" onfocus="App.onNamaInput()"/>
+            <div class="name-suggest-list" id="namaSuggestList"></div>
+          </div>
+          <input type="hidden" id="li_nama_siswa"/>
+          <label class="pw-label" style="margin-top:10px">Kata Sandi (NIS) <span class="pw-tag">WAJIB</span></label>
           <div class="pw-field">
-            <input type="password" id="li_pass" placeholder="Masukkan kata sandi" autocomplete="current-password"/>
-            <button type="button" class="pw-toggle" onclick="App.togglePw('li_pass',this)" title="Tampilkan">👁️</button>
+            <input type="password" id="li_pass" placeholder="Masukkan NIS Anda"/>
+            <button type="button" class="pw-toggle" onclick="App.togglePw('li_pass',this)">👁️</button>
           </div>
-          <div class="hint-role">💡 Kata sandi diatur oleh Administrator</div>
         </div>`;
     }
+  }
+
+  function pilihKelasLogin(kelas){
+    selectedKelasLogin = kelas;
+    $$('.siswa-kelas-btn').forEach(b=>b.classList.toggle('active', b.dataset.kelas===kelas));
+    const inp = $('#li_nama_input');
+    if(inp){ inp.value=''; inp.focus(); }
+    const hid = $('#li_nama_siswa'); if(hid) hid.value='';
+    onNamaInput();
+  }
+
+  function onNamaInput(){
+    const inp = $('#li_nama_input'); if(!inp) return;
+    const q = inp.value.trim().toLowerCase();
+    const list = $('#namaSuggestList'); if(!list) return;
+    if(!selectedKelasLogin){ list.classList.remove('active'); return; }
+    const siswaList = state.siswa.filter(s=>s.kelas===selectedKelasLogin && s.aktif);
+    let match = siswaList;
+    if(q) match = siswaList.filter(s=>s.nama.toLowerCase().includes(q));
+    if(!match.length){ list.innerHTML='<div class="notif-empty">Tidak ada nama cocok</div>'; list.classList.add('active'); return; }
+    list.innerHTML = match.slice(0,10).map(s=>`<div class="name-suggest-item" onclick="App.pilihNamaLogin('${s.id}')">${esc(s.nama)} <small style="color:var(--muted)">(NIS ${esc(s.nis)})</small></div>`).join('');
+    list.classList.add('active');
+  }
+
+  function pilihNamaLogin(siswaId){
+    const s = getSiswa(siswaId); if(!s) return;
+    $('#li_nama_input').value = s.nama;
+    $('#li_nama_siswa').value = s.id;
+    $('#namaSuggestList').classList.remove('active');
+    $('#li_pass').focus();
   }
 
   function togglePw(inputId, btn){
     const input = document.getElementById(inputId);
     if(!input) return;
-    if(input.type === 'password'){
-      input.type = 'text';
-      btn.textContent = '🙈';
-      btn.title = 'Sembunyikan';
-    } else {
-      input.type = 'password';
-      btn.textContent = '👁️';
-      btn.title = 'Tampilkan';
-    }
-  }
-
-  function onPilihSiswa(){
-    const sel = $('#li_nama_siswa');
-    const opt = sel.selectedOptions[0];
-    if(!opt || !opt.value){ $('#li_kelas').value=''; $('#li_nis').value=''; return; }
-    $('#li_kelas').value = opt.dataset.kelas || '';
-    $('#li_nis').value = opt.value;
+    if(input.type === 'password'){ input.type = 'text'; btn.textContent = '🙈'; }
+    else { input.type = 'password'; btn.textContent = '👁️'; }
   }
 
   // ===== LOGIN =====
@@ -718,29 +805,26 @@ const App = (() => {
     if(!selectedLoginRole){ toast('Pilih jenis pengguna terlebih dahulu','warning'); return; }
     const role = selectedLoginRole;
     const pass = $('#li_pass')?.value || '';
-    let username = '', expectedAkun = null;
+    let expectedAkun = null;
 
     if(role==='admin'){
-      username = ($('#li_username')?.value||'').trim().toLowerCase();
-      if(!username){ toast('Username wajib diisi','error'); return; }
+      const username = ($('#li_username')?.value||'').trim().toLowerCase();
       expectedAkun = state.akun.find(a=>a.role==='admin' && a.username.toLowerCase()===username);
       if(!expectedAkun){ toast('Username admin tidak ditemukan','error'); return; }
     }
     else if(role==='guru' || role==='wali'){
-      username = ($('#li_username')?.value||'').trim();
+      const username = ($('#li_username')?.value||'').trim();
       if(!username){ toast('Pilih nama Anda terlebih dahulu','error'); return; }
       expectedAkun = state.akun.find(a=>a.username===username && a.role===role);
       if(!expectedAkun){ toast('Akun tidak ditemukan','error'); return; }
     }
     else if(role==='siswa'){
-      const nis = ($('#li_nama_siswa')?.value||'').trim();
-      if(!nis){ toast('Pilih nama Anda terlebih dahulu','error'); return; }
-      const siswa = state.siswa.find(s=>s.nis===nis);
+      const siswaId = $('#li_nama_siswa')?.value || '';
+      if(!siswaId){ toast('Pilih nama Anda dari daftar','error'); return; }
+      const siswa = getSiswa(siswaId);
       if(!siswa){ toast('Data siswa tidak ditemukan','error'); return; }
       expectedAkun = state.akun.find(a=>a.role==='siswa' && a.siswaId===siswa.id);
-      if(!expectedAkun){ expectedAkun = state.akun.find(a=>a.role==='siswa' && a.username===nis); }
       if(!expectedAkun){ toast('Akun siswa ini belum dibuat. Hubungi admin.','error'); return; }
-      username = expectedAkun.username;
     }
 
     if(!pass){ toast('Kata sandi wajib diisi','error'); return; }
@@ -755,10 +839,24 @@ const App = (() => {
     save();
     $('#loginScreen').style.display='none';
     $('#app').classList.add('active');
-    $('#userName').textContent = state.user;
-    $('#userAvatar').textContent = state.user.charAt(0).toUpperCase();
+    updateUserChip();
     initNav(); renderAll();
+    renderNotifBell();
     toast(`Selamat datang, ${state.user} (${ROLES[state.role].label})`, 'gold');
+  }
+
+  function updateUserChip(){
+    const a = getAkunById(state.currentAkun);
+    let foto = '';
+    if(a && a.role==='siswa' && a.siswaId){ const s=getSiswa(a.siswaId); if(s&&s.foto) foto=s.foto; }
+    const av = $('#userAvatar');
+    if(foto){
+      if(foto.startsWith('data:')) av.innerHTML = `<img src="${foto}"/>`;
+      else av.textContent = foto;
+    } else {
+      av.textContent = state.user.charAt(0).toUpperCase();
+    }
+    $('#userName').textContent = state.user;
   }
 
   function logout(){
@@ -766,7 +864,7 @@ const App = (() => {
       $('#loginScreen').style.display='flex';
       $('#app').classList.remove('active');
       state.user=null; state.role=null; state.currentAkun=null; state.siswaId=null; save();
-      selectedLoginRole = null;
+      selectedLoginRole = null; selectedKelasLogin = '';
       $$('.role-btn').forEach(b=>b.classList.remove('active'));
       $('#loginForm').innerHTML='';
     });
@@ -823,6 +921,42 @@ const App = (() => {
     localStorage.setItem('ba_theme',dark?'light':'dark');
     Object.values(charts).forEach(c=>c&&c.destroy()); charts={};
     if($('#page-dashboard').classList.contains('active')) renderDashboard();
+  }
+
+  // ===== NOTIFIKASI =====
+  function addNotif(title,body,icon='🔔'){
+    state.notifikasi.unshift({id:uid('n'),title,body,icon,time:new Date().toISOString(),read:false});
+    if(state.notifikasi.length>50) state.notifikasi = state.notifikasi.slice(0,50);
+    save();
+    renderNotifBell();
+  }
+  function renderNotifBell(){
+    const unread = state.notifikasi.filter(n=>!n.read).length;
+    const cnt = $('#notifCount');
+    if(unread>0){ cnt.style.display='flex'; cnt.textContent = unread>9?'9+':unread; }
+    else cnt.style.display='none';
+    const list = $('#notifList');
+    if(!list) return;
+    if(!state.notifikasi.length){ list.innerHTML='<div class="notif-empty">Belum ada notifikasi</div>'; return; }
+    list.innerHTML = state.notifikasi.slice(0,20).map(n=>`
+      <div class="notif-item ${n.read?'':'unread'}">
+        <div class="ni-icon">${n.icon}</div>
+        <div class="ni-body">
+          <div class="ni-title">${esc(n.title)}</div>
+          <div>${esc(n.body)}</div>
+          <div class="ni-time">${new Date(n.time).toLocaleString('id-ID')}</div>
+        </div>
+      </div>`).join('');
+  }
+  function toggleNotifPanel(){
+    notifPanelOpen = !notifPanelOpen;
+    $('#notifPanel').classList.toggle('active', notifPanelOpen);
+    if(notifPanelOpen) renderNotifBell();
+  }
+  function markAllNotifRead(){
+    state.notifikasi.forEach(n=>n.read=true);
+    save(); renderNotifBell();
+    toast('Semua notifikasi ditandai dibaca','info');
   }
 
   // ===== DASHBOARD =====
@@ -913,10 +1047,12 @@ const App = (() => {
     if(!valid.length){ return; }
     valid.forEach(sid=>{
       state.poin.push({id:uid('p'),siswaId:sid,tindakanId:tid,tindakanNama:t.nama,kategori:t.kategori,poin:t.poin,alasan,tanggal,pemberi});
+      const s = getSiswa(sid);
+      addNotif('Poin Baru!', `${s.nama} mendapat +${t.poin} poin dari ${t.nama}`, '⭐');
     });
     save();
     const newBadges = [];
-    valid.forEach(sid=>{ const nb = checkBadges(sid); if(nb.length) newBadges.push({sid,nb}); });
+    valid.forEach(sid=>{ const nb = checkBadges(sid); if(nb.length){ newBadges.push({sid,nb}); nb.forEach(b=>{ const s=getSiswa(sid); addNotif('Badge Baru!', `${s.nama} memperoleh badge ${b.ikon} ${b.nama}`, '🏅'); }); } });
     toast(`${valid.length} peserta menerima ${t.poin} poin.`,'gold');
     if(newBadges.length){ confetti(); toast(`🎉 Badge baru diperoleh ${newBadges.length} peserta!`,'gold'); }
     $('#aprAlasan').value='';
@@ -928,9 +1064,7 @@ const App = (() => {
     let arr = state.poin.filter(p=>p.siswaId===siswaId);
     if(filter.kategori) arr = arr.filter(p=>p.kategori===filter.kategori);
     if(filter.bulan) arr = arr.filter(p=>monthKey(p.tanggal)===filter.bulan);
-    if(filter.semester){
-      arr = arr.filter(p=>{const m=parseInt(p.tanggal.slice(5,7)); return filter.semester==='1'?(m>=7&&m<=12):(m>=1&&m<=6);});
-    }
+    if(filter.semester){ arr = arr.filter(p=>{const m=parseInt(p.tanggal.slice(5,7)); return filter.semester==='1'?(m>=7&&m<=12):(m>=1&&m<=6);}); }
     if(filter.tahun) arr = arr.filter(p=>p.tanggal.startsWith(filter.tahun));
     return arr.reduce((a,p)=>a+p.poin,0);
   }
@@ -969,7 +1103,7 @@ const App = (() => {
   function modalSiswa(id){
     const s = id?getSiswa(id):{nis:'',nama:'',kelas:'',aktif:true};
     openModal(id?'Edit Peserta Didik':'Tambah Peserta Didik',`
-      <div class="form-row"><div class="form-group"><label>NIS *</label><input id="s_nis" value="${esc(s.nis)}"/></div><div class="form-group"><label>Kelas *</label><input id="s_kelas" value="${esc(s.kelas)}" placeholder="contoh: X-1"/></div></div>
+      <div class="form-row"><div class="form-group"><label>NIS *</label><input id="s_nis" value="${esc(s.nis)}"/></div><div class="form-group"><label>Kelas *</label><select id="s_kelas">${KELAS_LIST.map(k=>`<option value="${esc(k)}" ${s.kelas===k?'selected':''}>${esc(k)}</option>`).join('')}</select></div></div>
       <div class="form-group"><label>Nama Lengkap *</label><input id="s_nama" value="${esc(s.nama)}"/></div>
       <div class="form-group"><label>Status</label><select id="s_aktif"><option value="1" ${s.aktif?'selected':''}>Aktif</option><option value="0" ${!s.aktif?'selected':''}>Nonaktif</option></select></div>`,
       `<button class="btn btn-ghost" onclick="App.closeModal()">Batal</button><button class="btn btn-primary" onclick="App.saveSiswa('${id||''}')">Simpan</button>`);
@@ -979,7 +1113,7 @@ const App = (() => {
     if(!nis||!nama||!kelas){ toast('NIS, nama, kelas wajib','error'); return; }
     if(state.siswa.some(s=>s.nis===nis&&s.id!==id)){ toast('NIS sudah terdaftar','error'); return; }
     const data={nis,nama,kelas,aktif:$('#s_aktif').value==='1'};
-    if(id) Object.assign(getSiswa(id),data); else state.siswa.push({id:uid('s'),...data});
+    if(id) Object.assign(getSiswa(id),data); else state.siswa.push({id:uid('s'),...data,foto:''});
     save(); closeModal(); renderSiswa(); toast('Tersimpan');
   }
   function deleteSiswa(id){
@@ -1174,10 +1308,11 @@ const App = (() => {
     const progress = nextLv ? Math.min(100, Math.round((poin-lv.minPoin)/(nextLv.minPoin-lv.minPoin)*100)) : 100;
     const months = []; for(let i=5;i>=0;i--){ const d=new Date(); d.setMonth(d.getMonth()-i); months.push(d.toISOString().slice(0,7)); }
     const monthData = months.map(m=>state.poin.filter(p=>p.siswaId===sid&&monthKey(p.tanggal)===m).reduce((a,p)=>a+p.poin,0));
+    const fotoHtml = s.foto ? (s.foto.startsWith('data:') ? `<img src="${s.foto}"/>` : `<span style="font-size:40px">${s.foto}</span>`) : `<span style="font-size:40px">${esc(s.nama.charAt(0))}</span>`;
     $('#profilContent').innerHTML = `
       <div class="card" style="margin-bottom:16px;background:linear-gradient(135deg,var(--kuning-soft),var(--biru-soft))">
         <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
-          <div class="user-avatar" style="width:64px;height:64px;font-size:28px">${esc(s.nama.charAt(0))}</div>
+          <div class="profil-foto" id="profilFotoBox" onclick="App.modalFotoProfil('${sid}')" title="Klik ganti foto" style="cursor:pointer">${fotoHtml}</div>
           <div style="flex:1"><h2 style="font-size:20px">${esc(s.nama)}</h2><div style="color:var(--muted)">NIS ${esc(s.nis)} • Kelas ${esc(s.kelas)}</div></div>
           <div style="text-align:right"><div style="font-size:32px;font-weight:800">${poin}</div><div style="font-size:11px;color:var(--muted)">TOTAL POIN</div></div>
         </div>
@@ -1199,6 +1334,56 @@ const App = (() => {
       </div>`;
     drawChart('chartProfil','bar',months.map(m=>m.slice(5)),[{label:'Poin',data:monthData,backgroundColor:'#FFC93C',borderRadius:6}]);
   }
+
+  // ===== FOTO PROFIL =====
+  function modalFotoProfil(sid){
+    const s = getSiswa(sid); if(!s) return;
+    const cur = s.foto || '';
+    openModal('📸 Pilih Foto Profil', `
+      <p style="font-size:12.5px;color:var(--muted);margin-bottom:12px">Pilih emoji atau upload foto sendiri.</p>
+      <div class="foto-picker">
+        ${FOTO_PRESET.map(e=>`<div class="foto-opt ${cur===e?'active':''}" onclick="App.pilihEmojiFoto('${e}','${sid}')">${e}</div>`).join('')}
+      </div>
+      <div style="text-align:center;margin:12px 0">
+        <button class="btn btn-primary" onclick="App.uploadFoto('${sid}')">📤 Upload Foto Sendiri</button>
+      </div>
+      ${cur?`<div style="text-align:center"><button class="btn btn-danger btn-sm" onclick="App.hapusFoto('${sid}')">🗑️ Hapus Foto</button></div>`:''}
+    `, `<button class="btn btn-ghost" onclick="App.closeModal()">Tutup</button>`);
+  }
+  function pilihEmojiFoto(emoji, sid){
+    const s = getSiswa(sid); if(!s) return;
+    s.foto = emoji; save(); closeModal(); renderProfil(); updateUserChip(); toast('Foto profil diperbarui','gold');
+  }
+  function uploadFoto(sid){
+    const inp = $('#fotoInput'); inp.value='';
+    inp.onchange = e=>{
+      const f = e.target.files[0]; if(!f) return;
+      const r = new FileReader();
+      r.onload = ev=>{
+        const img = new Image();
+        img.onload = ()=>{
+          const canvas = document.createElement('canvas');
+          const size = 200;
+          canvas.width = size; canvas.height = size;
+          const ctx = canvas.getContext('2d');
+          const minDim = Math.min(img.width, img.height);
+          const sx = (img.width - minDim)/2, sy = (img.height - minDim)/2;
+          ctx.drawImage(img, sx, sy, minDim, minDim, 0, 0, size, size);
+          const dataUrl = canvas.toDataURL('image/jpeg', 0.8);
+          const s = getSiswa(sid); if(!s) return;
+          s.foto = dataUrl; save(); closeModal(); renderProfil(); updateUserChip(); toast('Foto profil diperbarui','gold');
+        };
+        img.src = ev.target.result;
+      };
+      r.readAsDataURL(f);
+    };
+    inp.click();
+  }
+  function hapusFoto(sid){
+    const s = getSiswa(sid); if(!s) return;
+    s.foto = ''; save(); closeModal(); renderProfil(); updateUserChip(); toast('Foto dihapus','info');
+  }
+
   function cetakSertifikat(){
     const akun = getAkunById(state.currentAkun);
     let sid = $('#profilSiswa').value;
@@ -1252,11 +1437,10 @@ const App = (() => {
     }).join('');
   }
 
-  // ===== AKUN HELPERS =====
+  // ===== AKUN =====
   const getAkunByUsername = u => state.akun.find(a=>a.username.toLowerCase()===u.toLowerCase());
   const getAkunById = id => state.akun.find(a=>a.id===id);
 
-  // ===== MANAJEMEN AKUN =====
   function renderAkun(){
     if(state.role!=='admin'){ toast('Hanya administrator','error'); return; }
     const q = ($('#searchAkun')?.value||'').toLowerCase();
@@ -1299,7 +1483,7 @@ const App = (() => {
     const a = id?getAkunById(id):{username:'',nama:'',role:'guru',aktif:true,siswaId:'',kelas:''};
     const isEdit = !!id;
     const siswaOptions = state.siswa.map(s=>`<option value="${s.id}" ${a.siswaId===s.id?'selected':''}>${esc(s.nama)} (${esc(s.kelas)})</option>`).join('');
-    const kelasList = [...new Set(state.siswa.map(s=>s.kelas))].sort();
+    const kelasList = KELAS_LIST;
     const kelasOptions = kelasList.map(k=>`<option value="${esc(k)}" ${a.kelas===k?'selected':''}>${esc(k)}</option>`).join('');
     openModal(isEdit?'Edit Akun':'Tambah Akun Baru',`
       <div class="form-row">
@@ -1325,8 +1509,8 @@ const App = (() => {
         <select id="a_siswaId"><option value="">— Pilih Siswa —</option>${siswaOptions}</select>
       </div>
       ${!isEdit?`<div class="form-row">
-        <div class="form-group"><label>Password Awal *</label><input type="text" id="a_password" value="bintang123" /></div>
-        <div class="form-group"><label>Konfirmasi Password *</label><input type="text" id="a_password2" value="bintang123" /></div>
+        <div class="form-group"><label>Password Awal *</label><input type="text" id="a_password" value="1" /></div>
+        <div class="form-group"><label>Konfirmasi Password *</label><input type="text" id="a_password2" value="1" /></div>
       </div>`:''}
       <p style="font-size:11.5px;color:var(--muted);line-height:1.6;margin-top:6px">
         💡 Setelah dibuat, admin dapat mengubah password <strong>setiap akun secara berbeda</strong> melalui tombol 🔑 di daftar akun.
@@ -1360,7 +1544,7 @@ const App = (() => {
     }
     const pw = $('#a_password').value;
     const pw2 = $('#a_password2').value;
-    if(pw.length < 6){ toast('Password minimal 6 karakter','error'); return; }
+    if(pw.length < 1){ toast('Password wajib','error'); return; }
     if(pw !== pw2){ toast('Konfirmasi password tidak cocok','error'); return; }
     const hashed = await hashPw(pw);
     state.akun.push({id:uid('a'),username,password:hashed,nama,role,siswaId,kelas,aktif,dibuat:now,diubah:now});
@@ -1372,14 +1556,13 @@ const App = (() => {
     const a = getAkunById(id);
     openModal(`🔑 Ganti Password — ${esc(a.username)}`, `
       <div class="form-group"><label>Nama Akun</label><input value="${esc(a.nama||a.username)}" readonly style="background:var(--bg);opacity:.7"/></div>
-      <div class="form-group"><label>Password Baru *</label><input type="text" id="gp_new" placeholder="minimal 6 karakter" /></div>
+      <div class="form-group"><label>Password Baru *</label><input type="text" id="gp_new" placeholder="minimal 1 karakter" /></div>
       <div class="form-group"><label>Konfirmasi Password Baru *</label><input type="text" id="gp_new2" /></div>
       <div class="form-row">
         <div class="form-group"><label>Opsi Cepat</label>
           <select id="gp_preset" onchange="App.applyPresetPw(this.value)">
             <option value="">— pilih —</option>
-            <option value="bintang123">bintang123 (default)</option>
-            <option value="sandi2024">sandi2024</option>
+            <option value="1">1 (default)</option>
             <option value="acak">🎲 Buat acak</option>
           </select>
         </div>
@@ -1400,7 +1583,7 @@ const App = (() => {
   async function saveNewPassword(id){
     const pw = $('#gp_new').value;
     const pw2 = $('#gp_new2').value;
-    if(pw.length < 6){ toast('Password minimal 6 karakter','error'); return; }
+    if(pw.length < 1){ toast('Password wajib','error'); return; }
     if(pw !== pw2){ toast('Konfirmasi tidak cocok','error'); return; }
     const a = getAkunById(id);
     a.password = await hashPw(pw);
@@ -1422,14 +1605,13 @@ const App = (() => {
     });
   }
 
-  // ===== GANTI PASSWORD SENDIRI =====
   function modalGantiPasswordSendiri(){
     if(!state.currentAkun){ return; }
     const a = getAkunById(state.currentAkun);
     openModal('🔑 Ganti Password Saya', `
       <div class="form-group"><label>Username</label><input value="${esc(a.username)}" readonly style="background:var(--bg);opacity:.7"/></div>
       <div class="form-group"><label>Password Lama *</label><input type="password" id="sp_old" /></div>
-      <div class="form-group"><label>Password Baru *</label><input type="password" id="sp_new" placeholder="minimal 6 karakter"/></div>
+      <div class="form-group"><label>Password Baru *</label><input type="password" id="sp_new" placeholder="minimal 1 karakter"/></div>
       <div class="form-group"><label>Konfirmasi Password Baru *</label><input type="password" id="sp_new2" /></div>`,
       `<button class="btn btn-ghost" onclick="App.closeModal()">Batal</button>
        <button class="btn btn-primary" onclick="App.savePasswordSendiri()">Simpan</button>`);
@@ -1441,7 +1623,7 @@ const App = (() => {
     const newPw2 = $('#sp_new2').value;
     const oldHash = await hashPw(oldPw);
     if(oldHash !== a.password){ toast('Password lama salah','error'); return; }
-    if(newPw.length<6){ toast('Password baru minimal 6 karakter','error'); return; }
+    if(newPw.length<1){ toast('Password baru wajib','error'); return; }
     if(newPw !== newPw2){ toast('Konfirmasi tidak cocok','error'); return; }
     a.password = await hashPw(newPw);
     a.diubah = today();
@@ -1460,6 +1642,11 @@ const App = (() => {
   }
 
   // ===== EXPORT/IMPORT =====
+  function downloadExcel(sheets,filename){
+    const wb = XLSX.utils.book_new();
+    sheets.forEach(s=>{ const ws = XLSX.utils.json_to_sheet(s.data); XLSX.utils.book_append_sheet(wb,ws,s.name); });
+    XLSX.writeFile(wb,filename);
+  }
   function exportSiswa(){
     const data = state.siswa.map((s,i)=>({No:i+1,NIS:s.nis,Nama:s.nama,Kelas:s.kelas,Poin:totalPoin(s.id),Status:s.aktif?'Aktif':'Nonaktif'}));
     downloadExcel([{name:'Siswa',data}],'Data_Siswa_Bintang.xlsx');
@@ -1470,244 +1657,146 @@ const App = (() => {
       r.onload=ev=>{ try{ const wb=XLSX.read(new Uint8Array(ev.target.result),{type:'array'});
         const rows=XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]);
         let added=0,skip=0;
-        rows.forEach(row=>{ const nis=String(row.NIS||row.nis||'').trim(),nama=String(row.Nama||row.nama||'').trim(),kelas=String(row.Kelas||row.kelas||'').trim();
-          if(!nis||!nama||!kelas||state.siswa.some(s=>s.nis===nis)){skip++;return;}
-          state.siswa.push({id:uid('s'),nis,nama,kelas,aktif:true}); added++;
+        rows.forEach(row=>{ const nis=String(row.NIS||row.nis||'').trim(); const nama=String(row.Nama||row.nama||'').trim(); const kelas=String(row.Kelas||row.kelas||'').trim();
+          if(!nis||!nama||!kelas){ skip++; return; }
+          if(state.siswa.some(s=>s.nis===nis)){ skip++; return; }
+          state.siswa.push({id:uid('s'),nis,nama,kelas,aktif:true,foto:''}); added++;
         });
-        save(); renderSiswa(); toast(`Impor: ${added} ditambahkan, ${skip} dilewati`,added?'success':'warning');
-      }catch(err){ toast('Gagal: '+err.message,'error'); } };
-      r.readAsArrayBuffer(f); };
+        save(); renderSiswa(); toast(`${added} siswa ditambahkan, ${skip} dilewati`,'gold');
+      }catch(err){ toast('Gagal impor: '+err.message,'error'); } };
+      r.readAsArrayBuffer(f);
+    };
     inp.click();
   }
   function exportAllExcel(){
-    const sheets = [];
-    sheets.push({name:'Siswa',data:state.siswa.map((s,i)=>({No:i+1,NIS:s.nis,Nama:s.nama,Kelas:s.kelas,Poin:totalPoin(s.id),Status:s.aktif?'Aktif':'Nonaktif'}))});
-    sheets.push({name:'Poin',data:state.poin.map((p,i)=>{const s=getSiswa(p.siswaId);return{No:i+1,Tanggal:p.tanggal,NIS:s?.nis,Nama:s?.nama,Kelas:s?.kelas,Kategori:p.kategori,Tindakan:p.tindakanNama,Poin:p.poin,Alasan:p.alasan,Pemberi:p.pemberi};})});
-    sheets.push({name:'Badge',data:state.badgeSiswa.map((b,i)=>{const s=getSiswa(b.siswaId);const bd=state.badge.find(x=>x.id===b.badgeId);return{No:i+1,NIS:s?.nis,Nama:s?.nama,Kelas:s?.kelas,Badge:bd?.nama,Tanggal:b.tanggal};})});
-    sheets.push({name:'Akun',data:state.akun.map((a,i)=>({No:i+1,Username:a.username,Nama:a.nama,Role:a.role,Kelas:a.kelas||'',Aktif:a.aktif?'Ya':'Tidak',Diubah:a.diubah}))});
-    downloadExcel(sheets,'Bintang_Achievement_Lengkap.xlsx');
+    const sheets = [
+      {name:'Siswa',data:state.siswa.map((s,i)=>({No:i+1,NIS:s.nis,Nama:s.nama,Kelas:s.kelas,Poin:totalPoin(s.id)}))},
+      {name:'Poin',data:state.poin.map(p=>{const s=getSiswa(p.siswaId);return {Tanggal:p.tanggal,Nama:s?.nama,Kelas:s?.kelas,Tindakan:p.tindakanNama,Kategori:p.kategori,Poin:p.poin,Alasan:p.alasan,Pemberi:p.pemberi};})},
+      {name:'Badge',data:state.badgeSiswa.map(b=>{const s=getSiswa(b.siswaId);const bd=state.badge.find(x=>x.id===b.badgeId);return {Tanggal:b.tanggal,Nama:s?.nama,Kelas:s?.kelas,Badge:bd?.nama};})}
+    ];
+    downloadExcel(sheets,'Data_Lengkap_Bintang.xlsx');
   }
-  function downloadExcel(sheets,filename){
-    const wb = XLSX.utils.book_new();
-    sheets.forEach(s=>{ const ws=XLSX.utils.json_to_sheet(s.data); XLSX.utils.book_append_sheet(wb,ws,s.name.substring(0,31)); });
-    XLSX.writeFile(wb,filename); toast('Excel diunduh: '+filename);
-  }
-
-  // ===== PDF =====
   function generatePDF(){
+    const jenis = $('#pdfJenis').value;
     const {jsPDF} = window.jspdf;
     const doc = new jsPDF({orientation:'landscape',unit:'mm',format:'a4'});
-    const jenis = $('#pdfJenis').value;
-    const now = new Date().toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'});
-    doc.setFontSize(16); doc.setFont(undefined,'bold'); doc.setTextColor(212,175,55);
-    doc.text('BINTANG ACHIEVEMENT',14,14);
-    doc.setFontSize(10); doc.setFont(undefined,'normal'); doc.setTextColor(60,60,60);
-    doc.text(state.settings.sekolah,14,20);
-    doc.text(`Tanggal: ${now}`,14,25);
-    doc.setDrawColor(212,175,55); doc.setLineWidth(0.8); doc.line(14,28,283,28);
-    const startY = 34;
-    let body=[], head=[];
+    doc.setFontSize(16); doc.setFont(undefined,'bold');
+    doc.text('SMA SWASTA RK BINTANG TIMUR PEMATANGSIANTAR',148,20,{align:'center'});
+    doc.setFontSize(13);
+    doc.text('LAPORAN BINTANG ACHIEVEMENT',148,28,{align:'center'});
+    doc.setFontSize(10); doc.setFont(undefined,'normal');
+    doc.text(`Dicetak: ${new Date().toLocaleString('id-ID')}`,148,34,{align:'center'});
+    let head, body;
     if(jenis==='rekap-poin'){
-      head=[['No','NIS','Nama','Kelas','Total Poin','Level']];
-      body=state.siswa.map((s,i)=>{ const p=totalPoin(s.id); const lv=getLevel(p); return [i+1,s.nis,s.nama,s.kelas,p,lv?lv.nama:'-']; });
-      doc.text('Rekap Poin Seluruh Peserta Didik',14,startY);
+      head = [['No','NIS','Nama','Kelas','Total Poin','Level']];
+      body = state.siswa.map((s,i)=>{ const p=totalPoin(s.id); const lv=getLevel(p); return [i+1,s.nis,s.nama,s.kelas,p,lv?lv.nama:'-']; });
     } else if(jenis==='rekap-kelas'){
-      head=[['Kelas','Jumlah Siswa','Total Poin','Rata-rata']];
-      const kelasMap={};
+      head = [['Kelas','Jumlah Siswa','Total Poin','Rata-rata']];
+      const kelasMap = {};
       state.siswa.forEach(s=>{ if(!kelasMap[s.kelas]) kelasMap[s.kelas]={n:0,p:0}; kelasMap[s.kelas].n++; kelasMap[s.kelas].p+=totalPoin(s.id); });
-      body=Object.keys(kelasMap).sort().map(k=>[k,kelasMap[k].n,kelasMap[k].p,fmt(kelasMap[k].p/kelasMap[k].n,1)]);
-      doc.text('Rekap Poin per Kelas',14,startY);
+      body = Object.entries(kelasMap).sort().map(([k,v])=>[k,v.n,v.p,(v.p/v.n).toFixed(1)]);
     } else if(jenis==='rekap-kategori'){
-      head=[['Kategori','Jumlah Pemberian','Total Poin']];
-      body=Object.entries(KATEGORI).map(([k,v])=>{ const arr=state.poin.filter(p=>p.kategori===k); return [v.label,arr.length,arr.reduce((a,p)=>a+p.poin,0)]; });
-      doc.text('Rekap Poin per Kategori',14,startY);
+      head = [['Kategori','Total Poin','Jumlah Transaksi']];
+      body = Object.entries(KATEGORI).map(([k,v])=>{ const arr=state.poin.filter(p=>p.kategori===k); return [v.label, arr.reduce((a,p)=>a+p.poin,0), arr.length]; });
     } else if(jenis==='badge'){
-      head=[['No','NIS','Nama','Kelas','Badge','Tanggal']];
-      body=state.badgeSiswa.map((b,i)=>{ const s=getSiswa(b.siswaId); const bd=state.badge.find(x=>x.id===b.badgeId); return [i+1,s?.nis,s?.nama,s?.kelas,bd?.nama,b.tanggal]; });
-      doc.text('Daftar Penerima Badge',14,startY);
-    } else if(jenis==='bulanan'){
-      head=[['Bulan','Kategori','Nama','Kelas','Poin']];
-      body=state.awardBulanan.flatMap(a=>{
-        const arr=[];
-        Object.keys(KATEGORI).forEach(k=>{ if(a[k]){const s=getSiswa(a[k]); arr.push([a.bulan,KATEGORI[k].label,s?.nama,s?.kelas,totalPoin(a[k],{bulan:a.bulan,kategori:k})]);} });
-        if(a.inspiratif){ const s=getSiswa(a.inspiratif); arr.push([a.bulan,'Inspiratif',s?.nama,s?.kelas,totalPoin(a.inspiratif,{bulan:a.bulan})]); }
-        return arr;
-      });
-      doc.text('Papan Apresiasi Bulanan',14,startY);
+      head = [['No','Tanggal','Nama','Kelas','Badge']];
+      body = state.badgeSiswa.map((b,i)=>{ const s=getSiswa(b.siswaId); const bd=state.badge.find(x=>x.id===b.badgeId); return [i+1,b.tanggal,s?.nama||'-',s?.kelas||'-',bd?.nama||'-']; });
     }
-    doc.autoTable({startY:startY+6, head, body, styles:{fontSize:9}, headStyles:{fillColor:[212,175,55],textColor:[60,40,0]},
-      didDrawPage:()=>{ doc.setFontSize(8); doc.text(`Dibuat oleh BINTANG ACHIEVEMENT — ${now}`,14,205); }});
-    doc.save(`Bintang_${jenis}_${Date.now()}.pdf`);
+    doc.autoTable({head,body,startY:40,styles:{fontSize:9},headStyles:{fillColor:[66,165,245],textColor:255}});
+    doc.save(`Laporan_${jenis}_${today()}.pdf`);
     toast('PDF diunduh','gold');
   }
 
-  // ===== BACKUP =====
+  // ===== BACKUP/RESTORE =====
   function backupData(){
     const blob = new Blob([JSON.stringify(state,null,2)],{type:'application/json'});
-    const a = document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='bintang_backup_'+Date.now()+'.json'; a.click();
-    toast('Backup diunduh');
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+    a.download = `backup_bintang_${today()}.json`; a.click();
+    toast('Backup diunduh','gold');
   }
   function restoreData(){
-    const inp=$('#fileInput'); inp.accept='.json'; inp.value='';
-    inp.onchange=e=>{ const f=e.target.files[0]; if(!f) return; const r=new FileReader();
-      r.onload=ev=>{ try{ const data=JSON.parse(ev.target.result); if(!data.siswa||!data.poin) throw new Error('Format tidak valid'); state=data; save(); renderAll(); refreshLoginForm(); toast('Data dipulihkan'); }
-      catch(err){ toast('Gagal: '+err.message,'error'); } }; r.readAsText(f); };
+    const inp = $('#fileInput'); inp.accept='.json'; inp.value='';
+    inp.onchange = e=>{
+      const f = e.target.files[0]; if(!f) return;
+      const r = new FileReader();
+      r.onload = ev=>{
+        try{ state = JSON.parse(ev.target.result); save(); renderAll(); toast('Data direstore','gold'); }
+        catch(err){ toast('Gagal restore: '+err.message,'error'); }
+      };
+      r.readAsText(f);
+    };
     inp.click();
   }
   function loadDemo(){
-    confirmBox('Muat Ulang Demo','Data saat ini akan diganti data demo. Lanjutkan?',()=>{ seedDemo().then(()=>{ save(); renderAll(); refreshLoginForm(); toast('Data demo dimuat'); }); });
+    confirmBox('Muat Ulang Demo','Semua data saat ini akan diganti dengan data demo. Lanjut?', async ()=>{
+      localStorage.removeItem(KEY);
+      state = {user:null,role:null,currentAkun:null,siswaId:null,settings:{sekolah:'SMA Swasta RK Bintang Timur Pematangsiantar',kepsek:'Megaria Parhusip, M.Pd'},akun:[],siswa:[],tindakan:[],poin:[],badge:[],badgeSiswa:[],level:[],awardBulanan:[],notifikasi:[]};
+      await seedData();
+      location.reload();
+    });
   }
   function resetData(){
-    confirmBox('Hapus Semua Data','Semua data akan dihapus permanen. Yakin?',()=>{
-      state.siswa=[]; state.poin=[]; state.badgeSiswa=[]; state.awardBulanan=[]; state.akun=[];
-      save(); renderAll(); refreshLoginForm(); toast('Data dihapus');
+    confirmBox('Hapus Semua Data','Semua data akan dihapus permanen. Lanjut?',()=>{
+      localStorage.removeItem(KEY);
+      location.reload();
     });
-  }
-  function refreshLoginForm(){
-    if(selectedLoginRole) renderLoginForm(selectedLoginRole);
-  }
-
-  // ===== SEED DEMO =====
-  async function seedDemo(){
-    state.tindakan = [
-      {id:'t1',kategori:'disiplin',nama:'Datang tepat waktu',poin:5},
-      {id:'t2',kategori:'disiplin',nama:'Konsisten tugas piket',poin:10},
-      {id:'t3',kategori:'disiplin',nama:'Menjaga ketertiban kelas',poin:10},
-      {id:'t4',kategori:'disiplin',nama:'Menunjukkan tanggung jawab',poin:15},
-      {id:'t5',kategori:'prestasi',nama:'Juara lomba tingkat sekolah',poin:30},
-      {id:'t6',kategori:'prestasi',nama:'Juara lomba tingkat kota',poin:50},
-      {id:'t7',kategori:'prestasi',nama:'Juara lomba tingkat provinsi',poin:75},
-      {id:'t8',kategori:'prestasi',nama:'Juara lomba tingkat nasional',poin:100},
-      {id:'t9',kategori:'prestasi',nama:'Peningkatan prestasi akademik',poin:20},
-      {id:'t10',kategori:'kepedulian',nama:'Membantu teman kesulitan',poin:10},
-      {id:'t11',kategori:'kepedulian',nama:'Menjaga kebersihan lingkungan',poin:10},
-      {id:'t12',kategori:'kepedulian',nama:'Aksi sosial',poin:20},
-      {id:'t13',kategori:'kepedulian',nama:'Peduli warga sekolah',poin:15},
-      {id:'t14',kategori:'kolaborasi',nama:'Aktif kerja sama kelompok',poin:10},
-      {id:'t15',kategori:'kolaborasi',nama:'Penggerak kegiatan kelas',poin:15},
-      {id:'t16',kategori:'kolaborasi',nama:'Membantu keberhasilan sekolah',poin:20},
-      {id:'t17',kategori:'kolaborasi',nama:'Kepemimpinan & kerja sama',poin:25}
-    ];
-    state.level = [
-      {id:'l1',nama:'New Star',ikon:'🌱',minPoin:0,maxPoin:49},
-      {id:'l2',nama:'Rising Star',ikon:'⭐',minPoin:50,maxPoin:99},
-      {id:'l3',nama:'Bright Star',ikon:'🌟',minPoin:100,maxPoin:199},
-      {id:'l4',nama:'Super Star',ikon:'💫',minPoin:200,maxPoin:349},
-      {id:'l5',nama:'Golden Star',ikon:'🏆',minPoin:350,maxPoin:499},
-      {id:'l6',nama:'Bintang Inspiratif',ikon:'👑',minPoin:500,maxPoin:0}
-    ];
-    state.badge = [
-      {id:'b1',nama:'Early Bird',ikon:'🌅',deskripsi:'Konsisten datang tepat waktu',syarat:'kategori',kategori:'disiplin',syaratPoin:50},
-      {id:'b2',nama:'Responsibility Star',ikon:'🛡️',deskripsi:'Menunjukkan tanggung jawab',syarat:'kategori',kategori:'disiplin',syaratPoin:100},
-      {id:'b3',nama:'Rising Star',ikon:'⭐',deskripsi:'Perkembangan positif',syarat:'poin',syaratPoin:50},
-      {id:'b4',nama:'Academic Champion',ikon:'🎓',deskripsi:'Prestasi akademik',syarat:'kategori',kategori:'prestasi',syaratPoin:100},
-      {id:'b5',nama:'Golden Achievement',ikon:'🏆',deskripsi:'Pencapaian luar biasa',syarat:'poin',syaratPoin:200},
-      {id:'b6',nama:'Kindness Hero',ikon:'💝',deskripsi:'Membantu sesama',syarat:'kategori',kategori:'kepedulian',syaratPoin:50},
-      {id:'b7',nama:'Care Guardian',ikon:'🌿',deskripsi:'Peduli lingkungan',syarat:'kategori',kategori:'kepedulian',syaratPoin:100},
-      {id:'b8',nama:'Vincentian Spirit',ikon:'🕊️',deskripsi:'Semangat pelayanan',syarat:'poin',syaratPoin:300},
-      {id:'b9',nama:'Team Player',ikon:'🤝',deskripsi:'Aktif bekerja sama',syarat:'kategori',kategori:'kolaborasi',syaratPoin:50},
-      {id:'b10',nama:'Collaboration Star',ikon:'✨',deskripsi:'Kontribusi kelompok',syarat:'kategori',kategori:'kolaborasi',syaratPoin:100},
-      {id:'b11',nama:'Young Leader',ikon:'👑',deskripsi:'Kepemimpinan',syarat:'poin',syaratPoin:400}
-    ];
-    const nm = [
-      ['25001','Andreas Sitorus','X-1'],['25002','Bella Simanjuntak','X-1'],['25003','Cindy Hutapea','X-1'],['25004','Daniel Situmorang','X-1'],
-      ['25005','Ester Nainggolan','X-2'],['25006','Fransiskus Sihombing','X-2'],['25007','Grace Sinaga','X-2'],
-      ['25008','Hendrik Manurung','XI-1'],['25009','Irene Sitorus','XI-1'],['25010','Jefri Marpaung','XI-1'],['25011','Kezia Panjaitan','XI-1'],
-      ['25012','Lestari Sinambela','XI-2'],['25013','Mikael Sitohang','XI-2'],['25014','Natalia Hutagalung','XI-2'],
-      ['25015','Oscar Simbolon','XII-1'],['25016','Priscilla Silaen','XII-1'],['25017','Ronald Napitupulu','XII-1'],['25018','Silvia Sinulingga','XII-1'],
-      ['25019','Toni Sitepu','XII-2'],['25020','Vera Tarigan','XII-2']
-    ];
-    state.siswa = nm.map(([nis,nama,kelas])=>({id:uid('s'),nis,nama,kelas,aktif:true}));
-    let seed=42; const rnd=()=>{seed=(seed*9301+49297)%233280; return seed/233280;};
-    const now = new Date();
-    state.poin = [];
-    state.siswa.forEach(s=>{
-      const n = 3+Math.floor(rnd()*8);
-      for(let i=0;i<n;i++){
-        const t = state.tindakan[Math.floor(rnd()*state.tindakan.length)];
-        const d = new Date(now); d.setDate(d.getDate()-Math.floor(rnd()*90));
-        const sudah = state.poin.some(p=>p.siswaId===s.id && p.tindakanId===t.id && p.tanggal===d.toISOString().slice(0,10));
-        if(sudah) continue;
-        state.poin.push({id:uid('p'),siswaId:s.id,tindakanId:t.id,tindakanNama:t.nama,kategori:t.kategori,poin:t.poin,alasan:'Apresiasi '+t.nama, tanggal:d.toISOString().slice(0,10),pemberi:'Admin Bintang'});
-      }
-    });
-    state.badgeSiswa = [];
-    state.siswa.forEach(s=>{
-      const total = totalPoin(s.id);
-      state.badge.forEach(b=>{
-        if(b.syarat==='poin' && total>=b.syaratPoin) state.badgeSiswa.push({siswaId:s.id,badgeId:b.id,tanggal:today()});
-        if(b.syarat==='kategori' && totalPoin(s.id,{kategori:b.kategori})>=b.syaratPoin) state.badgeSiswa.push({siswaId:s.id,badgeId:b.id,tanggal:today()});
-      });
-    });
-    state.awardBulanan = [];
-
-    const siswaAndreas = state.siswa.find(s=>s.nis==='25001');
-    const siswaBella = state.siswa.find(s=>s.nis==='25002');
-    const akunDefs = [
-      {username:'admin', password:'admin123', role:'admin', nama:'Administrator'},
-      {username:'guru', password:'guru123', role:'guru', nama:'Guru Pengajar'},
-      {username:'wali', password:'wali123', role:'wali', nama:'Wali Kelas X-1', kelas:'X-1'},
-      {username:'siswa', password:'siswa123', role:'siswa', nama:'Andreas Sitorus', siswaId:siswaAndreas?.id||''},
-      {username:'25002', password:'bella123', role:'siswa', nama:'Bella Simanjuntak', siswaId:siswaBella?.id||''}
-    ];
-    state.akun = [];
-    for(const def of akunDefs){
-      state.akun.push({
-        id: uid('a'),
-        username: def.username,
-        password: await hashPw(def.password),
-        role: def.role,
-        nama: def.nama,
-        siswaId: def.siswaId || '',
-        kelas: def.kelas || '',
-        aktif: true,
-        dibuat: today(),
-        diubah: today()
-      });
-    }
   }
 
   // ===== RENDER ALL =====
   function renderAll(){
-    renderDashboard(); renderSiswa(); renderKategori(); renderBadge(); renderLevel();
-    renderLeaderboard(); renderBulanan(); fillProfilSelect(); renderProfil(); renderRiwayat();
-    if(state.role==='admin') renderAkun();
-    renderSettings();
+    if($('#page-dashboard').classList.contains('active')) renderDashboard();
+    if($('#page-siswa').classList.contains('active')) renderSiswa();
+    if($('#page-akun').classList.contains('active')) renderAkun();
   }
 
   // ===== INIT =====
   async function init(){
+    const theme = localStorage.getItem('ba_theme');
+    if(theme==='dark'){ document.documentElement.setAttribute('data-theme','dark'); $('#themeBtn').textContent='☀️'; }
     load();
-    if(!state.akun || !state.akun.length){ await seedDemo(); save(); }
-    // Pilih role default admin dan tampilkan form login
-    selectRole('admin');
-    // Theme
-    const t = localStorage.getItem('ba_theme');
-    if(t==='dark'){ document.documentElement.setAttribute('data-theme','dark'); $('#themeBtn').textContent='☀️'; }
-    document.addEventListener('keydown',e=>{if(e.key==='Escape') closeModal();});
+    if(!state.siswa.length){ await seedData(); }
+    // Pastikan notifikasi ada
+    if(!state.notifikasi) state.notifikasi = [];
+    // Sinkronkan akun siswa baru (jika ada siswa tanpa akun)
+    let changed = false;
+    for(const s of state.siswa){
+      if(!state.akun.find(a=>a.role==='siswa' && a.siswaId===s.id)){
+        const pw = await hashPw(s.nis);
+        state.akun.push({id:uid('a'),username:'siswa_'+s.nis,password:pw,nama:s.nama,role:'siswa',siswaId:s.id,aktif:true,dibuat:today()});
+        changed = true;
+      }
+    }
+    if(changed) save();
+    renderNotifBell();
+    // Auto-refresh notif bell setiap 30 detik
+    setInterval(renderNotifBell, 30000);
   }
 
+  // Expose API
   return {
-    selectRole, onPilihSiswa, togglePw, login, logout, toggleSidebar, toggleTheme, navigate, openModal, closeModal,
-    renderDashboard, renderSiswa, renderKategori, renderBadge, renderLevel, renderLeaderboard, renderBulanan, renderProfil, renderRiwayat, renderSettings,
-    renderAkun,
-    fillAprSiswa, fillAprTindakan, updateAprPoin, submitApresiasi, initApresiasi,
-    modalSiswa, saveSiswa, deleteSiswa,
-    modalTindakan, saveTindakan, deleteTindakan,
-    modalBadge, saveBadge, deleteBadge,
-    modalLevel, saveLevel, deleteLevel,
-    hitungBulanan, cetakSertifikat,
-    modalAkun, saveAkun, onAkunRoleChange,
-    modalGantiPassword, saveNewPassword, applyPresetPw, toggleAktifAkun, deleteAkun, togglePwRow,
+    selectRole, togglePw, pilihKelasLogin, onNamaInput, pilihNamaLogin,
+    login, logout, toggleSidebar, toggleTheme,
+    navigate, renderDashboard, fillAprSiswa, fillAprTindakan, updateAprPoin, submitApresiasi,
+    renderSiswa, modalSiswa, saveSiswa, deleteSiswa,
+    renderKategori, modalTindakan, saveTindakan, deleteTindakan,
+    renderBadge, modalBadge, saveBadge, deleteBadge,
+    renderLevel, modalLevel, saveLevel, deleteLevel,
+    renderLeaderboard, renderBulanan, hitungBulanan,
+    fillProfilSelect, renderProfil, modalFotoProfil, pilihEmojiFoto, uploadFoto, hapusFoto, cetakSertifikat,
+    renderRiwayat,
+    renderAkun, modalAkun, onAkunRoleChange, saveAkun,
+    modalGantiPassword, applyPresetPw, saveNewPassword, toggleAktifAkun, deleteAkun, togglePwRow,
     modalGantiPasswordSendiri, savePasswordSendiri,
-    importSiswa, exportSiswa, exportAllExcel, generatePDF, saveSettings,
+    renderSettings, saveSettings,
+    exportSiswa, importSiswa, exportAllExcel, generatePDF,
     backupData, restoreData, loadDemo, resetData,
-    init
+    toggleNotifPanel, markAllNotifRead, renderNotifBell,
+    closeModal
   };
 })();
 
-document.addEventListener('DOMContentLoaded', ()=>App.init());
-window.App = App;
+// Auto-init
+window.addEventListener('DOMContentLoaded', ()=>{ App.init?.(); });
 </script>
 </body>
 </html>
